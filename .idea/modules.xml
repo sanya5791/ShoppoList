@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ShoppingList.iml" filepath="$PROJECT_DIR$/ShoppingList.iml" />
+      <module fileurl="file://C:\AndroidProjects\Portfolio\ShoppoList\ShoppingList.iml" filepath="C:\AndroidProjects\Portfolio\ShoppoList\ShoppingList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ShoppoList.iml" filepath="$PROJECT_DIR$/.idea/ShoppoList.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\AndroidProjects\Portfolio\ShoppoList\app\app.iml" filepath="C:\AndroidProjects\Portfolio\ShoppoList\app\app.iml" />
     </modules>
   </component>
 </project>
