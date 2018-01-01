@@ -1,30 +1,22 @@
 package com.akhutornoy.shoppinglist;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.akhutornoy.shoppinglist.currentlist.CurrentListFragment;
-import com.akhutornoy.shoppinglist.shops.ShopModel;
-import com.akhutornoy.shoppinglist.shops.ShopsAdapter;
 import com.akhutornoy.shoppinglist.shops.ShopsFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-//
+
     private View mContentView;
 
     @Override
@@ -34,7 +26,6 @@ public class MainActivity extends AppCompatActivity
         mContentView = findViewById(android.R.id.content);
         Toolbar toolbar = initToolbar();
         initNavigationDrawer(toolbar);
-        initFab();
         showShopsFragment();
         showCurrentList();
     }
@@ -66,12 +57,6 @@ public class MainActivity extends AppCompatActivity
                 showNotImplementedMessage());
         findViewById(R.id.tv_about).setOnClickListener(view ->
                 showNotImplementedMessage());
-    }
-
-    private void initFab() {
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
     }
 
     private void showShopsFragment() {
