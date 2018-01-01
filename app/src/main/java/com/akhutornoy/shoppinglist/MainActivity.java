@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.akhutornoy.shoppinglist.currentlist.CurrentListFragment;
+import com.akhutornoy.shoppinglist.tobuy.ToBuyFragment;
 import com.akhutornoy.shoppinglist.shops.ShopsFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
     private void showCurrentList() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, CurrentListFragment.newInstance(getCurrentShop()))
+                .replace(R.id.fragment_container, ToBuyFragment.newInstance(getCurrentShop()))
                 .commit();
     }
 

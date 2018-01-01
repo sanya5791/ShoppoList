@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.currentlist;
+package com.akhutornoy.shoppinglist.tobuy;
 
 
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 
 import com.akhutornoy.shoppinglist.R;
 
-public class CurrentListFragment extends Fragment {
+public class ToBuyFragment extends Fragment {
 
     private static final String ARG_SHOP_ID = "ARG_SHOP_ID";
 
-    public static CurrentListFragment newInstance(String shopId) {
-        CurrentListFragment fragment = new CurrentListFragment();
+    public static ToBuyFragment newInstance(String shopId) {
+        ToBuyFragment fragment = new ToBuyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_SHOP_ID, shopId);
         fragment.setArguments(args);
@@ -26,7 +26,7 @@ public class CurrentListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_current_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_to_buy, container, false);
 
         if (getArguments() != null) {
             String shopId = getArguments().getString(ARG_SHOP_ID);
