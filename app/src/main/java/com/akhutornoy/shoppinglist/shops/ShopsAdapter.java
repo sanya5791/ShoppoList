@@ -1,6 +1,5 @@
 package com.akhutornoy.shoppinglist.shops;
 
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +10,6 @@ import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.ValueCallback;
 
 import java.util.List;
-
-/**
- * Created by akhutornoy on 31-Dec-17.
- */
 
 public class ShopsAdapter extends RecyclerView.Adapter <ShopsAdapter.ShopTypeViewHolder> {
     private final ValueCallback<ShopModel> mCallback;
@@ -38,7 +33,7 @@ public class ShopsAdapter extends RecyclerView.Adapter <ShopsAdapter.ShopTypeVie
 
     @Override
     public int getItemCount() {
-        return mShopTypes.size();
+        return mShopTypes != null ? mShopTypes.size() : 0;
     }
 
     public void setShopTypes(List<ShopModel> shopTypes) {
