@@ -1,23 +1,20 @@
-package com.akhutornoy.shoppinglist.tobuy;
+package com.akhutornoy.shoppinglist.addproducts;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
 
 import java.util.List;
 
-public class ToBuyProductsAdapter extends RecyclerView.Adapter<ToBuyProductsAdapter.ProductViewHolder> {
+public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.ProductViewHolder> {
 
-    private List<ToBuyProductModel> mProducts;
+    private List<AddProductModel> mProducts;
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,7 +33,7 @@ public class ToBuyProductsAdapter extends RecyclerView.Adapter<ToBuyProductsAdap
         return mProducts != null ? mProducts.size() : 0;
     }
 
-    public void setProducts(List<ToBuyProductModel> products) {
+    public void setProducts(List<AddProductModel> products) {
         this.mProducts = products;
         notifyDataSetChanged();
     }
@@ -45,36 +42,32 @@ public class ToBuyProductsAdapter extends RecyclerView.Adapter<ToBuyProductsAdap
         private AppCompatCheckBox mCbIsBought;
         private TextView mTvUnit;
         private TextView mTvQuantity;
-        private StrikethroughSpan mStrikethroughSpan;
 
         private ProductViewHolder(View view) {
             super(view);
             mCbIsBought = view.findViewById(R.id.checkbox);
             mTvUnit = view.findViewById(R.id.tv_unit);
             mTvQuantity = view.findViewById(R.id.tv_quantity);
-            mStrikethroughSpan = new StrikethroughSpan();
         }
 
-        private void bind(ToBuyProductModel product) {
+        private void bind(AddProductModel product) {
             mTvUnit.setText(product.getUnit());
             mTvQuantity.setText(product.getQuantity());
 
-            mCbIsBought.setChecked(product.isBought());
+            mCbIsBought.setChecked(product.isAdded());
             mCbIsBought.setText(product.getName(), TextView.BufferType.SPANNABLE);
-            setTextStyle(mCbIsBought, product.isBought());
+            setBackground(product.isAdded());
             mCbIsBought.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-                product.setIsBought(isChecked);
-                setTextStyle(compoundButton, isChecked);
+                product.setIsAdded(isChecked);
+                setBackground(isChecked);
             });
         }
 
-        private void setTextStyle(CompoundButton button, boolean isChecked) {
-            SpannableString ss = (SpannableString) button.getText();
-            if (isChecked) {
-                ss.setSpan(mStrikethroughSpan, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else {
-                ss.removeSpan(mStrikethroughSpan);
-            }
+        private void setBackground(boolean isChecked) {
+            int color = ContextCompat.getColor(itemView.getContext(), isChecked ?
+                    R.color.colorDivider : android.R.color.white);
+
+            itemView.setBackgroundColor(color);
         }
     }
 }

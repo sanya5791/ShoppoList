@@ -2,12 +2,37 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_product"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:paddingStart="@dimen/padding_small"
+    android:paddingEnd="@dimen/padding_small"
+    android:paddingTop="@dimen/padding_smallest"
+    android:paddingBottom="@dimen/padding_smallest">
+
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?android:textAppearanceLarge"
+        tools:text="Water Melon"/>
+
+    <TextView
+        android:id="@+id/tv_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceListItem"
-        tools:text="Water Melon"/>
+        android:layout_marginStart="@dimen/margin_smallest"
+        android:layout_marginEnd="@dimen/margin_smallest"
+        android:textAppearance="?android:textAppearanceLarge"
+        tools:text="100"/>
+
+    <TextView
+        android:id="@+id/tv_unit"
+        android:layout_width="@dimen/unit_width"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        tools:text="kg"/>
+
 </LinearLayout>

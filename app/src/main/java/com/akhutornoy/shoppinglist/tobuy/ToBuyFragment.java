@@ -2,9 +2,10 @@ package com.akhutornoy.shoppinglist.tobuy;
 
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ public class ToBuyFragment extends Fragment {
 
     private ToBuyProductsAdapter mProductsAdapter;
 
-    public static ToBuyFragment newInstance(String shopId) {
+    public static Fragment newInstance(String shopId) {
         ToBuyFragment fragment = new ToBuyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_SHOP_ID, shopId);
@@ -42,16 +43,28 @@ public class ToBuyFragment extends Fragment {
             throw new IllegalArgumentException("Argument should be passed");
         }
 
+        setToolbarTitle();
         initProductList(view);
-        initAddProductFab(view);
         return view;
     }
 
+    // TODO: 03-Jan-18 consider to move the method to base activity to get rid of code duplication
+    private void setToolbarTitle() {
+        if (!(getActivity() instanceof AppCompatActivity)) {
+            return;
+        }
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.title_to_by_list);
+        }
+    }
+
     private void initProductList(View view) {
-        RecyclerView rvShops = view.findViewById(R.id.rv_products);
-        rvShops.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerView rvProducts = view.findViewById(R.id.rv_products);
+        rvProducts.setLayoutManager(new LinearLayoutManager(getActivity()));
         mProductsAdapter = new ToBuyProductsAdapter();
-        rvShops.setAdapter(mProductsAdapter);
+        rvProducts.setAdapter(mProductsAdapter);
         mProductsAdapter.setProducts(getMockProducts());
     }
 
@@ -61,28 +74,30 @@ public class ToBuyFragment extends Fragment {
                 .setId("1")
                 .setIsBought(false)
                 .setName("Melon")
+                .setQuantity("1")
+                .setUnit("kg")
                 .build());
         products.add(new ToBuyProductModel.Builder()
                 .setId("2")
                 .setIsBought(true)
                 .setName("Milk")
+                .setQuantity("1")
+                .setUnit("l")
                 .build());
         products.add(new ToBuyProductModel.Builder()
                 .setId("3")
                 .setIsBought(true)
                 .setName("Bread")
+                .setQuantity("1")
+                .setUnit("p")
                 .build());
         products.add(new ToBuyProductModel.Builder()
                 .setId("4")
                 .setIsBought(false)
                 .setName("Cheese")
+                .setQuantity("300")
+                .setUnit("gr")
                 .build());
         return products;
-    }
-
-    private void initAddProductFab(View rootView) {
-        FloatingActionButton fab = rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(v -> Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
     }
 }
