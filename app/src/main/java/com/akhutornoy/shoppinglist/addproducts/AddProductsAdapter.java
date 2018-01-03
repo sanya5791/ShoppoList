@@ -1,6 +1,9 @@
 package com.akhutornoy.shoppinglist.addproducts;
 
-import android.support.v4.content.ContextCompat;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,18 +59,25 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
 
             mCbIsBought.setChecked(product.isAdded());
             mCbIsBought.setText(product.getName(), TextView.BufferType.SPANNABLE);
-            setBackground(product.isAdded());
             mCbIsBought.setOnCheckedChangeListener((compoundButton, isChecked) -> {
                 product.setIsAdded(isChecked);
-                setBackground(isChecked);
+                if (isChecked) {
+                    makeBlinkEffect(mTvQuantity);
+                    makeBlinkEffect(mTvUnit);
+                }
             });
         }
 
-        private void setBackground(boolean isChecked) {
-            int color = ContextCompat.getColor(itemView.getContext(), isChecked ?
-                    R.color.colorDivider : android.R.color.white);
-
-            itemView.setBackgroundColor(color);
+        private void makeBlinkEffect(TextView view) {
+            ObjectAnimator anim = ObjectAnimator.ofInt(view, "textColor",
+                    Color.BLACK,
+                    Color.GREEN,
+                    Color.BLACK);
+            anim.setDuration(800);
+            anim.setEvaluator(new ArgbEvaluator());
+            anim.setRepeatMode(ValueAnimator.REVERSE);
+            anim.setRepeatCount(1);
+            anim.start();
         }
     }
 }
