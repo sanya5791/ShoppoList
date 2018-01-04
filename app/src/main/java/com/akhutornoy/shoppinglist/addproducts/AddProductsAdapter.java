@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,11 +70,12 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
         }
 
         private void makeBlinkEffect(TextView view) {
+            int accentColor = ContextCompat.getColor(view.getContext(), R.color.colorAccent);
             ObjectAnimator anim = ObjectAnimator.ofInt(view, "textColor",
                     Color.BLACK,
-                    Color.GREEN,
+                    accentColor,
                     Color.BLACK);
-            anim.setDuration(800);
+            anim.setDuration(500);
             anim.setEvaluator(new ArgbEvaluator());
             anim.setRepeatMode(ValueAnimator.REVERSE);
             anim.setRepeatCount(1);
