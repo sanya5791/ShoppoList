@@ -24,6 +24,10 @@ public class AddProductsActivity extends AppCompatActivity {
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        initToolbarBackButton(toolbar);
+    }
+
+    private void initToolbarBackButton(Toolbar toolbar) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
