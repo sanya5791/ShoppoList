@@ -1,15 +1,22 @@
 package com.akhutornoy.shoppinglist.addproducts;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.createroduct.CreateProductActivity;
 
 public class AddProductsActivity extends AppCompatActivity {
+
+    public static Intent createIntent(Context context) {
+        return new Intent(context, AddProductsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +25,7 @@ public class AddProductsActivity extends AppCompatActivity {
 
         initToolbar();
         initFab();
-        showAddProductsFragment();
+        showAddProductsScreen();
     }
 
     private void initToolbar() {
@@ -38,13 +45,20 @@ public class AddProductsActivity extends AppCompatActivity {
 
     private void initFab() {
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view1 ->
-                Snackbar.make(view1, "Not implemented yet", Snackbar.LENGTH_LONG).show());
+        fab.setOnClickListener(v -> showNewProductScreen());
     }
 
-    private void showAddProductsFragment() {
+    private void showNewProductScreen() {
+        startActivity(CreateProductActivity.createIntent(this));
+    }
+
+    private void showAddProductsScreen() {
+        showFragment(AddProductsFragment.newInstance());
+    }
+
+    private void showFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, AddProductsFragment.newInstance())
+                .replace(R.id.fragment_container, fragment)
                 .commit();
     }
 }

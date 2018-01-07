@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_product"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:paddingStart="@dimen/padding_small"
+    android:paddingEnd="@dimen/padding_small"
+    android:paddingTop="@dimen/padding_smallest"
+    android:paddingBottom="@dimen/padding_smallest">
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/chk_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?android:textAppearanceLarge"
+        tools:text="Supermarket"/>
+
+</LinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShopoList</string>
+    <string name="app_name">ShoppoList</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,7 +9,26 @@
     <string name="about">About</string>
     <string name="shops">Shops</string>
     <string name="add">Add</string>
+    <string name="next">Next</string>
+    <string name="name">Name</string>
 
     <string name="title_to_by_list">Shopping List</string>
     <string name="title_add_products">Select Products</string>
+    <string name="default_value">Default Value</string>
+    <string name="default_unit">Default Unit</string>
+    <string name="available_in_shops">Available in Shops:</string>
+    <string name="title_activity_new_product">NewProductActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="enter_new_name_product">Enter a Name for the product you are going to buy</string>
+    <string name="enter_default_product_quantity_for_new_name_product">Enter default quantity of %s you usually buy.\nThis value can be corrected while you create your list for shopping.</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_default_quantity">Product default quantity</string>
+    <string name="label_set_quantity_type_of_new_product">Set quantity type of \'%s\'./nIf there is no type you need, you can create one more.</string>
+    <string name="label_new_product_in_shop_available">Set shops where the \'%s\' might be bought.</string>
+    <string name="create_product_progress_step">Step %1$d</string>
+    <string name="title_create_product">Create product</string>
+    <string name="create_product_subtitle_step_1">Create Name</string>
+    <string name="create_product_subtitle_step_2">Set Quantity Type</string>
+    <string name="create_product_subtitle_step_3">Set Default Quantity</string>
+    <string name="create_product_subtitle_step_4">Select Shops</string>
 </resources>

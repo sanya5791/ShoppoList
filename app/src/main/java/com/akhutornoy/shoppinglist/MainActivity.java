@@ -1,6 +1,5 @@
 package com.akhutornoy.shoppinglist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity
         initNavigationDrawer(toolbar);
         initAddProductFab();
         showShopsFragment();
-        showCurrentList();
+        showToBuyScreen();
     }
 
     private Toolbar initToolbar() {
@@ -42,12 +41,11 @@ public class MainActivity extends AppCompatActivity
 
     private void initAddProductFab() {
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(v -> startAddProductsActivity());
+        fab.setOnClickListener(v -> showAddProductsScreen());
     }
 
-    private void startAddProductsActivity() {
-        Intent intent = new Intent(this, AddProductsActivity.class);
-        startActivity(intent);
+    private void showAddProductsScreen() {
+        startActivity(AddProductsActivity.createIntent(this));
     }
 
     private void initNavigationDrawer(Toolbar toolbar) {
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
 
-    private void showCurrentList() {
+    private void showToBuyScreen() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, ToBuyFragment.newInstance(getCurrentShop()))
                 .commit();
