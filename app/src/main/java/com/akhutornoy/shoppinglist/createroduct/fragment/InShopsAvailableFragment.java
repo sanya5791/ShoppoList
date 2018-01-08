@@ -17,7 +17,7 @@ import com.akhutornoy.shoppinglist.createroduct.model.ShopModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InShopsAvailableFragment extends Fragment {
+public class InShopsAvailableFragment extends BaseStepNavigationFragment {
 
     private InShopsAvailableAdapter mAdapter;
     public static Fragment newInstance() {
@@ -34,7 +34,7 @@ public class InShopsAvailableFragment extends Fragment {
     }
 
     private void initAddButton(View view) {
-        view.findViewById(R.id.bt_add).setOnClickListener(v -> getActivity().finish());
+        view.findViewById(R.id.bt_add).setOnClickListener(v -> mOnStepsNavigation.onStepFinished());
     }
 
     private void initProductsList(View view) {
