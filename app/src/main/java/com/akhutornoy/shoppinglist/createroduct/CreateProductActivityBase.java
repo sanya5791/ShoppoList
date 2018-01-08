@@ -3,54 +3,54 @@ package com.akhutornoy.shoppinglist.createroduct;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.createroduct.fragment.CreateProductTypeFragment;
 import com.akhutornoy.shoppinglist.createroduct.fragment.InShopsAvailableFragment;
 import com.akhutornoy.shoppinglist.createroduct.fragment.ProductDefaultQuantityFragment;
 import com.akhutornoy.shoppinglist.createroduct.fragment.ProductNameFragment;
 
-public class CreateProductActivity extends AppCompatActivity implements OnStepsNavigation {
+public class CreateProductActivityBase extends BaseToolbarActivity implements OnStepsNavigation {
     private static final int FLOW_STEPS_COUNT = 4;
     private int mCurrentStep = 0;
 
-    private Toolbar mToolbar;
     private TextView mTvProgressStep;
     private ProgressBar mProgressBar;
 
     public static Intent createIntent(Context context) {
-        return new Intent(context, CreateProductActivity.class);
+        return new Intent(context, CreateProductActivityBase.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_product);
-        initToolbar();
+        setToolbarTitle(R.string.title_create_product);
         initViews();
         showNextStep();
     }
 
-    private void initToolbar() {
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        initToolbarBackButton(mToolbar);
-        mToolbar.setTitle(R.string.title_create_product);
+    @Override
+    @LayoutRes
+    protected int getContentViewId() {
+        return R.layout.activity_create_product;
     }
 
-    private void initToolbarBackButton(Toolbar toolbar) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-        }
-        toolbar.setNavigationOnClickListener(view -> finish());
+    @Override
+    @LayoutRes
+    protected int getFragmentContainerId() {
+        return R.id.fragment_container;
+    }
+
+    @Override
+    @IdRes
+    protected int getToolbarResId() {
+        return R.id.toolbar;
     }
 
     private void initViews() {
@@ -87,7 +87,7 @@ public class CreateProductActivity extends AppCompatActivity implements OnStepsN
     }
 
     private void setTitlesForStep() {
-        mToolbar.setSubtitle(getToolbarSubtitleForStep());
+        setToolbarSubTitle(getToolbarSubtitleForStep());
         mProgressBar.setProgress(mCurrentStep);
         mTvProgressStep.setText(getString(R.string.create_product_progress_step, mCurrentStep));
     }
@@ -120,12 +120,6 @@ public class CreateProductActivity extends AppCompatActivity implements OnStepsN
             default:
                 throw new IllegalArgumentException("No Fragment for step " + mCurrentStep);
         }
-    }
-
-    private void showFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
     }
 
     @Override

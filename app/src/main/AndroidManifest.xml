@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivityBase"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,11 +20,11 @@
         </activity>
 
         <activity
-            android:name=".addproducts.AddProductsActivity"
+            android:name=".addproducts.AddProductsActivityBase"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".createroduct.CreateProductActivity"
+            android:name=".createroduct.CreateProductActivityBase"
             android:label="@string/title_activity_new_product"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

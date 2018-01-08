@@ -1,8 +1,8 @@
-package com.akhutornoy.shoppinglist.shops;
+package com.akhutornoy.shoppinglist.shops.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.shops.adapter.ShopsAdapter;
+import com.akhutornoy.shoppinglist.shops.model.ShopModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopsFragment extends Fragment {
+public class ShopsFragment extends BaseFragment {
 
     public static ShopsFragment newInstance() {
         return new ShopsFragment();
@@ -23,9 +26,15 @@ public class ShopsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shops, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         initShopList(view);
         return view;
+    }
+
+    @Override
+    @LayoutRes
+    protected int getFragmentLayoutId() {
+        return R.layout.fragment_shops;
     }
 
     private void initShopList(View view) {

@@ -1,11 +1,11 @@
 package com.akhutornoy.shoppinglist.createroduct.fragment;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
+import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.createroduct.OnStepsNavigation;
 
-public class BaseStepNavigationFragment extends Fragment {
+public abstract class BaseStepNavigationFragment extends BaseFragment {
     protected OnStepsNavigation mOnStepsNavigation;
 
     @Override

@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.shops;
+package com.akhutornoy.shoppinglist.shops.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.ValueCallback;
+import com.akhutornoy.shoppinglist.shops.model.ShopModel;
 
 import java.util.List;
 

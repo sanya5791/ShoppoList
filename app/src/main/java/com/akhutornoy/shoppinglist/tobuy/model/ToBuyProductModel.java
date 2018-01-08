@@ -1,25 +1,25 @@
-package com.akhutornoy.shoppinglist.addproducts;
+package com.akhutornoy.shoppinglist.tobuy.model;
 
 import com.akhutornoy.shoppinglist.base.ProductModel;
 
-public class AddProductModel extends ProductModel {
-    private boolean mIsAdded;
+public class ToBuyProductModel extends ProductModel {
+    private boolean mIsBought;
 
-    private AddProductModel(Builder builder) {
+    private ToBuyProductModel(Builder builder) {
         super(builder);
-        mIsAdded = builder.mIsAdded;
+        mIsBought = builder.mIsBought;
     }
 
-    public boolean isAdded() {
-        return mIsAdded;
+    public void setIsBought(boolean bought) {
+        mIsBought = bought;
     }
 
-    public void setIsAdded(boolean added) {
-        mIsAdded = added;
+    public boolean isBought() {
+        return mIsBought;
     }
 
     public static class Builder extends ProductModel.Builder {
-        private boolean mIsAdded;
+        private boolean mIsBought;
 
         public Builder setId(String id) {
             super.setId(id);
@@ -41,13 +41,13 @@ public class AddProductModel extends ProductModel {
             return this;
         }
 
-        public Builder setIsAdded(boolean isAdded) {
-            this.mIsAdded = isAdded;
+        public Builder setIsBought(boolean isBought) {
+            this.mIsBought = isBought;
             return this;
         }
 
-        public AddProductModel build() {
-            return new AddProductModel(this);
+        public ToBuyProductModel build() {
+            return new ToBuyProductModel(this);
         }
     }
 }

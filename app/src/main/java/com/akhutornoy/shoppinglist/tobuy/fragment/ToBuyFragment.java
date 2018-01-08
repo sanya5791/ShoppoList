@@ -1,7 +1,8 @@
-package com.akhutornoy.shoppinglist.tobuy;
+package com.akhutornoy.shoppinglist.tobuy.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -13,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.tobuy.model.ToBuyProductModel;
+import com.akhutornoy.shoppinglist.tobuy.adapter.ToBuyProductsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToBuyFragment extends Fragment {
+public class ToBuyFragment extends BaseFragment {
 
     private static final String ARG_SHOP_ID = "ARG_SHOP_ID";
 
@@ -34,7 +38,7 @@ public class ToBuyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_to_buy, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         if (getArguments() != null) {
             String shopId = getArguments().getString(ARG_SHOP_ID);
@@ -43,21 +47,14 @@ public class ToBuyFragment extends Fragment {
             throw new IllegalArgumentException("Argument should be passed");
         }
 
-        setToolbarTitle();
         initProductList(view);
         return view;
     }
 
-    // TODO: 03-Jan-18 consider to move the method to base activity to get rid of code duplication
-    private void setToolbarTitle() {
-        if (!(getActivity() instanceof AppCompatActivity)) {
-            return;
-        }
-
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.title_to_by_list);
-        }
+    @Override
+    @LayoutRes
+    protected int getFragmentLayoutId() {
+        return R.layout.fragment_to_buy;
     }
 
     private void initProductList(View view) {

@@ -1,6 +1,8 @@
 package com.akhutornoy.shoppinglist;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -8,16 +10,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
-import com.akhutornoy.shoppinglist.tobuy.ToBuyFragment;
-import com.akhutornoy.shoppinglist.shops.ShopsFragment;
+import com.akhutornoy.shoppinglist.addproducts.AddProductsActivityBase;
+import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
+import com.akhutornoy.shoppinglist.shops.fragment.ShopsFragment;
+import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivityBase extends BaseToolbarActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private View mContentView;
@@ -25,28 +27,29 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         mContentView = findViewById(android.R.id.content);
-        Toolbar toolbar = initToolbar();
-        initNavigationDrawer(toolbar);
+        initNavigationDrawer(getToolbar());
         initAddProductFab();
         showShopsFragment();
-        showToBuyScreen();
+        showToByScreen();
     }
 
-    private Toolbar initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        return toolbar;
+    @Override
+    @LayoutRes
+    protected int getContentViewId() {
+        return R.layout.activity_main;
     }
 
-    private void initAddProductFab() {
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(v -> showAddProductsScreen());
+    @Override
+    @IdRes
+    protected int getFragmentContainerId() {
+        return R.id.fragment_container;
     }
 
-    private void showAddProductsScreen() {
-        startActivity(AddProductsActivity.createIntent(this));
+    @Override
+    @IdRes
+    protected int getToolbarResId() {
+        return R.id.toolbar;
     }
 
     private void initNavigationDrawer(Toolbar toolbar) {
@@ -72,16 +75,24 @@ public class MainActivity extends AppCompatActivity
                 showNotImplementedMessage());
     }
 
+    private void initAddProductFab() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(v -> showAddProductsScreen());
+    }
+
+    private void showAddProductsScreen() {
+        startActivity(AddProductsActivityBase.createIntent(this));
+    }
+
     private void showShopsFragment() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_shops, ShopsFragment.newInstance())
                 .commit();
     }
 
-    private void showToBuyScreen() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, ToBuyFragment.newInstance(getCurrentShop()))
-                .commit();
+    private void showToByScreen() {
+        setToolbarTitle(R.string.title_to_by_list);
+        showFragment(ToBuyFragment.newInstance(getCurrentShop()));
     }
 
     private String getCurrentShop() {

@@ -1,6 +1,7 @@
-package com.akhutornoy.shoppinglist.addproducts;
+package com.akhutornoy.shoppinglist.addproducts.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +14,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.addproducts.model.AddProductModel;
+import com.akhutornoy.shoppinglist.addproducts.adapter.AddProductsAdapter;
+import com.akhutornoy.shoppinglist.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddProductsFragment extends Fragment {
+public class AddProductsFragment extends BaseFragment {
 
     private AddProductsAdapter mAdapter;
 
@@ -28,23 +32,16 @@ public class AddProductsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_products, container, false);
-        initToolbarTitle();
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         initAddButton(view);
         initProductsList(view);
         return view;
     }
 
-    // TODO: 03-Jan-18 consider to move the method to base toolbar activity to get rid of code duplication
-    private void initToolbarTitle() {
-        if (!(getActivity() instanceof AppCompatActivity)) {
-            return;
-        }
-
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.title_add_products);
-        }
+    @Override
+    @LayoutRes
+    protected int getFragmentLayoutId() {
+        return R.layout.fragment_add_products;
     }
 
     private void initAddButton(View view) {

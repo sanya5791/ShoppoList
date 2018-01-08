@@ -1,8 +1,4 @@
-package com.akhutornoy.shoppinglist.shops;
-
-/**
- * Created by akhutornoy on 01-Jan-18.
- */
+package com.akhutornoy.shoppinglist.shops.model;
 
 public class ShopModel {
     private final String id;

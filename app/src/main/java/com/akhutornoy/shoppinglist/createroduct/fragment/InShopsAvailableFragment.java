@@ -1,6 +1,7 @@
 package com.akhutornoy.shoppinglist.createroduct.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,10 +28,16 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_in_shops_available, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         initAddButton(view);
         initProductsList(view);
         return view;
+    }
+
+    @Override
+    @LayoutRes
+    protected int getFragmentLayoutId() {
+        return R.layout.fragment_in_shops_available;
     }
 
     private void initAddButton(View view) {
