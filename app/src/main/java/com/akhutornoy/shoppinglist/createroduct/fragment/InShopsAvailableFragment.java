@@ -10,17 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.createroduct.adapter.InShopsAvailableAdapter;
+import com.akhutornoy.shoppinglist.createroduct.contract.InShopsAvailableContract;
 import com.akhutornoy.shoppinglist.createroduct.model.ShopModel;
+import com.akhutornoy.shoppinglist.createroduct.presenter.InShopsAvailablePresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class InShopsAvailableFragment extends BaseStepNavigationFragment {
+public class InShopsAvailableFragment extends BaseStepNavigationFragment implements InShopsAvailableContract.View {
 
+    private InShopsAvailableContract.Presenter mPresenter;
     private InShopsAvailableAdapter mAdapter;
+
     public static Fragment newInstance() {
         return new InShopsAvailableFragment();
     }
@@ -29,6 +34,7 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+        mPresenter = new InShopsAvailablePresenter();
         initAddButton(view);
         initProductsList(view);
         return view;
@@ -38,6 +44,11 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment {
     @LayoutRes
     protected int getFragmentLayoutId() {
         return R.layout.fragment_in_shops_available;
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
     }
 
     private void initAddButton(View view) {
@@ -52,15 +63,27 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment {
         rvProducts.addItemDecoration(dividerItemDecoration);
         mAdapter = new InShopsAvailableAdapter();
         rvProducts.setAdapter(mAdapter);
-        mAdapter.setShops(getMockShops());
     }
 
-    private List<ShopModel> getMockShops() {
-        List<ShopModel> products = new ArrayList<>();
-        products.add(new ShopModel("Market"));
-        products.add(new ShopModel("ATB"));
-        products.add(new ShopModel("Silpo"));
-        products.add(new ShopModel("Supermarket"));
-        return products;
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.loadShops();
+    }
+
+    @Override
+    public void onDataLoaded(List<ShopModel> shops) {
+        mAdapter.setShops(shops);
+    }
+
+    @Override
+    public void showProgress() {}
+
+    @Override
+    public void hideProgress() {}
+
+    @Override
+    public void onError(String errorMsg) {
+        Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -37,7 +37,7 @@ public class ShopsAdapter extends RecyclerView.Adapter <ShopsAdapter.ShopTypeVie
         return mShopTypes != null ? mShopTypes.size() : 0;
     }
 
-    public void setShopTypes(List<ShopModel> shopTypes) {
+    public void setShops(List<ShopModel> shopTypes) {
         mShopTypes = shopTypes;
         notifyDataSetChanged();
     }

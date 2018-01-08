@@ -8,16 +8,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.shops.adapter.ShopsAdapter;
+import com.akhutornoy.shoppinglist.shops.contract.ShopsContract;
 import com.akhutornoy.shoppinglist.shops.model.ShopModel;
+import com.akhutornoy.shoppinglist.shops.presenter.ShopsPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ShopsFragment extends BaseFragment {
+public class ShopsFragment extends BaseFragment implements ShopsContract.View {
+    private ShopsContract.Presenter mPresenter;
+    private ShopsAdapter mShopsAdapter;
 
     public static ShopsFragment newInstance() {
         return new ShopsFragment();
@@ -27,6 +32,7 @@ public class ShopsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+        mPresenter = new ShopsPresenter();
         initShopList(view);
         return view;
     }
@@ -37,23 +43,42 @@ public class ShopsFragment extends BaseFragment {
         return R.layout.fragment_shops;
     }
 
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
+    }
+
     private void initShopList(View view) {
         RecyclerView rvShops = view.findViewById(R.id.rv_shops);
         rvShops.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ShopsAdapter shopsAdapter = new ShopsAdapter(shopModel ->
+        mShopsAdapter = new ShopsAdapter(shopModel ->
                 showNotImplementedMessage());
-        rvShops.setAdapter(shopsAdapter);
-        shopsAdapter.setShopTypes(getMockShopTypes());
+        rvShops.setAdapter(mShopsAdapter);
     }
 
-    private List<ShopModel> getMockShopTypes() {
-        List<ShopModel> mocks = new ArrayList<>();
-        mocks.add(new ShopModel("1",  "Supermarket"));
-        mocks.add(new ShopModel("2", "Market"));
-        return mocks;
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.loadShops();
+    }
+
+    @Override
+    public void onDataLoaded(List<ShopModel> shops) {
+        mShopsAdapter.setShops(shops);
     }
 
     private void showNotImplementedMessage() {
         Snackbar.make(getView(), "Not implemented yet", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showProgress() {}
+
+    @Override
+    public void hideProgress() {}
+
+    @Override
+    public void onError(String errorMsg) {
+        Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,16 +7,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class BaseFragment extends Fragment {
+import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
+import com.akhutornoy.shoppinglist.base.view.BaseView;
+
+public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(getFragmentLayoutId(), container, false);
-        return view;
+        return inflater.inflate(getFragmentLayoutId(), container, false);
     }
 
     @LayoutRes
     protected abstract int getFragmentLayoutId();
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onStart() {
+        super.onStart();
+        getPresenter().attachView(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getPresenter().detachView();
+    }
+
+    protected abstract BasePresenter getPresenter();
 }
