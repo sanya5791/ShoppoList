@@ -11,5 +11,7 @@ public interface ToBuyProductsContract {
 
     abstract class Presenter extends BasePresenter<View> {
         public abstract void loadProducts();
+
+        public abstract void addNew(String string);
     }
 }

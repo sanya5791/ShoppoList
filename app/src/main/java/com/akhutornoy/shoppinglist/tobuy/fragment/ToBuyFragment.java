@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.tobuy.adapter.ToBuyProductsAdapter;
 import com.akhutornoy.shoppinglist.tobuy.contract.ToBuyProductsContract;
 import com.akhutornoy.shoppinglist.tobuy.model.ToBuyProductModel;
@@ -49,7 +50,7 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
             throw new IllegalArgumentException("Argument should be passed");
         }
 
-        mPresenter = new ToBuyProductsPresenter();
+        mPresenter = new ToBuyProductsPresenter(AppDatabase.getInstance(getActivity()));
         initProductList(view);
         return view;
     }
