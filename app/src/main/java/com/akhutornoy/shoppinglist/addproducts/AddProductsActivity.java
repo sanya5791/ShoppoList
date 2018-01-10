@@ -10,12 +10,12 @@ import android.support.design.widget.FloatingActionButton;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.createroduct.CreateProductActivityBase;
+import com.akhutornoy.shoppinglist.createroduct.CreateProductActivity;
 
-public class AddProductsActivityBase extends BaseToolbarActivity {
+public class AddProductsActivity extends BaseToolbarActivity {
 
     public static Intent createIntent(Context context) {
-        return new Intent(context, AddProductsActivityBase.class);
+        return new Intent(context, AddProductsActivity.class);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class AddProductsActivityBase extends BaseToolbarActivity {
     }
 
     private void showNewProductScreen() {
-        startActivity(CreateProductActivityBase.createIntent(this));
+        startActivity(CreateProductActivity.createIntent(this));
     }
 
     private void showAddProductsScreen() {

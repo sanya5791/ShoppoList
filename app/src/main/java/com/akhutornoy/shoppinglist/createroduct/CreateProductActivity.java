@@ -16,7 +16,7 @@ import com.akhutornoy.shoppinglist.createroduct.fragment.InShopsAvailableFragmen
 import com.akhutornoy.shoppinglist.createroduct.fragment.ProductDefaultQuantityFragment;
 import com.akhutornoy.shoppinglist.createroduct.fragment.ProductNameFragment;
 
-public class CreateProductActivityBase extends BaseToolbarActivity implements OnStepsNavigation {
+public class CreateProductActivity extends BaseToolbarActivity implements OnStepsNavigation {
     private static final int FLOW_STEPS_COUNT = 4;
     private int mCurrentStep = 0;
 
@@ -24,7 +24,7 @@ public class CreateProductActivityBase extends BaseToolbarActivity implements On
     private ProgressBar mProgressBar;
 
     public static Intent createIntent(Context context) {
-        return new Intent(context, CreateProductActivityBase.class);
+        return new Intent(context, CreateProductActivity.class);
     }
 
     @Override

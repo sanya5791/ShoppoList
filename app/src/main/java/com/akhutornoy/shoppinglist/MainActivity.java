@@ -13,13 +13,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import com.akhutornoy.shoppinglist.addproducts.AddProductsActivityBase;
+import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.shops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
-public class MainActivityBase extends BaseToolbarActivity
+public class MainActivity extends BaseToolbarActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private View mContentView;
@@ -70,9 +71,13 @@ public class MainActivityBase extends BaseToolbarActivity
 
     private void initOptions() {
         findViewById(R.id.tv_settings).setOnClickListener(v ->
-                showNotImplementedMessage());
+                showSettingsScreen());
         findViewById(R.id.tv_about).setOnClickListener(view ->
-                showNotImplementedMessage());
+                Toast.makeText(this, "Sanya's freeware", Toast.LENGTH_SHORT).show());
+    }
+
+    private void showSettingsScreen() {
+
     }
 
     private void initAddProductFab() {
@@ -81,7 +86,7 @@ public class MainActivityBase extends BaseToolbarActivity
     }
 
     private void showAddProductsScreen() {
-        startActivity(AddProductsActivityBase.createIntent(this));
+        startActivity(AddProductsActivity.createIntent(this));
     }
 
     private void showShopsFragment() {
