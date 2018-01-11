@@ -5,15 +5,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_small"
-        android:text="@string/shops"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceSearchResultTitle" />
+        android:layout_marginTop="@dimen/margin_small">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/shops"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceSearchResultTitle" />
+
+        <ImageView
+            android:id="@+id/iv_manage_shops"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_edit"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_shops"
@@ -21,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_small"
-        tools:listitem="@layout/item_shop_type" />
+        tools:listitem="@layout/item_shop_type"
+        tools:itemCount="20"/>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.akhutornoy.shoppinglist.shops.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.Snackbar;
@@ -23,9 +24,24 @@ import java.util.List;
 public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     private ShopsContract.Presenter mPresenter;
     private ShopsAdapter mShopsAdapter;
+    private OnManageShopsClickListener mOnManageShopsCallback;
+
+    public interface OnManageShopsClickListener {
+        void onManageShopsClick();
+    }
 
     public static ShopsFragment newInstance() {
         return new ShopsFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnManageShopsClickListener) {
+            mOnManageShopsCallback = (OnManageShopsClickListener) context;
+        } else {
+            throw new IllegalArgumentException("Host Activity for fragment should implement " + OnManageShopsClickListener.class.getSimpleName());
+        }
     }
 
     @Override
@@ -33,8 +49,14 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mPresenter = new ShopsPresenter();
+        initManageShopsButton(view);
         initShopList(view);
         return view;
+    }
+
+    private void initManageShopsButton(View view) {
+        view.findViewById(R.id.iv_manage_shops).setOnClickListener(v ->
+                mOnManageShopsCallback.onManageShopsClick());
     }
 
     @Override

@@ -1,0 +1,137 @@
+package com.akhutornoy.shoppinglist.manageshops.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
+import com.akhutornoy.shoppinglist.manageshops.adapter.ManageShopsAdapter;
+import com.akhutornoy.shoppinglist.manageshops.contract.ManageShopsContract;
+import com.akhutornoy.shoppinglist.manageshops.model.ManageShopModel;
+import com.akhutornoy.shoppinglist.manageshops.presenter.ManageShopsPresenter;
+
+import java.util.List;
+
+public class ManageShopsFragment extends BaseFragment implements ManageShopsContract.View {
+
+    private ManageShopsContract.Presenter mPresenter;
+    private ManageShopsAdapter mAdapter;
+    private ProgressBar mProgressBar;
+
+    public static Fragment newInstance() {
+        return new ManageShopsFragment();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        mPresenter = new ManageShopsPresenter();
+        setHasOptionsMenu(true);
+        initDoneButton(view);
+        initProgressBar(view);
+        initShopsList(view);
+        return view;
+    }
+
+    @Override
+    @LayoutRes
+    protected int getFragmentLayoutId() {
+        return R.layout.fragment_manage_shops;
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
+    }
+
+    private void initDoneButton(View view) {
+        view.findViewById(R.id.bt_done).setOnClickListener(v -> getActivity().finish());
+    }
+
+    private void initProgressBar(View view) {
+        view.findViewById(R.id.pb);
+    }
+
+    private void initShopsList(View view) {
+        RecyclerView rvProducts = view.findViewById(R.id.recycler_view);
+        rvProducts.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
+                LinearLayout.VERTICAL);
+        rvProducts.addItemDecoration(dividerItemDecoration);
+        mAdapter = new ManageShopsAdapter(new ManageShopsAdapter.OnShopClickListener() {
+            @Override
+            public void onEditShopClicked(ManageShopModel shopModel) {
+                Toast.makeText(getActivity(), "Edit Shop is Not implemented", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDeleteShopClicked(ManageShopModel shopModel) {
+                Toast.makeText(getActivity(), "Delete Shop is Not implemented", Toast.LENGTH_SHORT).show();
+            }
+        });
+        rvProducts.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_manage_shops, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_delete:
+                Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_edit:
+                Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_resort:
+                Toast.makeText(getActivity(), "Resort", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.loadShops();
+    }
+
+    @Override
+    public void onDataLoaded(List<ManageShopModel> products) {
+        mAdapter.setProducts(products);
+    }
+
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onError(String errorMsg) {
+        Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+    }
+}

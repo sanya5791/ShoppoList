@@ -31,4 +31,9 @@
     <string name="create_product_subtitle_step_2">Set Quantity Type</string>
     <string name="create_product_subtitle_step_3">Set Default Quantity</string>
     <string name="create_product_subtitle_step_4">Select Shops</string>
+    <string name="done">Done</string>
+    <string name="title_manage_shops">Manage Shops List</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="resort">Resort</string>
 </resources>

@@ -17,11 +17,12 @@ import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
+import com.akhutornoy.shoppinglist.manageshops.ManageShopsActivity;
 import com.akhutornoy.shoppinglist.shops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
 public class MainActivity extends BaseToolbarActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnManageShopsClickListener  {
 
     private View mContentView;
 
@@ -123,5 +124,10 @@ public class MainActivity extends BaseToolbarActivity
 
     private void showNotImplementedMessage() {
         Snackbar.make(mContentView, "Not implemented yet", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onManageShopsClick() {
+        startActivity(ManageShopsActivity.createIntent(this));
     }
 }

@@ -27,6 +27,11 @@
             android:name=".createroduct.CreateProductActivity"
             android:label="@string/title_activity_new_product"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".manageshops.ManageShopsActivity"
+            android:label="@string/settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
