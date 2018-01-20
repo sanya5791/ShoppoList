@@ -10,7 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.createroduct.CreateProductActivity;
+import com.akhutornoy.shoppinglist.createproduct.CreateProductActivity;
 
 public class AddProductsActivity extends BaseToolbarActivity {
 

@@ -33,6 +33,7 @@
     <string name="create_product_subtitle_step_4">Select Shops</string>
     <string name="done">Done</string>
     <string name="title_manage_shops">Manage Shops List</string>
+    <string name="title_manage_product_types">Manage Product Types</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="resort">Resort</string>

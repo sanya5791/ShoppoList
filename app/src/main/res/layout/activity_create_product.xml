@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.akhutornoy.shoppinglist.createroduct.CreateProductActivity">
+    tools:context="com.akhutornoy.shoppinglist.createproduct.CreateProductActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

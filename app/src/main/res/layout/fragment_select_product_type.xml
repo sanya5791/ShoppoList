@@ -7,27 +7,27 @@
     android:orientation="vertical"
     android:weightSum="1"
     android:layout_marginBottom="@dimen/margin_medium"
-    tools:context="com.akhutornoy.shoppinglist.createproduct.fragment.InShopsAvailableFragment">
+    tools:context="com.akhutornoy.shoppinglist.createproduct.fragment.SelectProductTypeFragment">
 
     <TextView
         android:id="@+id/tv_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/label_new_product_in_shop_available"/>
+        android:text="@string/label_set_quantity_type_of_new_product"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_products"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:listitem="@layout/item_shop_checkable"/>
+        tools:listitem="@layout/item_add_type"/>
 
     <Button
-        android:id="@+id/bt_add"
+        android:id="@+id/bt_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:textColor="@color/colorPrimary"
-        android:text="@string/add"/>
+        android:text="@string/next"/>
 
 </LinearLayout>

@@ -43,7 +43,7 @@ public abstract class BaseManageItemsFragment<T extends BaseShopModel> extends B
         mProgressBar = view.findViewById(R.id.pb);
         initDoneButton(view);
         initProgressBar(view);
-        initShopsList(view);
+        initItemsList(view);
         return view;
     }
 
@@ -88,12 +88,12 @@ public abstract class BaseManageItemsFragment<T extends BaseShopModel> extends B
         view.findViewById(R.id.pb);
     }
 
-    private void initShopsList(View view) {
-        RecyclerView rvProducts = view.findViewById(R.id.recycler_view);
-        rvProducts.setLayoutManager(new LinearLayoutManager(getActivity()));
+    private void initItemsList(View view) {
+        RecyclerView rvItems = view.findViewById(R.id.recycler_view);
+        rvItems.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
                 LinearLayout.VERTICAL);
-        rvProducts.addItemDecoration(dividerItemDecoration);
+        rvItems.addItemDecoration(dividerItemDecoration);
         mAdapter = new BaseManageItemsAdapter<T>(new OnItemClickListener() {
             @Override
             public void onEditItemClicked(BaseShopModel shopModel) {
@@ -105,7 +105,7 @@ public abstract class BaseManageItemsFragment<T extends BaseShopModel> extends B
                 mPresenter.delete(shopModel);
             }
         });
-        rvProducts.setAdapter(mAdapter);
+        rvItems.setAdapter(mAdapter);
     }
 
     @Override
