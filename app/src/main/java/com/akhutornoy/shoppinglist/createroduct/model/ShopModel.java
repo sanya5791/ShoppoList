@@ -1,15 +1,12 @@
 package com.akhutornoy.shoppinglist.createroduct.model;
 
-public class ShopModel {
-    private final String mName;
+import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+
+public class ShopModel extends BaseShopModel {
     private boolean mIsChecked;
 
-    public ShopModel(String name) {
-        mName = name;
-    }
-
-    public String getName() {
-        return mName;
+    public ShopModel(String name, int sortNumber) {
+        super(name, sortNumber);
     }
 
     public boolean isChecked() {

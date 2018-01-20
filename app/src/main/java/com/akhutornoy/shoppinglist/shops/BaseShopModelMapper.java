@@ -7,7 +7,7 @@ import com.akhutornoy.shoppinglist.domain.Shop;
 public class BaseShopModelMapper extends Mapper<Shop, BaseShopModel> {
     @Override
     public BaseShopModel map(Shop source) {
-        return new BaseShopModel("0", source.getName());
+        return new BaseShopModel(source.getName(), source.getSortNumber());
     }
 
     @Override

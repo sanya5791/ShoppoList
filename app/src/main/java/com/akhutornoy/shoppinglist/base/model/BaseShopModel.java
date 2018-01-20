@@ -1,16 +1,16 @@
 package com.akhutornoy.shoppinglist.base.model;
 
 public class BaseShopModel {
-    private final String id;
+    private final int sortNumber;
     private final String name;
 
-    public BaseShopModel(String id, String name) {
-        this.id = id;
+    public BaseShopModel(String name, int sortNumber) {
+        this.sortNumber = sortNumber;
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public int getSortNumber() {
+        return sortNumber;
     }
 
     public String getName() {

@@ -18,6 +18,7 @@ import com.akhutornoy.shoppinglist.createroduct.adapter.InShopsAvailableAdapter;
 import com.akhutornoy.shoppinglist.createroduct.contract.InShopsAvailableContract;
 import com.akhutornoy.shoppinglist.createroduct.model.ShopModel;
 import com.akhutornoy.shoppinglist.createroduct.presenter.InShopsAvailablePresenter;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment impleme
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new InShopsAvailablePresenter();
+        mPresenter = new InShopsAvailablePresenter(AppDatabase.getInstance(getActivity()).toShop());
         initAddButton(view);
         initProductsList(view);
         return view;
