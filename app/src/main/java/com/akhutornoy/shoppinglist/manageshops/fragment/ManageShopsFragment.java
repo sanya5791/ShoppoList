@@ -3,6 +3,7 @@ package com.akhutornoy.shoppinglist.manageshops.fragment;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -19,12 +21,15 @@ import android.widget.Toast;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.manageshops.adapter.ManageShopsAdapter;
 import com.akhutornoy.shoppinglist.manageshops.contract.ManageShopsContract;
 import com.akhutornoy.shoppinglist.manageshops.model.ManageShopModel;
 import com.akhutornoy.shoppinglist.manageshops.presenter.ManageShopsPresenter;
 
 import java.util.List;
+
+import static com.akhutornoy.shoppinglist.manageshops.adapter.ManageShopsAdapter.*;
 
 public class ManageShopsFragment extends BaseFragment implements ManageShopsContract.View {
 
@@ -40,8 +45,9 @@ public class ManageShopsFragment extends BaseFragment implements ManageShopsCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new ManageShopsPresenter();
+        mPresenter = new ManageShopsPresenter(AppDatabase.getInstance(getActivity()));
         setHasOptionsMenu(true);
+        mProgressBar = view.findViewById(R.id.pb);
         initDoneButton(view);
         initProgressBar(view);
         initShopsList(view);
@@ -63,6 +69,25 @@ public class ManageShopsFragment extends BaseFragment implements ManageShopsCont
         view.findViewById(R.id.bt_done).setOnClickListener(v -> getActivity().finish());
     }
 
+    private void showAddShopDialog() {
+        // TODO: 15-Jan-18 replace with Fragment dialog
+
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_input, null);
+        EditText editText = view.findViewById(R.id.edit_text);
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.title_new_shop_name)
+                .setView(view)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    String shopName = editText.getText().toString();
+                    if (!shopName.isEmpty()) {
+                        mPresenter.addNew(shopName);
+                    }
+                    dialog.dismiss();
+                })
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel())
+                .show();
+    }
+
     private void initProgressBar(View view) {
         view.findViewById(R.id.pb);
     }
@@ -73,7 +98,7 @@ public class ManageShopsFragment extends BaseFragment implements ManageShopsCont
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
                 LinearLayout.VERTICAL);
         rvProducts.addItemDecoration(dividerItemDecoration);
-        mAdapter = new ManageShopsAdapter(new ManageShopsAdapter.OnShopClickListener() {
+        mAdapter = new ManageShopsAdapter(new OnShopClickListener() {
             @Override
             public void onEditShopClicked(ManageShopModel shopModel) {
                 Toast.makeText(getActivity(), "Edit Shop is Not implemented", Toast.LENGTH_SHORT).show();
@@ -81,7 +106,7 @@ public class ManageShopsFragment extends BaseFragment implements ManageShopsCont
 
             @Override
             public void onDeleteShopClicked(ManageShopModel shopModel) {
-                Toast.makeText(getActivity(), "Delete Shop is Not implemented", Toast.LENGTH_SHORT).show();
+                mPresenter.delete(shopModel);
             }
         });
         rvProducts.setAdapter(mAdapter);
@@ -97,13 +122,14 @@ public class ManageShopsFragment extends BaseFragment implements ManageShopsCont
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_delete:
-                Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
+                mAdapter.setMode(Mode.DELETE);
                 return true;
-            case R.id.menu_edit:
-                Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
+            case R.id.menu_add:
+                mAdapter.setMode(Mode.EDIT);
+                showAddShopDialog();
                 return true;
             case R.id.menu_resort:
-                Toast.makeText(getActivity(), "Resort", Toast.LENGTH_SHORT).show();
+                mAdapter.setMode(Mode.RESORT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

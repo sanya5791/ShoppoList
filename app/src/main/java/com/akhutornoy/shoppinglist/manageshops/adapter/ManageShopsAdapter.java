@@ -15,15 +15,24 @@ import java.util.List;
 public class ManageShopsAdapter extends RecyclerView.Adapter<ManageShopsAdapter.ShopViewHolder> {
 
     private OnShopClickListener mOnShopClickListener;
-    private List<ManageShopModel> mProducts;
+    private List<ManageShopModel> mShops;
+    private Mode mMode;
 
     public interface OnShopClickListener {
         void onEditShopClicked(ManageShopModel shopModel);
+
         void onDeleteShopClicked(ManageShopModel shopModel);
     }
 
-    public ManageShopsAdapter(OnShopClickListener onShopClickListener) {
+    public enum Mode {EDIT, DELETE, RESORT}
+
+    public ManageShopsAdapter(OnShopClickListener onShopClickListener,  Mode mode) {
         mOnShopClickListener = onShopClickListener;
+        this.mMode = mode;
+    }
+
+    public ManageShopsAdapter(OnShopClickListener onShopClickListener) {
+        this(onShopClickListener, Mode.EDIT);
     }
 
     @Override
@@ -35,39 +44,56 @@ public class ManageShopsAdapter extends RecyclerView.Adapter<ManageShopsAdapter.
 
     @Override
     public void onBindViewHolder(ShopViewHolder holder, int position) {
-        holder.bind(mProducts.get(position));
+        holder.bind(mShops.get(position), mMode);
     }
 
     @Override
     public int getItemCount() {
-        return mProducts != null ? mProducts.size() : 0;
+        return mShops != null ? mShops.size() : 0;
     }
 
     public void setProducts(List<ManageShopModel> products) {
-        this.mProducts = products;
+        this.mShops = products;
+        notifyDataSetChanged();
+    }
+
+    public void setMode(Mode mode) {
+        mMode = mode;
         notifyDataSetChanged();
     }
 
     static class ShopViewHolder extends RecyclerView.ViewHolder {
         private OnShopClickListener mOnShopClickListener;
+        private View mRootView;
         private TextView mTvShopName;
-        private ImageView mIvEdit;
         private ImageView mIvDelete;
         private ImageView mIvResort;
 
         public ShopViewHolder(View view, OnShopClickListener onShopClickListener) {
             super(view);
             mOnShopClickListener = onShopClickListener;
+            mRootView = view;
             mTvShopName = view.findViewById(R.id.tv_name);
-            mIvEdit = view.findViewById(R.id.iv_edit);
             mIvDelete = view.findViewById(R.id.iv_delete);
             mIvResort = view.findViewById(R.id.iv_resort);
         }
 
-        private void bind(ManageShopModel shopModel) {
+        private void bind(ManageShopModel shopModel, Mode mode) {
             mTvShopName.setText(shopModel.getName());
-            mIvEdit.setOnClickListener(v -> mOnShopClickListener.onEditShopClicked(shopModel));
+            setListeners(shopModel, mode);
+            setIconVisibility(mode);
+        }
+
+        private void setListeners(ManageShopModel shopModel, Mode mode) {
+            mRootView.setOnClickListener(Mode.EDIT == mode
+                    ? v -> mOnShopClickListener.onEditShopClicked(shopModel)
+                    : null);
             mIvDelete.setOnClickListener(v -> mOnShopClickListener.onDeleteShopClicked(shopModel));
+        }
+
+        private void setIconVisibility(Mode mode) {
+            mIvDelete.setVisibility(Mode.DELETE == mode ? View.VISIBLE : View.GONE);
+            mIvResort.setVisibility(Mode.RESORT == mode ? View.VISIBLE : View.GONE);
         }
     }
 }

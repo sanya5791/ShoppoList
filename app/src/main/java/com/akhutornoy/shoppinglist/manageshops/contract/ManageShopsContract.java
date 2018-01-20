@@ -7,9 +7,12 @@ import com.akhutornoy.shoppinglist.manageshops.model.ManageShopModel;
 import java.util.List;
 
 public interface ManageShopsContract {
-    interface View extends LoadableView<List<ManageShopModel>> {}
+    interface View extends LoadableView<List<ManageShopModel>> {
+    }
 
     abstract class Presenter extends BasePresenter<View> {
         public abstract void loadShops();
+        public abstract void addNew(String shopName);
+        public abstract void delete(ManageShopModel shopModel);
     }
 }

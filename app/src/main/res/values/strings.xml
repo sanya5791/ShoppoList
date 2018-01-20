@@ -36,4 +36,5 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="resort">Resort</string>
+    <string name="title_new_shop_name">New Shop Name</string>
 </resources>
