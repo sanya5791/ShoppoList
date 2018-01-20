@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.manageshops.fragment;
+package com.akhutornoy.shoppinglist.shops.manageshops.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -22,14 +22,15 @@ import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.manageshops.adapter.ManageShopsAdapter;
-import com.akhutornoy.shoppinglist.manageshops.contract.ManageShopsContract;
-import com.akhutornoy.shoppinglist.manageshops.model.ManageShopModel;
-import com.akhutornoy.shoppinglist.manageshops.presenter.ManageShopsPresenter;
+import com.akhutornoy.shoppinglist.shops.BaseShopModel;
+import com.akhutornoy.shoppinglist.shops.manageshops.adapter.ManageShopsAdapter;
+import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
+import com.akhutornoy.shoppinglist.shops.manageshops.presenter.ManageShopsPresenter;
 
 import java.util.List;
 
-import static com.akhutornoy.shoppinglist.manageshops.adapter.ManageShopsAdapter.*;
+import static com.akhutornoy.shoppinglist.shops.manageshops.adapter.ManageShopsAdapter.Mode;
+import static com.akhutornoy.shoppinglist.shops.manageshops.adapter.ManageShopsAdapter.OnShopClickListener;
 
 public class ManageShopsFragment extends BaseFragment implements ManageShopsContract.View {
 
@@ -100,12 +101,12 @@ public class ManageShopsFragment extends BaseFragment implements ManageShopsCont
         rvProducts.addItemDecoration(dividerItemDecoration);
         mAdapter = new ManageShopsAdapter(new OnShopClickListener() {
             @Override
-            public void onEditShopClicked(ManageShopModel shopModel) {
+            public void onEditShopClicked(BaseShopModel shopModel) {
                 Toast.makeText(getActivity(), "Edit Shop is Not implemented", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onDeleteShopClicked(ManageShopModel shopModel) {
+            public void onDeleteShopClicked(BaseShopModel shopModel) {
                 mPresenter.delete(shopModel);
             }
         });
@@ -142,7 +143,7 @@ public class ManageShopsFragment extends BaseFragment implements ManageShopsCont
     }
 
     @Override
-    public void onDataLoaded(List<ManageShopModel> products) {
+    public void onDataLoaded(List<BaseShopModel> products) {
         mAdapter.setProducts(products);
     }
 

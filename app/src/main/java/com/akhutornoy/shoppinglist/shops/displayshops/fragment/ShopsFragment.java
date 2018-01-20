@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.shops.fragment;
+package com.akhutornoy.shoppinglist.shops.displayshops.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,10 +14,11 @@ import android.widget.Toast;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
-import com.akhutornoy.shoppinglist.shops.adapter.ShopsAdapter;
-import com.akhutornoy.shoppinglist.shops.contract.ShopsContract;
-import com.akhutornoy.shoppinglist.shops.model.ShopModel;
-import com.akhutornoy.shoppinglist.shops.presenter.ShopsPresenter;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
+import com.akhutornoy.shoppinglist.shops.BaseShopModel;
+import com.akhutornoy.shoppinglist.shops.displayshops.adapter.ShopsAdapter;
+import com.akhutornoy.shoppinglist.shops.displayshops.contract.ShopsContract;
+import com.akhutornoy.shoppinglist.shops.displayshops.presenter.ShopsPresenter;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new ShopsPresenter();
+        mPresenter = new ShopsPresenter(AppDatabase.getInstance(getActivity()));
         initManageShopsButton(view);
         initShopList(view);
         return view;
@@ -85,7 +86,7 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     }
 
     @Override
-    public void onDataLoaded(List<ShopModel> shops) {
+    public void onDataLoaded(List<BaseShopModel> shops) {
         mShopsAdapter.setShops(shops);
     }
 

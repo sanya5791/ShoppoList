@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.manageshops.adapter;
+package com.akhutornoy.shoppinglist.shops.manageshops.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,20 +8,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
-import com.akhutornoy.shoppinglist.manageshops.model.ManageShopModel;
+import com.akhutornoy.shoppinglist.shops.BaseShopModel;
 
 import java.util.List;
 
 public class ManageShopsAdapter extends RecyclerView.Adapter<ManageShopsAdapter.ShopViewHolder> {
 
     private OnShopClickListener mOnShopClickListener;
-    private List<ManageShopModel> mShops;
+    private List<BaseShopModel> mShops;
     private Mode mMode;
 
     public interface OnShopClickListener {
-        void onEditShopClicked(ManageShopModel shopModel);
+        void onEditShopClicked(BaseShopModel shopModel);
 
-        void onDeleteShopClicked(ManageShopModel shopModel);
+        void onDeleteShopClicked(BaseShopModel shopModel);
     }
 
     public enum Mode {EDIT, DELETE, RESORT}
@@ -52,7 +52,7 @@ public class ManageShopsAdapter extends RecyclerView.Adapter<ManageShopsAdapter.
         return mShops != null ? mShops.size() : 0;
     }
 
-    public void setProducts(List<ManageShopModel> products) {
+    public void setProducts(List<BaseShopModel> products) {
         this.mShops = products;
         notifyDataSetChanged();
     }
@@ -78,13 +78,13 @@ public class ManageShopsAdapter extends RecyclerView.Adapter<ManageShopsAdapter.
             mIvResort = view.findViewById(R.id.iv_resort);
         }
 
-        private void bind(ManageShopModel shopModel, Mode mode) {
+        private void bind(BaseShopModel shopModel, Mode mode) {
             mTvShopName.setText(shopModel.getName());
             setListeners(shopModel, mode);
             setIconVisibility(mode);
         }
 
-        private void setListeners(ManageShopModel shopModel, Mode mode) {
+        private void setListeners(BaseShopModel shopModel, Mode mode) {
             mRootView.setOnClickListener(Mode.EDIT == mode
                     ? v -> mOnShopClickListener.onEditShopClicked(shopModel)
                     : null);

@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.base.model;
+package com.akhutornoy.shoppinglist.shops;
 
 public class BaseShopModel {
     private final String id;

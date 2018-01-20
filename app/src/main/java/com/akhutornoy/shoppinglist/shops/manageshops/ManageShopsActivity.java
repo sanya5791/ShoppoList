@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.manageshops;
+package com.akhutornoy.shoppinglist.shops.manageshops;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.support.annotation.LayoutRes;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.manageshops.fragment.ManageShopsFragment;
+import com.akhutornoy.shoppinglist.shops.manageshops.fragment.ManageShopsFragment;
 
 public class ManageShopsActivity extends BaseToolbarActivity {
 

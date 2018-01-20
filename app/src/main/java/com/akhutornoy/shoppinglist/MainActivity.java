@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.manageshops.ManageShopsActivity;
-import com.akhutornoy.shoppinglist.shops.fragment.ShopsFragment;
+import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
+import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
 public class MainActivity extends BaseToolbarActivity

@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name=".manageshops.ManageShopsActivity"
+            android:name=".shops.manageshops.ManageShopsActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
