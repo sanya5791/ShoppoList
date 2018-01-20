@@ -22,7 +22,7 @@ import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.shops.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
 import com.akhutornoy.shoppinglist.shops.manageshops.adapter.ManageShopsAdapter;
 import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
 import com.akhutornoy.shoppinglist.shops.manageshops.presenter.ManageShopsPresenter;

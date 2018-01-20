@@ -1,7 +1,7 @@
 package com.akhutornoy.shoppinglist.shops.manageshops.contract;
 
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.shops.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
 import com.akhutornoy.shoppinglist.shops.BaseShopsContract;
 
 public interface ManageShopsContract {

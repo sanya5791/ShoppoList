@@ -2,7 +2,7 @@ package com.akhutornoy.shoppinglist.shops.manageshops.presenter;
 
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.Shop;
-import com.akhutornoy.shoppinglist.shops.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
 import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
 
 import io.reactivex.Completable;

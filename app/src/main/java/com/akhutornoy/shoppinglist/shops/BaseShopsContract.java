@@ -1,5 +1,6 @@
 package com.akhutornoy.shoppinglist.shops;
 
+import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.base.view.LoadableView;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;

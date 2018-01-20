@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.ValueCallback;
-import com.akhutornoy.shoppinglist.shops.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
 
 import java.util.List;
 

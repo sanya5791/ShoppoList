@@ -6,14 +6,14 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
-import com.akhutornoy.shoppinglist.base.activity.BaseActivity;
-
 public abstract class BaseToolbarActivity extends BaseActivity {
+    private ActionBar mActionBar;
     private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initToolbar();
+        mActionBar = getSupportActionBar();
     }
 
     protected void initToolbar() {
@@ -45,10 +45,10 @@ public abstract class BaseToolbarActivity extends BaseActivity {
     }
 
     protected void setToolbarTitle(@StringRes int title) {
-        mToolbar.setTitle(title);
+        mActionBar.setTitle(title);
     }
 
     protected void setToolbarSubTitle(@StringRes int subTitle) {
-        mToolbar.setTitle(subTitle);
+        mActionBar.setSubtitle(subTitle);
     }
 }
