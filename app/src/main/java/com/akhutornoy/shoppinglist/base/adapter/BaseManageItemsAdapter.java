@@ -12,16 +12,17 @@ import com.akhutornoy.shoppinglist.base.model.ItemModel;
 
 import java.util.List;
 
-public class BaseManageItemsAdapter<T extends ItemModel> extends RecyclerView.Adapter<BaseManageItemsAdapter.ItemViewHolder> {
+public class BaseManageItemsAdapter<T extends ItemModel>
+        extends RecyclerView.Adapter<BaseManageItemsAdapter.ItemViewHolder> {
 
     private OnItemClickListener mOnItemClickListener;
     private List<T> mItems;
     private Mode mMode;
 
-    public interface OnItemClickListener<T0 extends ItemModel> {
-        void onEditItemClicked(T0 shopModel);
+    public interface OnItemClickListener<T extends ItemModel> {
+        void onEditItemClicked(T ItemModel);
 
-        void onDeleteItemClicked(T0 shopModel);
+        void onDeleteItemClicked(T ItemModel);
     }
 
     public enum Mode {EDIT, DELETE, RESORT}
@@ -62,7 +63,7 @@ public class BaseManageItemsAdapter<T extends ItemModel> extends RecyclerView.Ad
         notifyDataSetChanged();
     }
 
-    static class ItemViewHolder<T1 extends ItemModel> extends RecyclerView.ViewHolder {
+    static class ItemViewHolder<T extends ItemModel> extends RecyclerView.ViewHolder {
         private OnItemClickListener mOnItemClickListener;
         private View mRootView;
         private TextView mTvShopName;
@@ -78,13 +79,13 @@ public class BaseManageItemsAdapter<T extends ItemModel> extends RecyclerView.Ad
             mIvResort = view.findViewById(R.id.iv_resort);
         }
 
-        private void bind(T1 itemModel, Mode mode) {
+        private void bind(T itemModel, Mode mode) {
             mTvShopName.setText(itemModel.getName());
             setListeners(itemModel, mode);
             setIconVisibility(mode);
         }
 
-        private void setListeners(T1 itemModel, Mode mode) {
+        private void setListeners(T itemModel, Mode mode) {
             mRootView.setOnClickListener(Mode.EDIT == mode
                     ? v -> mOnItemClickListener.onEditItemClicked(itemModel)
                     : null);
