@@ -4,7 +4,7 @@ import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.Shop;
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.domain.ShopDao;
-import com.akhutornoy.shoppinglist.shops.BaseShopModelMapper;
+import com.akhutornoy.shoppinglist.shops.ItemModelMapper;
 import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
 
 import io.reactivex.Completable;
@@ -14,11 +14,11 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ManageShopsPresenter extends ManageShopsContract.Presenter {
     private ShopDao mDbShop;
-    private BaseShopModelMapper mShopModelMapper;
+    private ItemModelMapper mShopModelMapper;
 
     public ManageShopsPresenter(AppDatabase appDatabase) {
         mDbShop = appDatabase.toShop();
-        mShopModelMapper = new BaseShopModelMapper();
+        mShopModelMapper = new ItemModelMapper();
     }
 
     @Override

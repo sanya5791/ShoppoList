@@ -2,7 +2,7 @@ package com.akhutornoy.shoppinglist.shops.displayshops.presenter;
 
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.ShopDao;
-import com.akhutornoy.shoppinglist.shops.BaseShopModelMapper;
+import com.akhutornoy.shoppinglist.shops.ItemModelMapper;
 import com.akhutornoy.shoppinglist.shops.displayshops.contract.ShopsContract;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -10,11 +10,11 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ShopsPresenter extends ShopsContract.Presenter {
     private ShopDao mDbShop;
-    private BaseShopModelMapper mShopModelMapper;
+    private ItemModelMapper mShopModelMapper;
 
     public ShopsPresenter(AppDatabase appDatabase) {
         mDbShop = appDatabase.toShop();
-        mShopModelMapper = new BaseShopModelMapper();
+        mShopModelMapper = new ItemModelMapper();
     }
 
     public void loadShops() {
