@@ -2,6 +2,7 @@ package com.akhutornoy.shoppinglist.base.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,8 @@ import com.akhutornoy.shoppinglist.base.contract.BaseManageItemsContract;
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
 
 import java.util.List;
+
+import io.reactivex.functions.Action;
 
 import static com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter.*;
 
@@ -70,18 +73,25 @@ public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseF
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_input, null);
         EditText editText = view.findViewById(R.id.edit_text);
-        new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.title_new_shop_name)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    String shopName = editText.getText().toString();
-                    if (!shopName.isEmpty()) {
-                        mPresenter.addNew(shopName);
-                    }
-                    dialog.dismiss();
-                })
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel())
-                .show();
+        Runnable onOkPressed = () -> {
+            String itemName = editText.getText().toString();
+            if (!itemName.isEmpty()) {
+                mPresenter.addNew(itemName);
+            }
+        };
+        AlertDialog.Builder builder = getAddItemDialogBuilder(view, onOkPressed);
+        builder.show();
+    }
+
+    protected AlertDialog.Builder getAddItemDialogBuilder(View customView, Runnable onOkPressed) {
+        return new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.title_new_item_name)
+                    .setView(customView)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        onOkPressed.run();
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
     }
 
     private void initProgressBar(View view) {
