@@ -1,17 +1,10 @@
 package com.akhutornoy.shoppinglist.manageproducttypes.presenter;
 
-import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.domain.Shop;
 import com.akhutornoy.shoppinglist.domain.ShopDao;
 import com.akhutornoy.shoppinglist.manageproducttypes.contract.ManageProductTypesContract;
 import com.akhutornoy.shoppinglist.shops.BaseShopModelMapper;
-import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
-
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class ManageProductTypesPresenter extends ManageProductTypesContract.Presenter {
     private ShopDao mDbShop;
@@ -59,7 +52,7 @@ public class ManageProductTypesPresenter extends ManageProductTypesContract.Pres
     }
 
     @Override
-    public void delete(BaseShopModel shopModel) {
+    public void delete(ItemModel shopModel) {
 //        getView().showProgress();
 //        getCompositeDisposable().add(
 //                Observable.fromCallable(() -> mShopModelMapper.mapInverse(shopModel))

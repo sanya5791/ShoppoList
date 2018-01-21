@@ -8,17 +8,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
-import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.ItemModel;
 
 import java.util.List;
 
-public class BaseManageItemsAdapter<T extends BaseShopModel> extends RecyclerView.Adapter<BaseManageItemsAdapter.ItemViewHolder> {
+public class BaseManageItemsAdapter<T extends ItemModel> extends RecyclerView.Adapter<BaseManageItemsAdapter.ItemViewHolder> {
 
     private OnItemClickListener mOnItemClickListener;
     private List<T> mItems;
     private Mode mMode;
 
-    public interface OnItemClickListener<T0 extends BaseShopModel> {
+    public interface OnItemClickListener<T0 extends ItemModel> {
         void onEditItemClicked(T0 shopModel);
 
         void onDeleteItemClicked(T0 shopModel);
@@ -62,7 +62,7 @@ public class BaseManageItemsAdapter<T extends BaseShopModel> extends RecyclerVie
         notifyDataSetChanged();
     }
 
-    static class ItemViewHolder<T1 extends BaseShopModel> extends RecyclerView.ViewHolder {
+    static class ItemViewHolder<T1 extends ItemModel> extends RecyclerView.ViewHolder {
         private OnItemClickListener mOnItemClickListener;
         private View mRootView;
         private TextView mTvShopName;

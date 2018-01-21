@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.akhutornoy.shoppinglist.base.fragment.BaseManageItemsFragment;
-import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.manageproducttypes.contract.ManageProductTypesContract;
 import com.akhutornoy.shoppinglist.manageproducttypes.presenter.ManageProductTypesPresenter;
 
-public class ManageProductTypesFragment extends BaseManageItemsFragment<BaseShopModel>
+public class ManageProductTypesFragment extends BaseManageItemsFragment<ItemModel>
                                 implements ManageProductTypesContract.View {
 
     private ManageProductTypesContract.Presenter mPresenter;

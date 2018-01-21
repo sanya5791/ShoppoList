@@ -1,17 +1,17 @@
 package com.akhutornoy.shoppinglist.shops;
 
 import com.akhutornoy.shoppinglist.base.Mapper;
-import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.domain.Shop;
 
-public class BaseShopModelMapper extends Mapper<Shop, BaseShopModel> {
+public class BaseShopModelMapper extends Mapper<Shop, ItemModel> {
     @Override
-    public BaseShopModel map(Shop source) {
-        return new BaseShopModel(source.getName(), source.getSortNumber());
+    public ItemModel map(Shop source) {
+        return new ItemModel(source.getName(), source.getSortNumber());
     }
 
     @Override
-    public Shop mapInverse(BaseShopModel source) {
+    public Shop mapInverse(ItemModel source) {
         return new Shop(source.getName());
     }
 }

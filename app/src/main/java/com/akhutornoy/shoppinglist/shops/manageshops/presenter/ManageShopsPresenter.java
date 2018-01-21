@@ -2,7 +2,7 @@ package com.akhutornoy.shoppinglist.shops.manageshops.presenter;
 
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.Shop;
-import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.domain.ShopDao;
 import com.akhutornoy.shoppinglist.shops.BaseShopModelMapper;
 import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
@@ -58,7 +58,7 @@ public class ManageShopsPresenter extends ManageShopsContract.Presenter {
     }
 
     @Override
-    public void delete(BaseShopModel shopModel) {
+    public void delete(ItemModel shopModel) {
         getView().showProgress();
         getCompositeDisposable().add(
                 Observable.fromCallable(() -> mShopModelMapper.mapInverse(shopModel))

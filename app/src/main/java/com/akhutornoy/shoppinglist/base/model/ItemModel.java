@@ -1,10 +1,10 @@
 package com.akhutornoy.shoppinglist.base.model;
 
-public class BaseShopModel {
+public class ItemModel {
     private final int sortNumber;
     private final String name;
 
-    public BaseShopModel(String name, int sortNumber) {
+    public ItemModel(String name, int sortNumber) {
         this.sortNumber = sortNumber;
         this.name = name;
     }
@@ -22,7 +22,7 @@ public class BaseShopModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BaseShopModel that = (BaseShopModel) o;
+        ItemModel that = (ItemModel) o;
 
         return name != null ? name.equals(that.name) : that.name == null;
     }

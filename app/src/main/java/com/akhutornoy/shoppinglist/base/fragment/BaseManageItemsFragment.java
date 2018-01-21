@@ -21,13 +21,13 @@ import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter;
 import com.akhutornoy.shoppinglist.base.contract.BaseManageItemsContract;
-import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.ItemModel;
 
 import java.util.List;
 
 import static com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter.*;
 
-public abstract class BaseManageItemsFragment<T extends BaseShopModel> extends BaseFragment
+public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseFragment
         implements BaseManageItemsContract.View<T> {
 
     private BaseManageItemsContract.Presenter mPresenter;
@@ -96,12 +96,12 @@ public abstract class BaseManageItemsFragment<T extends BaseShopModel> extends B
         rvItems.addItemDecoration(dividerItemDecoration);
         mAdapter = new BaseManageItemsAdapter<T>(new OnItemClickListener() {
             @Override
-            public void onEditItemClicked(BaseShopModel shopModel) {
+            public void onEditItemClicked(ItemModel shopModel) {
                 Toast.makeText(getActivity(), "Edit Shop is Not implemented", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onDeleteItemClicked(BaseShopModel shopModel) {
+            public void onDeleteItemClicked(ItemModel shopModel) {
                 mPresenter.delete(shopModel);
             }
         });

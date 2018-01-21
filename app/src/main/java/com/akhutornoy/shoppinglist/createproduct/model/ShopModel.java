@@ -1,8 +1,8 @@
 package com.akhutornoy.shoppinglist.createproduct.model;
 
-import com.akhutornoy.shoppinglist.base.model.BaseShopModel;
+import com.akhutornoy.shoppinglist.base.model.ItemModel;
 
-public class ShopModel extends BaseShopModel {
+public class ShopModel extends ItemModel {
     private boolean mIsChecked;
 
     public ShopModel(String name, int sortNumber) {
