@@ -20,11 +20,11 @@
     <string name="title_activity_new_product">NewProductActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="enter_new_name_product">Enter a Name for the product you are going to buy</string>
-    <string name="enter_default_product_quantity_for_new_name_product">Enter default quantity of %s you usually buy.\nThis value can be corrected while you create your list for shopping.</string>
+    <string name="enter_default_product_quantity_for_new_name_product">Enter default quantity of %1$s you usually buy.\nThis value can be corrected while you create your list for shopping.</string>
     <string name="product_name">Product Name</string>
     <string name="product_default_quantity">Product default quantity</string>
-    <string name="label_set_quantity_type_of_new_product">Set quantity type of \'%s\'./nIf there is no type you need, you can create one more.</string>
-    <string name="label_new_product_in_shop_available">Set shops where the \'%s\' might be bought.</string>
+    <string name="label_set_quantity_type_of_new_product">Set quantity type of \'%1$s\'.\nIf there is no type you need, you can create one more.</string>
+    <string name="label_new_product_in_shop_available">Set shops where the \'%1$s\' might be bought.</string>
     <string name="create_product_progress_step">Step %1$d</string>
     <string name="title_create_product">Create product</string>
     <string name="create_product_subtitle_step_1">Create Name</string>
@@ -40,4 +40,5 @@
     <string name="title_new_item_name">New Item Name</string>
     <string name="title_new_shop_name">New Shop Name</string>
     <string name="title_new_product_type">New Product Type</string>
+    <string name="product_exists_message">\'%1$s\' is already exists. Would you like to edit it?</string>
 </resources>

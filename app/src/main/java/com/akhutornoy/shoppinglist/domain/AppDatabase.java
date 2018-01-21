@@ -8,13 +8,14 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@android.arch.persistence.room.Database(entities = {ToBuy.class, Shop.class, ProductType.class}, version = 3)
+@android.arch.persistence.room.Database(entities = {ToBuy.class, Shop.class, Product.class, ProductType.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
 
     public abstract ToBuyDao toBuy();
     public abstract ShopDao toShop();
+    public abstract ProductDao toProduct();
     public abstract ProductTypeDao toProductType();
 
     private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
@@ -35,7 +36,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                 AppDatabase.class, "Database.db")
                             .addMigrations(MIGRATION_2_3)
-//                            .fallbackToDestructiveMigration()
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

@@ -15,14 +15,16 @@ import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.createproduct.fragment.SelectProductTypeFragment;
 import com.akhutornoy.shoppinglist.createproduct.fragment.InShopsAvailableFragment;
 import com.akhutornoy.shoppinglist.createproduct.fragment.ProductDefaultQuantityFragment;
-import com.akhutornoy.shoppinglist.createproduct.fragment.ProductNameFragment;
+import com.akhutornoy.shoppinglist.createproduct.fragment.CreateProductNameFragment;
 
-public class CreateProductActivity extends BaseToolbarActivity implements OnStepsNavigation {
+public class CreateProductActivity extends BaseToolbarActivity implements OnStepsNavigation,  OnProductNameCreated {
     private static final int FLOW_STEPS_COUNT = 4;
     private int mCurrentStep = 0;
 
     private TextView mTvProgressStep;
     private ProgressBar mProgressBar;
+
+    private String mNewName;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, CreateProductActivity.class);
@@ -118,9 +120,9 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
     private Fragment getFragmentForStep() {
         switch (mCurrentStep) {
             case 1:
-                return ProductNameFragment.newInstance();
+                return CreateProductNameFragment.newInstance();
             case 2:
-                return SelectProductTypeFragment.newInstance();
+                return SelectProductTypeFragment.newInstance(mNewName);
             case 3:
                 return ProductDefaultQuantityFragment.newInstance();
             case 4:
@@ -133,5 +135,10 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
     @Override
     public void onStepFinished() {
         showNextStep();
+    }
+
+    @Override
+    public void onProductNameCreated(String name) {
+        mNewName = name;
     }
 }

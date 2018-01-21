@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
@@ -26,13 +27,19 @@ import com.akhutornoy.shoppinglist.manageproducttypes.activity.ManageProductType
 import java.util.List;
 
 public class SelectProductTypeFragment extends BaseStepNavigationFragment implements SelectProductTypeContract.View {
+    private static final String ARG_NAME = "ARG_NAME";
+
     private SelectProductTypeContract.Presenter mPresenter;
     private SelectProductTypeAdapter mAdapter;
 
     private MenuItem mMenuAdd;
 
-    public static Fragment newInstance() {
-        return new SelectProductTypeFragment();
+    public static Fragment newInstance(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_NAME, name);
+        SelectProductTypeFragment fragment = new SelectProductTypeFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -41,9 +48,14 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mPresenter = new SelectProductTypePresenter(AppDatabase.getInstance(getContext()).toProductType());
         setHasOptionsMenu(true);
+        initViews(view);
+        return view;
+    }
+
+    private void initViews(View view) {
+        initTextViewInfo(view);
         initButtonNext(view);
         initProductsList(view);
-        return view;
     }
 
     @Override
@@ -75,6 +87,20 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
 
     private void showCreateProductTypeScreen() {
         getActivity().startActivity(ManageProductTypesActivity.createIntent(getActivity()));
+    }
+
+    private void initTextViewInfo(View view) {
+        TextView textView = view.findViewById(R.id.tv_info);
+        String text = getResources().getString(R.string.label_set_quantity_type_of_new_product, getProductName());
+        textView.setText(text);
+    }
+
+    private String getProductName() {
+        String name = getArguments().getString(ARG_NAME, "");
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Arguments NOT found for the Fragment");
+        }
+        return name;
     }
 
     private void initButtonNext(View view) {
