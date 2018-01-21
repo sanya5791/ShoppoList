@@ -3,15 +3,21 @@ package com.akhutornoy.shoppinglist.createproduct.model;
 import android.support.annotation.NonNull;
 
 public class ProductTypeModel {
+    private int mSortNumber;
     private String mName;
     private boolean mIsChecked;
 
-    public ProductTypeModel(@NonNull String name) {
+    public ProductTypeModel(@NonNull String name, int sortNumber) {
         mName = name;
+        mSortNumber = sortNumber;
     }
 
     public String getName() {
         return mName;
+    }
+
+    public int getSortNumber() {
+        return mSortNumber;
     }
 
     public boolean isChecked() {

@@ -19,7 +19,8 @@ import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.createproduct.adapter.SelectProductTypeAdapter;
 import com.akhutornoy.shoppinglist.createproduct.contract.SelectProductTypeContract;
 import com.akhutornoy.shoppinglist.createproduct.model.ProductTypeModel;
-import com.akhutornoy.shoppinglist.createproduct.presenter.CreateProductTypePresenter;
+import com.akhutornoy.shoppinglist.createproduct.presenter.SelectProductTypePresenter;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.manageproducttypes.activity.ManageProductTypesActivity;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new CreateProductTypePresenter();
+        mPresenter = new SelectProductTypePresenter(AppDatabase.getInstance(getContext()).toProductType());
         setHasOptionsMenu(true);
         initButtonNext(view);
         initProductsList(view);
