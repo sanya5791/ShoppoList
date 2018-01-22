@@ -27,7 +27,7 @@ import com.akhutornoy.shoppinglist.manageproducttypes.activity.ManageProductType
 import java.util.List;
 
 public class SelectProductTypeFragment extends BaseStepNavigationFragment implements SelectProductTypeContract.View {
-    private static final String ARG_NAME = "ARG_NAME";
+    private static final String ARG_PRODUCT_NAME = "ARG_PRODUCT_NAME";
 
     private SelectProductTypeContract.Presenter mPresenter;
     private SelectProductTypeAdapter mAdapter;
@@ -36,7 +36,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
 
     public static Fragment newInstance(String name) {
         Bundle bundle = new Bundle();
-        bundle.putString(ARG_NAME, name);
+        bundle.putString(ARG_PRODUCT_NAME, name);
         SelectProductTypeFragment fragment = new SelectProductTypeFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -46,7 +46,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new SelectProductTypePresenter(AppDatabase.getInstance(getContext()).toProductType());
+        mPresenter = new SelectProductTypePresenter(AppDatabase.getInstance(getContext()));
         setHasOptionsMenu(true);
         initViews(view);
         return view;
@@ -96,7 +96,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     }
 
     private String getProductName() {
-        String name = getArguments().getString(ARG_NAME, "");
+        String name = getArguments().getString(ARG_PRODUCT_NAME, "");
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Arguments NOT found for the Fragment");
         }
@@ -104,7 +104,8 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     }
 
     private void initButtonNext(View view) {
-        view.findViewById(R.id.bt_next).setOnClickListener(v -> mOnStepsNavigation.onStepFinished());
+        view.findViewById(R.id.bt_next).setOnClickListener(v ->
+                mPresenter.setType(getProductName(), mAdapter.getSelectedType().getName()));
     }
 
     private void initProductsList(View view) {
@@ -120,7 +121,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.loadTypes();
+        mPresenter.loadTypes(getProductName());
     }
 
     @Override
@@ -132,6 +133,11 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     @Override
     public void onDataLoaded(List<ProductTypeModel> types) {
         mAdapter.setTypes(types);
+    }
+
+    @Override
+    public void onTypeSet() {
+        mOnStepsNavigation.onStepFinished();
     }
 
     @Override

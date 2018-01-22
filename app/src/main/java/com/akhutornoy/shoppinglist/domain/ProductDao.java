@@ -15,8 +15,8 @@ public interface ProductDao {
     @Query("SELECT * FROM Product")
     Flowable<List<Product>> getAll();
 
-    @Query("SELECT * FROM Product WHERE name LIKE :name")
-    List<Product> getByName(String name);
+    @Query("SELECT * FROM Product WHERE name LIKE :name LIMIT 1")
+    Product getByName(String name);
 
     @Insert
     void insertNew(Product product);

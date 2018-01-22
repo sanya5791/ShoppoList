@@ -21,8 +21,8 @@ public class CreateProductNamePresenter extends CreateProductNameContract.Presen
         getView().showProgress();
         getCompositeDisposable().add(
                 Observable.fromCallable(() -> mProductDao.getByName(newName))
-                        .flatMapCompletable(foundProducts -> {
-                            if (foundProducts.isEmpty()) {
+                        .flatMapCompletable(foundProduct -> {
+                            if (foundProduct == null) {
                                 return Completable.fromAction(() ->
                                         mProductDao.insertNew(new Product(newName)));
                             }
