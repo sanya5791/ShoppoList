@@ -1,47 +1,49 @@
 package com.akhutornoy.shoppinglist.addproducts.presenter;
 
 import com.akhutornoy.shoppinglist.addproducts.contract.AddProductsContract;
-import com.akhutornoy.shoppinglist.addproducts.model.AddProductModel;
+import com.akhutornoy.shoppinglist.addproducts.mapper.AddProductModelMapper;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
+import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
+import com.akhutornoy.shoppinglist.domain.ProductDao;
+import com.akhutornoy.shoppinglist.domain.ProductInShopDao;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddProductsPresenter extends AddProductsContract.Presenter {
-    @Override
-    public void loadProducts() {
-        getView().onDataLoaded(getMockProducts());
+    private CurrentShopDao mDbCurrentShop;
+    private ProductInShopDao mDbProductInShop;
+    private ProductDao mDbProduct;
+    private AddProductModelMapper mAddProductModelMapper;
+
+    public AddProductsPresenter(AppDatabase appDatabase) {
+        mDbCurrentShop = appDatabase.toCurrentShop();
+        mDbProductInShop = appDatabase.toProductInShop();
+        mDbProduct = appDatabase.toProduct();
+        mAddProductModelMapper = new AddProductModelMapper();
     }
 
-    private List<AddProductModel> getMockProducts() {
-        List<AddProductModel> products = new ArrayList<>();
-        products.add(new AddProductModel.Builder()
-                .setId("1")
-                .setIsAdded(false)
-                .setName("Melon")
-                .setQuantity("1")
-                .setUnit("kg")
-                .build());
-        products.add(new AddProductModel.Builder()
-                .setId("2")
-                .setIsAdded(true)
-                .setName("Milk")
-                .setQuantity("1")
-                .setUnit("l")
-                .build());
-        products.add(new AddProductModel.Builder()
-                .setId("3")
-                .setIsAdded(true)
-                .setName("Bread")
-                .setQuantity("1")
-                .setUnit("p")
-                .build());
-        products.add(new AddProductModel.Builder()
-                .setId("4")
-                .setIsAdded(false)
-                .setName("Cheese")
-                .setQuantity("300")
-                .setUnit("gr")
-                .build());
-        return products;
+    @Override
+    public void loadProducts() {
+        getView().showProgress();
+
+        getCompositeDisposable().add(
+                Observable.fromCallable(() -> mDbCurrentShop.get())
+                        .map(mDbCurrentShop -> mDbProductInShop.getByShop(mDbCurrentShop))
+                        .flatMapIterable(productInShops -> productInShops)
+                        .map(productInShop -> mDbProduct.getByName(productInShop.getProduct()))
+                        .map(productsDb -> mAddProductModelMapper.map(productsDb))
+                        .toList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(products -> {
+                            getView().hideProgress();
+                            getView().onDataLoaded(products);
+                        }, error -> {
+                            getView().hideProgress();
+                            onError(error);
+                        })
+        );
     }
 }

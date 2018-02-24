@@ -25,30 +25,17 @@ import java.util.List;
 
 public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract.View {
 
-    private static final String ARG_SHOP_ID = "ARG_SHOP_ID";
-
     private ToBuyProductsContract.Presenter mPresenter;
     private ToBuyProductsAdapter mProductsAdapter;
 
-    public static Fragment newInstance(String shopId) {
-        ToBuyFragment fragment = new ToBuyFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_SHOP_ID, shopId);
-        fragment.setArguments(args);
-        return fragment;
+    public static Fragment newInstance() {
+        return new ToBuyFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-
-        if (getArguments() != null) {
-            String shopId = getArguments().getString(ARG_SHOP_ID);
-            Snackbar.make(view, "Chosen shop: " + shopId, Snackbar.LENGTH_SHORT).show();
-        } else {
-            throw new IllegalArgumentException("Argument should be passed");
-        }
 
         mPresenter = new ToBuyProductsPresenter(AppDatabase.getInstance(getActivity()));
         initProductList(view);

@@ -19,6 +19,7 @@ import com.akhutornoy.shoppinglist.addproducts.model.AddProductModel;
 import com.akhutornoy.shoppinglist.addproducts.presenter.AddProductsPresenter;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new AddProductsPresenter();
+        mPresenter = new AddProductsPresenter(AppDatabase.getInstance(getActivity()));
         initAddButton(view);
         initProductsList(view);
         return view;

@@ -98,11 +98,7 @@ public class MainActivity extends BaseToolbarActivity
 
     private void showToByScreen() {
         setToolbarTitle(R.string.title_to_by_list);
-        showFragment(ToBuyFragment.newInstance(getCurrentShop()));
-    }
-
-    private String getCurrentShop() {
-        return "1";
+        showFragment(ToBuyFragment.newInstance());
     }
 
     @Override
@@ -120,10 +116,6 @@ public class MainActivity extends BaseToolbarActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void showNotImplementedMessage() {
-        Snackbar.make(mContentView, "Not implemented yet", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

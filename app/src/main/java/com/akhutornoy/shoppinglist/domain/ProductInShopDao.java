@@ -8,18 +8,16 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-
 @Dao
 public interface ProductInShopDao {
     @Query("SELECT * FROM ProductInShop")
-    Flowable<List<ProductInShop>> getAll();
+    List<ProductInShop> getAll();
 
     @Query("SELECT * FROM ProductInShop WHERE product LIKE :productName")
-    Flowable<List<ProductInShop>> getByProduct(String productName);
+    List<ProductInShop> getByProduct(String productName);
 
     @Query("SELECT * FROM ProductInShop WHERE shop LIKE :shopName")
-    Flowable<List<ProductInShop>> getByShop(String shopName);
+    List<ProductInShop> getByShop(String shopName);
 
     @Insert
     void insertNew(ProductInShop productInShop);
