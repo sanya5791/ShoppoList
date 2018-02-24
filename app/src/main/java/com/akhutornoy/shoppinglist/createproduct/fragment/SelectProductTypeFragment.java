@@ -71,14 +71,14 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        mMenuAdd = menu.findItem(R.id.menu_add);
+        mMenuAdd = menu.findItem(R.id.menu_add_or_edit);
         mMenuAdd.setVisible(true);
         super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_add) {
+        if (item.getItemId() == R.id.menu_add_or_edit) {
             showCreateProductTypeScreen();
             return true;
         }

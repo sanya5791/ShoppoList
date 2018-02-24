@@ -73,7 +73,7 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add, menu);
-        menu.findItem(R.id.menu_add).setVisible(false);
+        menu.findItem(R.id.menu_add_or_edit).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

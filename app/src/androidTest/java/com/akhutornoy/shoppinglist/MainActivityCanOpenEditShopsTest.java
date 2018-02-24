@@ -61,7 +61,7 @@ public class MainActivityCanOpenEditShopsTest {
 
         /*if Add/Delete/Resort icons exists on Toolbar*/
         ViewInteraction toolbarIconAdd = onView(
-                allOf(withId(R.id.menu_add), withContentDescription("Add"),
+                allOf(withId(R.id.menu_add_or_edit), withContentDescription("Add"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.toolbar),
@@ -103,7 +103,7 @@ public class MainActivityCanOpenEditShopsTest {
 
         /*Click 'Add' icon*/
         ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.menu_add), withContentDescription("Add"),
+                allOf(withId(R.id.menu_add_or_edit), withContentDescription("Add"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.toolbar),

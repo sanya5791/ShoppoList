@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
-import com.akhutornoy.shoppinglist.utils.TestUtils;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -26,14 +25,12 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.akhutornoy.shoppinglist.utils.TestUtils.*;
+import static com.akhutornoy.shoppinglist.utils.TestUtils.actionOnItemViewAtPosition;
+import static com.akhutornoy.shoppinglist.utils.TestUtils.withRecyclerView;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -48,7 +45,7 @@ public class ManageShopsActivityTest {
     public void toolbarIconAddShopsShowsDialog() {
                 /*Click 'Add' icon*/
         ViewInteraction actionMenuItemView = onView(
-                allOf(withId(R.id.menu_add), withContentDescription("Add"),
+                allOf(withId(R.id.menu_add_or_edit), withContentDescription("Add"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.toolbar),
@@ -75,7 +72,7 @@ public class ManageShopsActivityTest {
     public void createShopTest () {
                 /*Click 'Add' icon*/
         ViewInteraction addIcon = onView(
-                allOf(withId(R.id.menu_add), withContentDescription("Add"),
+                allOf(withId(R.id.menu_add_or_edit), withContentDescription("Add"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.toolbar),
@@ -115,7 +112,7 @@ public class ManageShopsActivityTest {
 
         /*if Add/Delete/Resort icons exists on Toolbar*/
         ViewInteraction toolbarIconAdd = onView(
-                allOf(withId(R.id.menu_add), withContentDescription("Add"),
+                allOf(withId(R.id.menu_add_or_edit), withContentDescription("Add"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.toolbar),

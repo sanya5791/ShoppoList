@@ -2,7 +2,6 @@ package com.akhutornoy.shoppinglist.base.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,8 +24,6 @@ import com.akhutornoy.shoppinglist.base.contract.BaseManageItemsContract;
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
 
 import java.util.List;
-
-import io.reactivex.functions.Action;
 
 import static com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter.*;
 
@@ -68,7 +65,7 @@ public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseF
         view.findViewById(R.id.bt_done).setOnClickListener(v -> getActivity().finish());
     }
 
-    private void showAddShopDialog() {
+    private void showAddItemDialog() {
         // TODO: 15-Jan-18 replace with Fragment dialog
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_input, null);
@@ -106,13 +103,13 @@ public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseF
         rvItems.addItemDecoration(dividerItemDecoration);
         mAdapter = new BaseManageItemsAdapter<T>(new OnItemClickListener() {
             @Override
-            public void onEditItemClicked(ItemModel shopModel) {
+            public void onEditItemClicked(ItemModel itemModel) {
                 Toast.makeText(getActivity(), "Edit Shop is Not implemented", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onDeleteItemClicked(ItemModel shopModel) {
-                mPresenter.delete(shopModel);
+            public void onDeleteItemClicked(ItemModel itemModel) {
+                mPresenter.delete(itemModel);
             }
         });
         rvItems.setAdapter(mAdapter);
@@ -121,7 +118,7 @@ public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseF
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_manage_shops, menu);
+        inflater.inflate(R.menu.menu_manage_items, menu);
     }
 
     @Override
@@ -130,9 +127,9 @@ public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseF
             case R.id.menu_delete:
                 mAdapter.setMode(Mode.DELETE);
                 return true;
-            case R.id.menu_add:
+            case R.id.menu_add_or_edit:
                 mAdapter.setMode(Mode.EDIT);
-                showAddShopDialog();
+                showAddItemDialog();
                 return true;
             case R.id.menu_resort:
                 mAdapter.setMode(Mode.RESORT);
