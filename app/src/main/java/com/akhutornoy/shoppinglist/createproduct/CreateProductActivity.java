@@ -124,7 +124,7 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
             case 2:
                 return SelectMeasureTypeFragment.newInstance(mNewName);
             case 3:
-                return ProductDefaultQuantityFragment.newInstance();
+                return ProductDefaultQuantityFragment.newInstance(mNewName);
             case 4:
             return InShopsAvailableFragment.newInstance();
             default:

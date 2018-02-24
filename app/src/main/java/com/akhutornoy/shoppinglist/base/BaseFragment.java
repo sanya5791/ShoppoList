@@ -34,5 +34,13 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         getPresenter().detachView();
     }
 
+    protected String getArgumentString(String argKey) {
+        String arg = getArguments().getString(argKey);
+        if (arg == null) {
+            throw new IllegalArgumentException("Arguments NOT found for the Fragment");
+        }
+        return arg;
+    }
+
     protected abstract BasePresenter getPresenter();
 }

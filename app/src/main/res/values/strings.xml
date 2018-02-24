@@ -41,4 +41,5 @@
     <string name="title_new_shop_name">New Shop Name</string>
     <string name="title_new_product_type">New Product Type</string>
     <string name="product_exists_message">\'%1$s\' is already exists. Would you like to edit it?</string>
+    <string name="please_enter_default_quantity">Please enter default quantity</string>
 </resources>

@@ -96,11 +96,7 @@ public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implem
     }
 
     private String getProductName() {
-        String name = getArguments().getString(ARG_PRODUCT_NAME, "");
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("Arguments NOT found for the Fragment");
-        }
-        return name;
+        return getArgumentString(ARG_PRODUCT_NAME);
     }
 
     private void initButtonNext(View view) {
