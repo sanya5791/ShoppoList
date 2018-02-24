@@ -20,19 +20,12 @@ public class CreateProductNamePresenter extends CreateProductNameContract.Presen
     public void createName(String newName) {
         getView().showProgress();
         getCompositeDisposable().add(
-                Observable.fromCallable(() -> mProductDao.getByName(newName))
-                        .flatMapCompletable(foundProduct -> {
-                            if (foundProduct == null) {
-                                return Completable.fromAction(() ->
-                                        mProductDao.insertNew(new Product(newName)));
-                            }
-                            throw new ProductAlreadyExistsException();
-                        })
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {
-                    getView().hideProgress();
-                    getView().nameCreated(newName);
+                Completable.fromAction(() -> tryInsertNewProduct(newName))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> {
+                        getView().hideProgress();
+                        getView().nameCreated(newName);
                 }, error -> {
                     getView().hideProgress();
                     if (error instanceof ProductAlreadyExistsException) {
@@ -42,6 +35,14 @@ public class CreateProductNamePresenter extends CreateProductNameContract.Presen
                     super.onError(error);
                 })
         );
+    }
+
+    private void tryInsertNewProduct(String newName) {
+        Product foundProduct = mProductDao.getByName(newName);
+        if (foundProduct != null) {
+            throw new ProductAlreadyExistsException();
+        }
+        mProductDao.insertNew(new Product(newName));
     }
 
     private class ProductAlreadyExistsException extends RuntimeException {}
