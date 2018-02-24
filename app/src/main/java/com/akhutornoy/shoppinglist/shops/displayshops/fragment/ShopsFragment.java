@@ -14,8 +14,8 @@ import android.widget.Toast;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
+import com.akhutornoy.shoppinglist.createproduct.model.ShopModel;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.shops.displayshops.adapter.ShopsAdapter;
 import com.akhutornoy.shoppinglist.shops.displayshops.contract.ShopsContract;
 import com.akhutornoy.shoppinglist.shops.displayshops.presenter.ShopsPresenter;
@@ -75,7 +75,7 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
         RecyclerView rvShops = view.findViewById(R.id.rv_shops);
         rvShops.setLayoutManager(new LinearLayoutManager(getActivity()));
         mShopsAdapter = new ShopsAdapter(shopModel ->
-                showNotImplementedMessage());
+                mPresenter.onShopSelected(shopModel));
         rvShops.setAdapter(mShopsAdapter);
     }
 
@@ -86,12 +86,8 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     }
 
     @Override
-    public void onDataLoaded(List<ItemModel> shops) {
+    public void onDataLoaded(List<ShopModel> shops) {
         mShopsAdapter.setShops(shops);
-    }
-
-    private void showNotImplementedMessage() {
-        Snackbar.make(getView(), "Not implemented yet", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -99,6 +95,11 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
 
     @Override
     public void hideProgress() {}
+
+    @Override
+    public void setCurrentShop(ShopModel currentShop) {
+
+    }
 
     @Override
     public void onError(String errorMsg) {

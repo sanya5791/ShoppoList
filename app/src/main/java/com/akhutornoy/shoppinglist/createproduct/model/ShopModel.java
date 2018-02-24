@@ -9,11 +9,16 @@ public class ShopModel extends ItemModel {
         super(name, sortNumber);
     }
 
+    public ShopModel(String name, int sortNumber, boolean isChecked) {
+        super(name, sortNumber);
+        mIsChecked = isChecked;
+    }
+
     public boolean isChecked() {
         return mIsChecked;
     }
 
-    public void setChecked(boolean checked) {
+    public void isChecked(boolean checked) {
         mIsChecked = checked;
     }
 }

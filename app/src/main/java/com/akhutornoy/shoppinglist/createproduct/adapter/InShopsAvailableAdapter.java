@@ -59,7 +59,7 @@ public class InShopsAvailableAdapter extends RecyclerView.Adapter<InShopsAvailab
         private void bind(ShopModel shop) {
             mChkShop.setText(shop.getName());
             mChkShop.setChecked(shop.isChecked());
-            mChkShop.setOnCheckedChangeListener((button, isChecked) -> shop.setChecked(isChecked));
+            mChkShop.setOnCheckedChangeListener((button, isChecked) -> shop.isChecked(isChecked));
         }
     }
 }

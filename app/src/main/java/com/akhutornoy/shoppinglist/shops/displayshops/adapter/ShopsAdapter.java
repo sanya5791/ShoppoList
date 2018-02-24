@@ -4,19 +4,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.ValueCallback;
-import com.akhutornoy.shoppinglist.base.model.ItemModel;
+import com.akhutornoy.shoppinglist.createproduct.model.ShopModel;
 
 import java.util.List;
 
 public class ShopsAdapter extends RecyclerView.Adapter <ShopsAdapter.ShopTypeViewHolder> {
-    private final ValueCallback<ItemModel> mCallback;
-    private List<ItemModel> mShopTypes;
+    private final ValueCallback<ShopModel> mCallback;
+    private List<ShopModel> mShopTypes;
 
-    public ShopsAdapter(ValueCallback<ItemModel> listener) {
+    public ShopsAdapter(ValueCallback<ShopModel> listener) {
         mCallback = listener;
     }
 
@@ -24,7 +25,20 @@ public class ShopsAdapter extends RecyclerView.Adapter <ShopsAdapter.ShopTypeVie
     public ShopTypeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_shop_type, parent, false);
-        return new ShopTypeViewHolder(v, mCallback);
+        return new ShopTypeViewHolder(v, this::onShopSelected);
+    }
+
+    protected void onShopSelected(ShopModel selectedType) {
+        for (int i = 0; i < mShopTypes.size(); i++) {
+            ShopModel type = mShopTypes.get(i);
+            if (type.equals(selectedType)) {
+                type.isChecked(true);
+            } else {
+                type.isChecked(false);
+            }
+            notifyItemChanged(i);
+        }
+        mCallback.select(selectedType);
     }
 
     @Override
@@ -37,24 +51,27 @@ public class ShopsAdapter extends RecyclerView.Adapter <ShopsAdapter.ShopTypeVie
         return mShopTypes != null ? mShopTypes.size() : 0;
     }
 
-    public void setShops(List<ItemModel> shopTypes) {
+    public void setShops(List<ShopModel> shopTypes) {
         mShopTypes = shopTypes;
         notifyDataSetChanged();
     }
 
     static class ShopTypeViewHolder extends RecyclerView.ViewHolder {
-        private final ValueCallback<ItemModel> mCallback;
+        private final ValueCallback<ShopModel> mCallback;
         private TextView mTvName;
+        private ImageView mChecked;
 
-        ShopTypeViewHolder(View itemView, ValueCallback<ItemModel> listener) {
+        ShopTypeViewHolder(View itemView, ValueCallback<ShopModel> listener) {
             super(itemView);
             mCallback = listener;
             mTvName = itemView.findViewById(R.id.tv_name);
+            mChecked = itemView.findViewById(R.id.iv_checked);
         }
 
-        private void bind(ItemModel shopName) {
-            mTvName.setText(shopName.getName());
-            mTvName.setOnClickListener(v -> mCallback.select(shopName));
+        private void bind(ShopModel shop) {
+            mTvName.setText(shop.getName());
+            mTvName.setOnClickListener(v -> mCallback.select(shop));
+            mChecked.setImageResource(shop.isChecked() ? android.R.drawable.presence_online : 0);
         }
     }
 }

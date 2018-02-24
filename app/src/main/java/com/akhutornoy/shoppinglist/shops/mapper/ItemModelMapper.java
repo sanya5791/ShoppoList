@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.shops;
+package com.akhutornoy.shoppinglist.shops.mapper;
 
 import com.akhutornoy.shoppinglist.base.Mapper;
 import com.akhutornoy.shoppinglist.base.model.ItemModel;

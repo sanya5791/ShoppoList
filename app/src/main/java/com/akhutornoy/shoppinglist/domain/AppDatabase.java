@@ -14,9 +14,10 @@ import android.util.Log;
             Shop.class,
             Product.class,
             MeasureType.class,
-            ProductInShop.class
+            ProductInShop.class,
+            CurrentShop.class
         },
-        version = 6)
+        version = 7)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
@@ -26,6 +27,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDao toProduct();
     public abstract MeasureTypeDao toMeasureType();
     public abstract ProductInShopDao toProductInShop();
+    public abstract CurrentShopDao toCurrentShop();
 
     private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
