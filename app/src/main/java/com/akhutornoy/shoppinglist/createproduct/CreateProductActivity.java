@@ -126,7 +126,7 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
             case 3:
                 return ProductDefaultQuantityFragment.newInstance(mNewName);
             case 4:
-            return InShopsAvailableFragment.newInstance();
+                return InShopsAvailableFragment.newInstance(mNewName);
             default:
                 throw new IllegalArgumentException("No Fragment for step " + mCurrentStep);
         }

@@ -68,21 +68,21 @@ public class ProductDefaultQuantityFragment extends BaseStepNavigationFragment i
     private void saveDefaultQuantity() {
         String quantity = mQuantityInput.getText().toString();
         if (quantity.isEmpty()) {
-            showError(getString(R.string.please_enter_default_quantity));
+            showNotification(getString(R.string.please_enter_default_quantity));
             return;
         }
 
         mPresenter.saveDefaultQuantity(getProductName(), quantity);
     }
 
-    private void showError(String errorMessage) {
+    private void showNotification(String errorMessage) {
         Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.onProductLoad(getProductName());
+        mPresenter.onDataLoad(getProductName());
     }
 
     private String getProductName() {
@@ -92,12 +92,6 @@ public class ProductDefaultQuantityFragment extends BaseStepNavigationFragment i
     @Override
     public void onError(String errorMsg) {
         Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void setProduct(Product product) {
-        mTvMeasureType.setText(product.getMeasureType());
-        mQuantityInput.setText(product.getDefaultQuantity());
     }
 
     @Override
@@ -113,5 +107,11 @@ public class ProductDefaultQuantityFragment extends BaseStepNavigationFragment i
     @Override
     public void hideProgress() {
         mProgressView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDataLoaded(Product product) {
+        mTvMeasureType.setText(product.getMeasureType());
+        mQuantityInput.setText(product.getDefaultQuantity());
     }
 }

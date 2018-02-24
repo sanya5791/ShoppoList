@@ -18,7 +18,7 @@ public class ProductDefaultQuantityPresenter extends ProductDefaultQuantityContr
     }
 
     @Override
-    public void onProductLoad(String productName) {
+    public void onDataLoad(String productName) {
         getView().showProgress();
 
         getCompositeDisposable().add(
@@ -27,7 +27,7 @@ public class ProductDefaultQuantityPresenter extends ProductDefaultQuantityContr
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(product -> {
                     getView().hideProgress();
-                    getView().setProduct(product);
+                    getView().onDataLoaded(product);
                 }, error -> {
                     getView().hideProgress();
                     onError(error);

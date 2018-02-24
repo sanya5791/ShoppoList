@@ -23,19 +23,24 @@ import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import java.util.List;
 
 public class InShopsAvailableFragment extends BaseStepNavigationFragment implements InShopsAvailableContract.View {
+    private static final String ARG_PRODUCT_NAME = "ARG_PRODUCT_NAME";
 
     private InShopsAvailableContract.Presenter mPresenter;
     private InShopsAvailableAdapter mAdapter;
 
-    public static Fragment newInstance() {
-        return new InShopsAvailableFragment();
+    public static Fragment newInstance(String productName) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PRODUCT_NAME, productName);
+        Fragment fragment = new InShopsAvailableFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new InShopsAvailablePresenter(AppDatabase.getInstance(getActivity()).toShop());
+        mPresenter = new InShopsAvailablePresenter(AppDatabase.getInstance(getActivity()));
         initAddButton(view);
         initProductsList(view);
         return view;
@@ -53,7 +58,25 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment impleme
     }
 
     private void initAddButton(View view) {
-        view.findViewById(R.id.bt_add).setOnClickListener(v -> mOnStepsNavigation.onStepFinished());
+        view.findViewById(R.id.bt_add).setOnClickListener(v -> addToShops());
+    }
+
+    private void addToShops() {
+        List<ShopModel> selectedShops = mAdapter.getSelectedShops();
+        if (selectedShops.isEmpty()) {
+            showNotification(getString(R.string.you_should_select_at_least_one_shop));
+            return;
+        }
+
+        mPresenter.saveProductInShops(getProductName(), selectedShops);
+    }
+
+    private String getProductName() {
+        return getArgumentString(ARG_PRODUCT_NAME);
+    }
+
+    private void showNotification(String errorMessage) {
+        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     private void initProductsList(View view) {
@@ -86,5 +109,10 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment impleme
     @Override
     public void onError(String errorMsg) {
         Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNextScreen() {
+        mOnStepsNavigation.onStepFinished();
     }
 }

@@ -8,7 +8,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@android.arch.persistence.room.Database(entities = {ToBuy.class, Shop.class, Product.class, MeasureType.class}, version = 5)
+@android.arch.persistence.room.Database(
+        entities = {
+            ToBuy.class,
+            Shop.class,
+            Product.class,
+            MeasureType.class,
+            ProductInShop.class
+        },
+        version = 6)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
@@ -17,6 +25,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ShopDao toShop();
     public abstract ProductDao toProduct();
     public abstract MeasureTypeDao toMeasureType();
+    public abstract ProductInShopDao toProductInShop();
 
     private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
