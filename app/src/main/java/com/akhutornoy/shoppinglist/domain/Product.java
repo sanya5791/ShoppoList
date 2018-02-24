@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 @Entity(primaryKeys = "name",
-        foreignKeys = @ForeignKey(entity = ProductType.class,
+        foreignKeys = @ForeignKey(entity = MeasureType.class,
                                     parentColumns = "name",
-                                    childColumns = "productType")
+                                    childColumns = "measureType")
 )
 public class Product {
     @NonNull
@@ -16,7 +16,7 @@ public class Product {
     @Nullable
     private String defaultQuantity;
     @Nullable
-    private String productType;
+    private String measureType;
 
     public Product(@NonNull String name) {
         this.name = name;
@@ -38,11 +38,11 @@ public class Product {
         this.defaultQuantity = defaultQuantity;
     }
 
-    public String getProductType() {
-        return productType;
+    public String getMeasureType() {
+        return measureType;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setMeasureType(String measureType) {
+        this.measureType = measureType;
     }
 }

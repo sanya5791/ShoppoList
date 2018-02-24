@@ -1,12 +1,12 @@
 package com.akhutornoy.shoppinglist.createproduct.presenter;
 
-import com.akhutornoy.shoppinglist.createproduct.contract.SelectProductTypeContract;
-import com.akhutornoy.shoppinglist.createproduct.mapper.ProductTypeModelMapper;
-import com.akhutornoy.shoppinglist.createproduct.model.ProductTypeModel;
+import com.akhutornoy.shoppinglist.createproduct.contract.SelectMeasureTypeContract;
+import com.akhutornoy.shoppinglist.createproduct.mapper.MeasureTypeModelMapper;
+import com.akhutornoy.shoppinglist.createproduct.model.MeasureTypeModel;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.Product;
 import com.akhutornoy.shoppinglist.domain.ProductDao;
-import com.akhutornoy.shoppinglist.domain.ProductTypeDao;
+import com.akhutornoy.shoppinglist.domain.MeasureTypeDao;
 
 import java.util.List;
 
@@ -15,29 +15,29 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class SelectProductTypePresenter extends SelectProductTypeContract.Presenter {
-    private final ProductTypeDao mProductTypeDao;
+public class SelectMeasureTypePresenter extends SelectMeasureTypeContract.Presenter {
+    private final MeasureTypeDao mMeasureTypeDao;
     private final ProductDao mProductDao;
-    private final ProductTypeModelMapper mProductTypeMapper;
+    private final MeasureTypeModelMapper mMeasureTypeMapper;
 
-    public SelectProductTypePresenter(AppDatabase appDatabase) {
-        mProductTypeDao = appDatabase.toProductType();
+    public SelectMeasureTypePresenter(AppDatabase appDatabase) {
+        mMeasureTypeDao = appDatabase.toMeasureType();
         mProductDao = appDatabase.toProduct();
-        mProductTypeMapper = new ProductTypeModelMapper();
+        mMeasureTypeMapper = new MeasureTypeModelMapper();
     }
 
     @Override
     public void loadTypes(String productName) {
         getView().showProgress();
         getCompositeDisposable().add(
-                mProductTypeDao.getAll()
-                        .map(mProductTypeMapper::map)
-                        .map(productTypeModels -> setPresetType(productTypeModels, productName))
+                mMeasureTypeDao.getAll()
+                        .map(mMeasureTypeMapper::map)
+                        .map(measureTypeModels -> setPresetType(measureTypeModels, productName))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(productTypeModels -> {
+                        .subscribe(measureTypeModels -> {
                             getView().hideProgress();
-                            getView().onDataLoaded(productTypeModels);
+                            getView().onDataLoaded(measureTypeModels);
                         }, error -> {
                             getView().hideProgress();
                             super.onError(error);
@@ -45,13 +45,13 @@ public class SelectProductTypePresenter extends SelectProductTypeContract.Presen
         );
     }
 
-    private List<ProductTypeModel> setPresetType(List<ProductTypeModel> typeModels, String productName) {
+    private List<MeasureTypeModel> setPresetType(List<MeasureTypeModel> typeModels, String productName) {
         String presetType = getPresetType(productName);
         if (presetType.isEmpty()) {
             return typeModels;
         }
 
-        for (ProductTypeModel typeModel : typeModels) {
+        for (MeasureTypeModel typeModel : typeModels) {
             String typeName = typeModel.getName();
             typeModel.setChecked(presetType.equals(typeName));
         }
@@ -60,16 +60,16 @@ public class SelectProductTypePresenter extends SelectProductTypeContract.Presen
 
     private String getPresetType(String productName) {
         Product product = mProductDao.getByName(productName);
-        return (product.getProductType() == null) ? "" : product.getProductType();
+        return (product.getMeasureType() == null) ? "" : product.getMeasureType();
     }
 
     @Override
-    public void setType(String productName, String selectedProductType) {
+    public void setType(String productName, String selectedMeasureType) {
         getView().showProgress();
         getCompositeDisposable().add(
                 Observable.fromCallable(() -> mProductDao.getByName(productName))
                         .flatMapCompletable(product -> {
-                            product.setProductType(selectedProductType);
+                            product.setMeasureType(selectedMeasureType);
                             return Completable.fromAction(() -> mProductDao.update(product));
                         })
                         .subscribeOn(Schedulers.io())

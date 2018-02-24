@@ -17,27 +17,27 @@ import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
-import com.akhutornoy.shoppinglist.createproduct.adapter.SelectProductTypeAdapter;
-import com.akhutornoy.shoppinglist.createproduct.contract.SelectProductTypeContract;
-import com.akhutornoy.shoppinglist.createproduct.model.ProductTypeModel;
-import com.akhutornoy.shoppinglist.createproduct.presenter.SelectProductTypePresenter;
+import com.akhutornoy.shoppinglist.createproduct.adapter.SelectMeasureTypeAdapter;
+import com.akhutornoy.shoppinglist.createproduct.contract.SelectMeasureTypeContract;
+import com.akhutornoy.shoppinglist.createproduct.model.MeasureTypeModel;
+import com.akhutornoy.shoppinglist.createproduct.presenter.SelectMeasureTypePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.manageproducttypes.activity.ManageProductTypesActivity;
+import com.akhutornoy.shoppinglist.managemeasuretypes.activity.ManageMeasureTypesActivity;
 
 import java.util.List;
 
-public class SelectProductTypeFragment extends BaseStepNavigationFragment implements SelectProductTypeContract.View {
+public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implements SelectMeasureTypeContract.View {
     private static final String ARG_PRODUCT_NAME = "ARG_PRODUCT_NAME";
 
-    private SelectProductTypeContract.Presenter mPresenter;
-    private SelectProductTypeAdapter mAdapter;
+    private SelectMeasureTypeContract.Presenter mPresenter;
+    private SelectMeasureTypeAdapter mAdapter;
 
     private MenuItem mMenuAdd;
 
     public static Fragment newInstance(String name) {
         Bundle bundle = new Bundle();
         bundle.putString(ARG_PRODUCT_NAME, name);
-        SelectProductTypeFragment fragment = new SelectProductTypeFragment();
+        SelectMeasureTypeFragment fragment = new SelectMeasureTypeFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -46,7 +46,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new SelectProductTypePresenter(AppDatabase.getInstance(getContext()));
+        mPresenter = new SelectMeasureTypePresenter(AppDatabase.getInstance(getContext()));
         setHasOptionsMenu(true);
         initViews(view);
         return view;
@@ -61,7 +61,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     @Override
     @LayoutRes
     protected int getFragmentLayoutId() {
-        return R.layout.fragment_select_product_type;
+        return R.layout.fragment_select_measure_type;
     }
 
     @Override
@@ -79,14 +79,14 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_add_or_edit) {
-            showCreateProductTypeScreen();
+            showCreateMeasureTypeScreen();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void showCreateProductTypeScreen() {
-        getActivity().startActivity(ManageProductTypesActivity.createIntent(getActivity()));
+    private void showCreateMeasureTypeScreen() {
+        getActivity().startActivity(ManageMeasureTypesActivity.createIntent(getActivity()));
     }
 
     private void initTextViewInfo(View view) {
@@ -114,7 +114,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
                 LinearLayout.VERTICAL);
         rvProducts.addItemDecoration(dividerItemDecoration);
-        mAdapter = new SelectProductTypeAdapter();
+        mAdapter = new SelectMeasureTypeAdapter();
         rvProducts.setAdapter(mAdapter);
     }
 
@@ -131,7 +131,7 @@ public class SelectProductTypeFragment extends BaseStepNavigationFragment implem
     }
 
     @Override
-    public void onDataLoaded(List<ProductTypeModel> types) {
+    public void onDataLoaded(List<MeasureTypeModel> types) {
         mAdapter.setTypes(types);
     }
 

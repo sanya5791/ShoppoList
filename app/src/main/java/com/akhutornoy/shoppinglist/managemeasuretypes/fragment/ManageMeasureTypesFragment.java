@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.manageproducttypes.fragment;
+package com.akhutornoy.shoppinglist.managemeasuretypes.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,23 +14,23 @@ import com.akhutornoy.shoppinglist.base.fragment.BaseManageItemsFragment;
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.manageproducttypes.contract.ManageProductTypesContract;
-import com.akhutornoy.shoppinglist.manageproducttypes.presenter.ManageProductTypesPresenter;
+import com.akhutornoy.shoppinglist.managemeasuretypes.contract.ManageMeasureTypesContract;
+import com.akhutornoy.shoppinglist.managemeasuretypes.presenter.ManageMeasureTypesPresenter;
 
-public class ManageProductTypesFragment extends BaseManageItemsFragment<ItemModel>
-                                implements ManageProductTypesContract.View {
+public class ManageMeasureTypesFragment extends BaseManageItemsFragment<ItemModel>
+                                implements ManageMeasureTypesContract.View {
 
     private static final int NEW_TYPE_DIALOG_MAX_INPUT_LENGTH = 3;
 
-    private ManageProductTypesContract.Presenter mPresenter;
+    private ManageMeasureTypesContract.Presenter mPresenter;
 
     public static Fragment newInstance() {
-        return new ManageProductTypesFragment();
+        return new ManageMeasureTypesFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mPresenter = new ManageProductTypesPresenter(AppDatabase.getInstance(getActivity()));
+        mPresenter = new ManageMeasureTypesPresenter(AppDatabase.getInstance(getActivity()));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

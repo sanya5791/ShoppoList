@@ -2,12 +2,12 @@ package com.akhutornoy.shoppinglist.createproduct.model;
 
 import android.support.annotation.NonNull;
 
-public class ProductTypeModel {
+public class MeasureTypeModel {
     private int mSortNumber;
     private String mName;
     private boolean mIsChecked;
 
-    public ProductTypeModel(@NonNull String name, int sortNumber) {
+    public MeasureTypeModel(@NonNull String name, int sortNumber) {
         mName = name;
         mSortNumber = sortNumber;
     }
@@ -33,7 +33,7 @@ public class ProductTypeModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProductTypeModel that = (ProductTypeModel) o;
+        MeasureTypeModel that = (MeasureTypeModel) o;
 
         return mName.equals(that.mName);
     }

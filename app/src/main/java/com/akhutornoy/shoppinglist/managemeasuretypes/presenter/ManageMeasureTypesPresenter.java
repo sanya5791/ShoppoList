@@ -1,23 +1,23 @@
-package com.akhutornoy.shoppinglist.manageproducttypes.presenter;
+package com.akhutornoy.shoppinglist.managemeasuretypes.presenter;
 
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.domain.ProductType;
-import com.akhutornoy.shoppinglist.domain.ProductTypeDao;
-import com.akhutornoy.shoppinglist.manageproducttypes.contract.ManageProductTypesContract;
-import com.akhutornoy.shoppinglist.manageproducttypes.mapper.ItemModelMapper;
+import com.akhutornoy.shoppinglist.domain.MeasureType;
+import com.akhutornoy.shoppinglist.domain.MeasureTypeDao;
+import com.akhutornoy.shoppinglist.managemeasuretypes.contract.ManageMeasureTypesContract;
+import com.akhutornoy.shoppinglist.managemeasuretypes.mapper.ItemModelMapper;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ManageProductTypesPresenter extends ManageProductTypesContract.Presenter {
-    private ProductTypeDao mDbProductType;
+public class ManageMeasureTypesPresenter extends ManageMeasureTypesContract.Presenter {
+    private MeasureTypeDao mDbMeasureType;
     private ItemModelMapper mItemModelMapper;
 
-    public ManageProductTypesPresenter(AppDatabase appDatabase) {
-        mDbProductType = appDatabase.toProductType();
+    public ManageMeasureTypesPresenter(AppDatabase appDatabase) {
+        mDbMeasureType = appDatabase.toMeasureType();
         mItemModelMapper = new ItemModelMapper();
     }
 
@@ -25,7 +25,7 @@ public class ManageProductTypesPresenter extends ManageProductTypesContract.Pres
     public void loadItems() {
         getView().showProgress();
         getCompositeDisposable().add(
-                mDbProductType.getAll()
+                mDbMeasureType.getAll()
                         .map(shops -> mItemModelMapper.map(shops))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -41,10 +41,10 @@ public class ManageProductTypesPresenter extends ManageProductTypesContract.Pres
     }
 
     @Override
-    public void addNew(String productType) {
+    public void addNew(String measureType) {
         getView().showProgress();
         getCompositeDisposable().add(
-                Completable.fromAction(() -> mDbProductType.insertNew(new ProductType(productType)))
+                Completable.fromAction(() -> mDbMeasureType.insertNew(new MeasureType(measureType)))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> {
@@ -58,12 +58,12 @@ public class ManageProductTypesPresenter extends ManageProductTypesContract.Pres
     }
 
     @Override
-    public void delete(ItemModel productType) {
+    public void delete(ItemModel measureType) {
         getView().showProgress();
         getCompositeDisposable().add(
-                Observable.fromCallable(() -> mItemModelMapper.mapInverse(productType))
-                        .flatMapCompletable(productTypeDb -> Completable.fromAction(
-                                () -> mDbProductType.delete(productTypeDb)))
+                Observable.fromCallable(() -> mItemModelMapper.mapInverse(measureType))
+                        .flatMapCompletable(measureTypeDb -> Completable.fromAction(
+                                () -> mDbMeasureType.delete(measureTypeDb)))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {

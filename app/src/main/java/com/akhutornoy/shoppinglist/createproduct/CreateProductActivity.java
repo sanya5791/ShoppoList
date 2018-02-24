@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.createproduct.fragment.SelectProductTypeFragment;
+import com.akhutornoy.shoppinglist.createproduct.fragment.SelectMeasureTypeFragment;
 import com.akhutornoy.shoppinglist.createproduct.fragment.InShopsAvailableFragment;
 import com.akhutornoy.shoppinglist.createproduct.fragment.ProductDefaultQuantityFragment;
 import com.akhutornoy.shoppinglist.createproduct.fragment.CreateProductNameFragment;
@@ -122,7 +122,7 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
             case 1:
                 return CreateProductNameFragment.newInstance();
             case 2:
-                return SelectProductTypeFragment.newInstance(mNewName);
+                return SelectMeasureTypeFragment.newInstance(mNewName);
             case 3:
                 return ProductDefaultQuantityFragment.newInstance();
             case 4:

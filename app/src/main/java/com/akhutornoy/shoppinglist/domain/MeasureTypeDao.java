@@ -11,16 +11,16 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 @Dao
-public interface ProductTypeDao {
-    @Query("SELECT * FROM ProductType")
-    Flowable<List<ProductType>> getAll();
+public interface MeasureTypeDao {
+    @Query("SELECT * FROM MeasureType")
+    Flowable<List<MeasureType>> getAll();
 
     @Insert
-    void insertNew(ProductType productType);
+    void insertNew(MeasureType measureType);
 
     @Delete
-    void delete(ProductType productType);
+    void delete(MeasureType measureType);
 
     @Update
-    void update(ProductType... productType);
+    void update(MeasureType... measureType);
 }

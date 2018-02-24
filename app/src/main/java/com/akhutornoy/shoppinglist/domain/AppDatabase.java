@@ -8,7 +8,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@android.arch.persistence.room.Database(entities = {ToBuy.class, Shop.class, Product.class, ProductType.class}, version = 4)
+@android.arch.persistence.room.Database(entities = {ToBuy.class, Shop.class, Product.class, MeasureType.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
@@ -16,12 +16,12 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ToBuyDao toBuy();
     public abstract ShopDao toShop();
     public abstract ProductDao toProduct();
-    public abstract ProductTypeDao toProductType();
+    public abstract MeasureTypeDao toMeasureType();
 
     private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE 'ProductType' "
+            database.execSQL("CREATE TABLE 'MeasureType' "
                     + "('name' TEXT NOT NULL, "
                     + "'sortNumber' INTEGER NOT NULL, "
                     + "PRIMARY KEY('name'))");

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="1"
     android:layout_marginBottom="@dimen/margin_medium"
-    tools:context="com.akhutornoy.shoppinglist.createproduct.fragment.SelectProductTypeFragment">
+    tools:context="com.akhutornoy.shoppinglist.createproduct.fragment.SelectMeasureTypeFragment">
 
     <TextView
         android:id="@+id/tv_info"

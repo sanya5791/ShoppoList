@@ -8,25 +8,25 @@ import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.ValueCallback;
-import com.akhutornoy.shoppinglist.createproduct.model.ProductTypeModel;
+import com.akhutornoy.shoppinglist.createproduct.model.MeasureTypeModel;
 
 import java.util.List;
 
-public class SelectProductTypeAdapter extends RecyclerView.Adapter<SelectProductTypeAdapter.ProductViewHolder> {
+public class SelectMeasureTypeAdapter extends RecyclerView.Adapter<SelectMeasureTypeAdapter.ViewHolder> {
 
-    private List<ProductTypeModel> mTypes;
+    private List<MeasureTypeModel> mTypes;
     private int mSelectedTypeIndex;
 
     @Override
-    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_add_type, parent, false);
-        return new ProductViewHolder(view, this::onTypeSelected);
+        return new ViewHolder(view, this::onTypeSelected);
     }
 
-    private void onTypeSelected(ProductTypeModel selectedType) {
+    private void onTypeSelected(MeasureTypeModel selectedType) {
         for (int i = 0; i < mTypes.size(); i++) {
-            ProductTypeModel type = mTypes.get(i);
+            MeasureTypeModel type = mTypes.get(i);
             if (type.equals(selectedType)) {
                 mSelectedTypeIndex = i;
                 type.setChecked(true);
@@ -38,7 +38,7 @@ public class SelectProductTypeAdapter extends RecyclerView.Adapter<SelectProduct
     }
 
     @Override
-    public void onBindViewHolder(ProductViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bind(mTypes.get(position));
     }
 
@@ -47,26 +47,26 @@ public class SelectProductTypeAdapter extends RecyclerView.Adapter<SelectProduct
         return mTypes != null ? mTypes.size() : 0;
     }
 
-    public void setTypes(List<ProductTypeModel> types) {
+    public void setTypes(List<MeasureTypeModel> types) {
         this.mTypes = types;
         notifyDataSetChanged();
     }
 
-    public ProductTypeModel getSelectedType() {
+    public MeasureTypeModel getSelectedType() {
         return mTypes.get(mSelectedTypeIndex);
     }
 
-    static class ProductViewHolder extends RecyclerView.ViewHolder {
-        private ValueCallback<ProductTypeModel> mCallback;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private ValueCallback<MeasureTypeModel> mCallback;
         private TextView mTvUnit;
 
-        private ProductViewHolder(View view, ValueCallback<ProductTypeModel> listener) {
+        private ViewHolder(View view, ValueCallback<MeasureTypeModel> listener) {
             super(view);
             mCallback = listener;
             mTvUnit = view.findViewById(R.id.tv_unit);
         }
 
-        private void bind(ProductTypeModel type) {
+        private void bind(MeasureTypeModel type) {
             mTvUnit.setText(type.getName());
             mTvUnit.setCompoundDrawablesWithIntrinsicBounds(type.isChecked() ? android.R.drawable.presence_online : 0,
                     0, 0, 0);

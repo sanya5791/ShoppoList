@@ -4,12 +4,12 @@ import android.arch.persistence.room.Entity;
 import android.support.annotation.NonNull;
 
 @Entity(primaryKeys = "name")
-public class ProductType {
+public class MeasureType {
     @NonNull
     private String name;
     private int sortNumber;
 
-    public ProductType(@NonNull String name) {
+    public MeasureType(@NonNull String name) {
         this.name = name;
     }
 
