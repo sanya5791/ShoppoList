@@ -16,4 +16,10 @@ public interface ToBuyDao {
 
     @Insert
     void insertNew(ToBuy item);
+
+    @Insert
+    void insertNew(List<ToBuy> items);
+
+    @Query("DELETE FROM ToBuy")
+    void deleteAll();
 }

@@ -54,7 +54,12 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
     }
 
     private void initAddButton(View view) {
-        view.findViewById(R.id.bt_add).setOnClickListener(v -> getActivity().finish());
+        view.findViewById(R.id.bt_add).setOnClickListener(v -> onAddButtonClicked());
+    }
+
+    private void onAddButtonClicked() {
+        List<AddProductModel> selectedProducts = mAdapter.getSelected();
+        mPresenter.saveSelectedProducts(selectedProducts);
     }
 
     private void initProductsList(View view) {
@@ -87,5 +92,10 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
     @Override
     public void onError(String errorMsg) {
         Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finishScreen() {
+        getActivity().finish();
     }
 }

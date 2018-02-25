@@ -2,6 +2,7 @@ package com.akhutornoy.shoppinglist.domain;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -19,7 +20,14 @@ public class Product {
     private String measureType;
 
     public Product(@NonNull String name) {
+        this(name, null, null);
+    }
+
+    @Ignore
+    public Product(@NonNull String name, @Nullable String defaultQuantity, @Nullable String measureType) {
         this.name = name;
+        this.defaultQuantity = defaultQuantity;
+        this.measureType = measureType;
     }
 
     public String getName() {

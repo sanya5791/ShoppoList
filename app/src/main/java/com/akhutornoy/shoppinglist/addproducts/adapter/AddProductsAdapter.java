@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.model.AddProductModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.ProductViewHolder> {
@@ -41,6 +42,16 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
     public void setProducts(List<AddProductModel> products) {
         this.mProducts = products;
         notifyDataSetChanged();
+    }
+
+    public List<AddProductModel> getSelected() {
+        List<AddProductModel> selectedProducts = new ArrayList<>();
+        for (AddProductModel product : mProducts) {
+            if (product.isAdded()) {
+                selectedProducts.add(product);
+            }
+        }
+        return selectedProducts;
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
