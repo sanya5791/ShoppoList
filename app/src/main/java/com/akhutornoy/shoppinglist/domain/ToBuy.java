@@ -11,11 +11,13 @@ public class ToBuy {
     private String unit;
     private String quantity;
     private boolean isBought;
+    private String shopName;
 
-    public ToBuy(String name, String unit, String quantity) {
+    public ToBuy(@NonNull String name, @NonNull String unit, String quantity, String shopName) {
         this.name = name;
         this.unit = unit;
         this.quantity = quantity;
+        this.shopName = shopName;
     }
 
     public String getName() {
@@ -48,5 +50,13 @@ public class ToBuy {
 
     public void setBought(boolean bought) {
         isBought = bought;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 }

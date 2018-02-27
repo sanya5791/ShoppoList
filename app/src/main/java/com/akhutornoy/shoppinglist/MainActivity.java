@@ -17,19 +17,18 @@ import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
+import com.akhutornoy.shoppinglist.base.activity.ToolbarTitle;
 import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
 import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
 public class MainActivity extends BaseToolbarActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnManageShopsClickListener  {
-
-    private View mContentView;
+        implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnManageShopsClickListener,
+                    ToolbarTitle {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContentView = findViewById(android.R.id.content);
         initNavigationDrawer(getToolbar());
         initAddProductFab();
         showShopsFragment();
@@ -121,5 +120,15 @@ public class MainActivity extends BaseToolbarActivity
     @Override
     public void onManageShopsClick() {
         startActivity(ManageShopsActivity.createIntent(this));
+    }
+
+    @Override
+    public void setToolbarTitle(String title) {
+        super.setToolbarTitle(title);
+    }
+
+    @Override
+    public void setToolbarSubTitle(String subTitle) {
+        super.setToolbarSubTitle(subTitle);
     }
 }

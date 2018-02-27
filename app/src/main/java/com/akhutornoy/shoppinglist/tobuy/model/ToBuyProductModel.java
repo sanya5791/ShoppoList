@@ -4,10 +4,12 @@ import com.akhutornoy.shoppinglist.base.ProductModel;
 
 public class ToBuyProductModel extends ProductModel {
     private boolean mIsBought;
+    private String mShopName;
 
     private ToBuyProductModel(Builder builder) {
         super(builder);
         mIsBought = builder.mIsBought;
+        mShopName = builder.mShopName;
     }
 
     public void setIsBought(boolean bought) {
@@ -18,8 +20,13 @@ public class ToBuyProductModel extends ProductModel {
         return mIsBought;
     }
 
+    public String getmShopName() {
+        return mShopName;
+    }
+
     public static class Builder extends ProductModel.Builder {
         private boolean mIsBought;
+        private String mShopName;
 
         public Builder setId(String id) {
             super.setId(id);
@@ -43,6 +50,11 @@ public class ToBuyProductModel extends ProductModel {
 
         public Builder setIsBought(boolean isBought) {
             this.mIsBought = isBought;
+            return this;
+        }
+
+        public Builder setShopName(String shopName) {
+            this.mShopName = shopName;
             return this;
         }
 

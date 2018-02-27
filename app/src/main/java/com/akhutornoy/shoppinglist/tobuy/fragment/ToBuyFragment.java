@@ -1,9 +1,9 @@
 package com.akhutornoy.shoppinglist.tobuy.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.base.activity.ToolbarTitle;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.tobuy.adapter.ToBuyProductsAdapter;
@@ -27,9 +28,20 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
 
     private ToBuyProductsContract.Presenter mPresenter;
     private ToBuyProductsAdapter mProductsAdapter;
+    private ToolbarTitle mToolbarTitle;
 
     public static Fragment newInstance() {
         return new ToBuyFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ToolbarTitle) {
+            mToolbarTitle = (ToolbarTitle) context;
+        } else {
+            throw new IllegalArgumentException("Host Activity for fragment should implement " + ToolbarTitle.class.getSimpleName());
+        }
     }
 
     @Override
@@ -68,7 +80,15 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
 
     @Override
     public void onDataLoaded(List<ToBuyProductModel> products) {
+        setToolbarSubTitle(products);
         mProductsAdapter.setProducts(products);
+    }
+
+    private void setToolbarSubTitle(List<ToBuyProductModel> products) {
+        if (!products.isEmpty()) {
+            String shopName = products.get(0).getmShopName();
+            mToolbarTitle.setToolbarSubTitle(shopName);
+        }
     }
 
     @Override

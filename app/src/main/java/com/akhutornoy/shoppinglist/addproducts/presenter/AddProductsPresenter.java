@@ -14,6 +14,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -63,8 +64,11 @@ public class AddProductsPresenter extends AddProductsContract.Presenter {
         Completable.fromAction(() -> mDbToBuy.deleteAll())
                 .andThen(Observable.fromIterable(selectedProducts))
                 .map(addProductModel -> mDbProduct.getByName(addProductModel.getName()))
-                .map(mToBuyMapper::map)
                 .toList()
+                .zipWith(Single.fromCallable(() -> mDbCurrentShop.get()), (products, currentShop) -> {
+                    mToBuyMapper.setShopName(currentShop);
+                    return mToBuyMapper.map(products);
+                })
                 .flatMapCompletable(toBuys ->
                         Completable.fromAction(() -> mDbToBuy.insertNew(toBuys)))
                 .subscribeOn(Schedulers.io())

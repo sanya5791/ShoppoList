@@ -17,7 +17,7 @@ import android.util.Log;
             ProductInShop.class,
             CurrentShop.class
         },
-        version = 7)
+        version = 8)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;

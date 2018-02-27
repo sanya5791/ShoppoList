@@ -14,6 +14,9 @@ public interface ToBuyDao {
     @Query("SELECT * FROM ToBuy")
     Flowable<List<ToBuy>> getAll();
 
+    @Query("SELECT * FROM ToBuy WHERE shopName LIKE :shopName")
+    Flowable<List<ToBuy>> getAllByShop(String shopName);
+
     @Insert
     void insertNew(ToBuy item);
 

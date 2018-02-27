@@ -48,7 +48,15 @@ public abstract class BaseToolbarActivity extends BaseActivity {
         mActionBar.setTitle(title);
     }
 
+    protected void setToolbarTitle(String title) {
+        mActionBar.setTitle(title);
+    }
+
     protected void setToolbarSubTitle(@StringRes int subTitle) {
+        mActionBar.setSubtitle(subTitle);
+    }
+
+    protected void setToolbarSubTitle(String subTitle) {
         mActionBar.setSubtitle(subTitle);
     }
 }
