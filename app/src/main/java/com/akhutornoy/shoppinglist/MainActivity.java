@@ -6,13 +6,11 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
@@ -23,8 +21,10 @@ import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
 public class MainActivity extends BaseToolbarActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnManageShopsClickListener,
+        implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnShopsClickListener,
                     ToolbarTitle {
+
+    private DrawerLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +59,10 @@ public class MainActivity extends BaseToolbarActivity
     }
 
     private void initNavigationDrawerView(Toolbar toolbar) {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        mDrawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -77,7 +77,7 @@ public class MainActivity extends BaseToolbarActivity
     }
 
     private void showSettingsScreen() {
-
+        Toast.makeText(this, "Not Implemented", Toast.LENGTH_SHORT).show();
     }
 
     private void initAddProductFab() {
@@ -102,9 +102,8 @@ public class MainActivity extends BaseToolbarActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            closeDrawer();
         } else {
             super.onBackPressed();
         }
@@ -112,14 +111,22 @@ public class MainActivity extends BaseToolbarActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        closeDrawer();
         return true;
     }
 
     @Override
     public void onManageShopsClick() {
         startActivity(ManageShopsActivity.createIntent(this));
+    }
+
+    @Override
+    public void onShopClick() {
+        closeDrawer();
+    }
+
+    private void closeDrawer() {
+        mDrawer.closeDrawer(GravityCompat.START);
     }
 
     @Override

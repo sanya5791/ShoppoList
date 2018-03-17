@@ -24,10 +24,11 @@ import java.util.List;
 public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     private ShopsContract.Presenter mPresenter;
     private ShopsAdapter mShopsAdapter;
-    private OnManageShopsClickListener mOnManageShopsCallback;
+    private OnShopsClickListener mOnShopsCallback;
 
-    public interface OnManageShopsClickListener {
+    public interface OnShopsClickListener {
         void onManageShopsClick();
+        void onShopClick();
     }
 
     public static ShopsFragment newInstance() {
@@ -37,10 +38,10 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnManageShopsClickListener) {
-            mOnManageShopsCallback = (OnManageShopsClickListener) context;
+        if (context instanceof OnShopsClickListener) {
+            mOnShopsCallback = (OnShopsClickListener) context;
         } else {
-            throw new IllegalArgumentException("Host Activity for fragment should implement " + OnManageShopsClickListener.class.getSimpleName());
+            throw new IllegalArgumentException("Host Activity for fragment should implement " + OnShopsClickListener.class.getSimpleName());
         }
     }
 
@@ -56,7 +57,7 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
 
     private void initManageShopsButton(View view) {
         view.findViewById(R.id.iv_manage_shops).setOnClickListener(v ->
-                mOnManageShopsCallback.onManageShopsClick());
+                mOnShopsCallback.onManageShopsClick());
     }
 
     @Override
@@ -97,7 +98,7 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
 
     @Override
     public void setCurrentShop(ShopModel currentShop) {
-
+        mOnShopsCallback.onShopClick();
     }
 
     @Override
