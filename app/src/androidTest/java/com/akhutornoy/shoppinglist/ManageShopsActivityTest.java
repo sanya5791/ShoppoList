@@ -28,8 +28,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.akhutornoy.shoppinglist.utils.TestUtils.actionOnItemViewAtPosition;
-import static com.akhutornoy.shoppinglist.utils.TestUtils.withRecyclerView;
+import static com.akhutornoy.shoppinglist.util.TestUtils.actionOnItemViewAtPosition;
+import static com.akhutornoy.shoppinglist.util.TestUtils.withRecyclerView;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest

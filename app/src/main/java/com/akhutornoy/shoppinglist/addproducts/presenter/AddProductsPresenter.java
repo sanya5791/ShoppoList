@@ -61,24 +61,24 @@ public class AddProductsPresenter extends AddProductsContract.Presenter {
     @Override
     public void saveSelectedProducts(List<AddProductModel> selectedProducts) {
         getView().showProgress();
-        Completable.fromAction(() -> mDbToBuy.deleteAll())
-                .andThen(Observable.fromIterable(selectedProducts))
-                .map(addProductModel -> mDbProduct.getByName(addProductModel.getName()))
-                .toList()
-                .zipWith(Single.fromCallable(() -> mDbCurrentShop.get()), (products, currentShop) -> {
-                    mToBuyMapper.setShopName(currentShop);
-                    return mToBuyMapper.map(products);
-                })
-                .flatMapCompletable(toBuys ->
-                        Completable.fromAction(() -> mDbToBuy.insertNew(toBuys)))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {
-                    getView().hideProgress();
-                    getView().finishScreen();
-                }, error -> {
-                    getView().hideProgress();
-                    onError(error);
-                });
+        getCompositeDisposable().add(
+                Completable.fromAction(() -> mDbToBuy.deleteAll())
+                        .andThen(Single.fromCallable( () -> mDbCurrentShop.get()))
+                        .map(currentShop -> {
+                            mToBuyMapper.setShopName(currentShop);
+                            return mToBuyMapper.map(selectedProducts);
+                        })
+                        .flatMapCompletable(toBuys ->
+                                Completable.fromAction(() -> mDbToBuy.insertNew(toBuys)))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+                            getView().hideProgress();
+                            getView().finishScreen();
+                        }, error -> {
+                            getView().hideProgress();
+                            onError(error);
+                        })
+        );
     }
 }

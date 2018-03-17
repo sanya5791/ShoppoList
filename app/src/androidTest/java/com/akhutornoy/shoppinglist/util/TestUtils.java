@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.utils;
+package com.akhutornoy.shoppinglist.util;
 
 import android.support.annotation.IdRes;
 import android.support.test.espresso.PerformException;

@@ -19,14 +19,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.ProductViewHolder> {
-
+    private final OnEditQuantityListener mCallback;
     private List<AddProductModel> mProducts;
+
+    public AddProductsAdapter(OnEditQuantityListener onEditQuantityListener) {
+        this.mCallback = onEditQuantityListener;
+    }
+
+    public interface OnEditQuantityListener {
+        void onEditQuantityListener(AddProductModel addProductModel);
+    }
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_to_buy_product, parent, false);
-        return new ProductViewHolder(view);
+        return new ProductViewHolder(view, mCallback);
     }
 
     @Override
@@ -44,6 +52,18 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
         notifyDataSetChanged();
     }
 
+    public void updateProductQuantity(AddProductModel newItem) {
+        for (int i = 0; i < mProducts.size(); i++) {
+            AddProductModel item = mProducts.get(i);
+            if (item.getName().equals(newItem.getName())) {
+                item.setQuantity(item.getQuantity());
+                notifyItemChanged(i);
+                return;
+            }
+        }
+        throw new IllegalArgumentException(String.format("Can't find %s in list to update", newItem));
+    }
+
     public List<AddProductModel> getSelected() {
         List<AddProductModel> selectedProducts = new ArrayList<>();
         for (AddProductModel product : mProducts) {
@@ -55,12 +75,14 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
+        private final OnEditQuantityListener mCallback;
         private AppCompatCheckBox mCbIsBought;
         private TextView mTvUnit;
         private TextView mTvQuantity;
 
-        private ProductViewHolder(View view) {
+        private ProductViewHolder(View view, OnEditQuantityListener onEditQuantityListener) {
             super(view);
+            mCallback = onEditQuantityListener;
             mCbIsBought = view.findViewById(R.id.checkbox);
             mTvUnit = view.findViewById(R.id.tv_unit);
             mTvQuantity = view.findViewById(R.id.tv_quantity);
@@ -69,6 +91,14 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
         private void bind(AddProductModel product) {
             mTvUnit.setText(product.getUnit());
             mTvQuantity.setText(product.getQuantity());
+
+            View.OnClickListener editQuantityListener = v -> {
+                if (mCbIsBought.isChecked()) {
+                    mCallback.onEditQuantityListener(product);
+                }
+            };
+            mTvUnit.setOnClickListener(editQuantityListener);
+            mTvQuantity.setOnClickListener(editQuantityListener);
 
             mCbIsBought.setChecked(product.isAdded());
             mCbIsBought.setText(product.getName(), TextView.BufferType.SPANNABLE);

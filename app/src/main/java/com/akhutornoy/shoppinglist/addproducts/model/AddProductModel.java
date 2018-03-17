@@ -18,6 +18,10 @@ public class AddProductModel extends ProductModel {
         mIsAdded = added;
     }
 
+    public void setQuantity(String quantity) {
+        mQuantity = quantity;
+    }
+
     public static class Builder extends ProductModel.Builder {
         private boolean mIsAdded;
 

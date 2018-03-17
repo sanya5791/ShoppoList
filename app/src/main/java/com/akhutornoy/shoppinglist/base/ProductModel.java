@@ -1,10 +1,10 @@
 package com.akhutornoy.shoppinglist.base;
 
 public class ProductModel {
-    private String mId;
-    private String mName;
-    private String mUnit;
-    private String mQuantity;
+    protected String mId;
+    protected String mName;
+    protected String mUnit;
+    protected String mQuantity;
 
     protected ProductModel(Builder builder) {
         mId = builder.id;

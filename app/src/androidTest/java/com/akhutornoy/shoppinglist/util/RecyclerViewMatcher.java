@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.utils;
+package com.akhutornoy.shoppinglist.util;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;

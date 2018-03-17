@@ -3,6 +3,7 @@ package com.akhutornoy.shoppinglist.addproducts.fragment;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.akhutornoy.shoppinglist.addproducts.presenter.AddProductsPresenter;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
+import com.akhutornoy.shoppinglist.util.ui.AlertDialogUtils;
 
 import java.util.List;
 
@@ -68,8 +70,25 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
                 LinearLayout.VERTICAL);
         rvProducts.addItemDecoration(dividerItemDecoration);
-        mAdapter = new AddProductsAdapter();
+        mAdapter = new AddProductsAdapter(this::onEditProductQuantity);
         rvProducts.setAdapter(mAdapter);
+    }
+
+    private void onEditProductQuantity(AddProductModel addProductModel) {
+        AlertDialog.Builder builder = AlertDialogUtils.getNumberWithSuffixDialog(
+                getActivity(),
+                addProductModel.getUnit(),
+                newValue -> onNewQuantityEntered(addProductModel, newValue));
+
+        builder.setMessage(getString(R.string.quantity_for, addProductModel.getName()))
+                .show();
+    }
+
+    private void onNewQuantityEntered(AddProductModel addProductModel, String value) {
+        if (!value.isEmpty()) {
+            addProductModel.setQuantity(value);
+            mAdapter.updateProductQuantity(addProductModel);
+        }
     }
 
     @Override

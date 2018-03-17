@@ -25,7 +25,8 @@ import com.akhutornoy.shoppinglist.base.model.ItemModel;
 
 import java.util.List;
 
-import static com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter.*;
+import static com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter.Mode;
+import static com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter.OnItemClickListener;
 
 public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseFragment
         implements BaseManageItemsContract.View<T> {
