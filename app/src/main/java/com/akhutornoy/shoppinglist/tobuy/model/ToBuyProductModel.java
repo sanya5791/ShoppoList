@@ -20,7 +20,7 @@ public class ToBuyProductModel extends ProductModel {
         return mIsBought;
     }
 
-    public String getmShopName() {
+    public String getShopName() {
         return mShopName;
     }
 

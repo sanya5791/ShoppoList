@@ -86,7 +86,7 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
 
     private void setToolbarSubTitle(List<ToBuyProductModel> products) {
         if (!products.isEmpty()) {
-            String shopName = products.get(0).getmShopName();
+            String shopName = products.get(0).getShopName();
             mToolbarTitle.setToolbarSubTitle(shopName);
         }
     }
