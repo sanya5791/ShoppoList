@@ -4,13 +4,17 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <!--Simple words-->
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="shops">Shops</string>
     <string name="add">Add</string>
     <string name="next">Next</string>
     <string name="name">Name</string>
+    <string name="done">Done</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="resort">Resort</string>
 
     <string name="title_to_by_list">Shopping List</string>
     <string name="title_add_products">Select Products</string>
@@ -31,12 +35,8 @@
     <string name="create_product_subtitle_step_2">Set Quantity Type</string>
     <string name="create_product_subtitle_step_3">Set Default Quantity</string>
     <string name="create_product_subtitle_step_4">Select Shops</string>
-    <string name="done">Done</string>
     <string name="title_manage_shops">Manage Shops List</string>
     <string name="title_manage_product_types">Manage Product Types</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="resort">Resort</string>
     <string name="title_new_item_name">New Item Name</string>
     <string name="title_new_shop_name">New Shop Name</string>
     <string name="title_new_product_type">New Product Type</string>

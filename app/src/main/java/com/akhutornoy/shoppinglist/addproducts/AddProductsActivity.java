@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment;
@@ -21,7 +23,6 @@ public class AddProductsActivity extends BaseToolbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initFab();
         showAddProductsScreen();
     }
 
@@ -43,9 +44,20 @@ public class AddProductsActivity extends BaseToolbarActivity {
         return R.id.fragment_container;
     }
 
-    private void initFab() {
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(v -> showNewProductScreen());
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_add, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_add_or_edit) {
+            showNewProductScreen();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void showNewProductScreen() {

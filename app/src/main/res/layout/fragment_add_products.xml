@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/colorPrimary"
-        android:text="@string/add"/>
+        android:text="@string/done"/>
 
 </LinearLayout>
