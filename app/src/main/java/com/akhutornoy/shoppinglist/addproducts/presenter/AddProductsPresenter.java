@@ -62,8 +62,8 @@ public class AddProductsPresenter extends AddProductsContract.Presenter {
     public void saveSelectedProducts(List<AddProductModel> selectedProducts) {
         getView().showProgress();
         getCompositeDisposable().add(
-                Completable.fromAction(() -> mDbToBuy.deleteAll())
-                        .andThen(Single.fromCallable( () -> mDbCurrentShop.get()))
+                Single.fromCallable(() -> mDbCurrentShop.get())
+                        .doOnSuccess(mDbToBuy::deleteAllByShop)
                         .map(currentShop -> {
                             mToBuyMapper.setShopName(currentShop);
                             return mToBuyMapper.map(selectedProducts);

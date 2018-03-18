@@ -18,7 +18,7 @@ public interface ToBuyDao {
     Flowable<List<ToBuy>> getAllByShop(String shopName);
 
     @Query("SELECT ToBuy.* FROM ToBuy, CurrentShop WHERE ToBuy.shopName == CurrentShop.name")
-    Flowable<List<ToBuy>> getAllForCurrentShop();
+    Flowable<List<ToBuy>> getAllByCurrentShop();
 
     @Insert
     void insertNew(ToBuy item);
@@ -28,4 +28,7 @@ public interface ToBuyDao {
 
     @Query("DELETE FROM ToBuy")
     void deleteAll();
+
+    @Query("DELETE FROM ToBuy WHERE ToBuy.shopName == :shopName")
+    void deleteAllByShop(String shopName);
 }
