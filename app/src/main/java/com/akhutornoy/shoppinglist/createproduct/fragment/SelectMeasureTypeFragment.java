@@ -112,6 +112,9 @@ public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implem
     @Override
     public void onStart() {
         super.onStart();
+        if (mMenuEdit != null) {
+            mMenuEdit.setVisible(true);
+        }
         mPresenter.loadTypes(getProductName());
     }
 
