@@ -27,12 +27,11 @@ import com.akhutornoy.shoppinglist.managemeasuretypes.activity.ManageMeasureType
 import java.util.List;
 
 public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implements SelectMeasureTypeContract.View {
-    private static final String ARG_PRODUCT_NAME = "ARG_PRODUCT_NAME";
 
     private SelectMeasureTypeContract.Presenter mPresenter;
     private SelectMeasureTypeAdapter mAdapter;
 
-    private MenuItem mMenuAdd;
+    private MenuItem mMenuEdit;
 
     public static Fragment newInstance(String name) {
         Bundle bundle = new Bundle();
@@ -71,14 +70,14 @@ public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implem
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        mMenuAdd = menu.findItem(R.id.menu_add_or_edit);
-        mMenuAdd.setVisible(true);
+        mMenuEdit = menu.findItem(R.id.menu_edit);
+        mMenuEdit.setVisible(true);
         super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_add_or_edit) {
+        if (item.getItemId() == R.id.menu_edit) {
             showCreateMeasureTypeScreen();
             return true;
         }
@@ -93,10 +92,6 @@ public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implem
         TextView textView = view.findViewById(R.id.tv_info);
         String text = getResources().getString(R.string.label_set_quantity_type_of_new_product, getProductName());
         textView.setText(text);
-    }
-
-    private String getProductName() {
-        return getArgumentString(ARG_PRODUCT_NAME);
     }
 
     private void initButtonNext(View view) {
@@ -123,7 +118,7 @@ public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implem
     @Override
     public void onStop() {
         super.onStop();
-        mMenuAdd.setVisible(false);
+        mMenuEdit.setVisible(false);
     }
 
     @Override

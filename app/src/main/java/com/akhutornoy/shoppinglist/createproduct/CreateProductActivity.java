@@ -72,8 +72,9 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_add, menu);
-        menu.findItem(R.id.menu_add_or_edit).setVisible(false);
+        getMenuInflater().inflate(R.menu.menu_add_edit, menu);
+        menu.findItem(R.id.menu_add).setVisible(false);
+        menu.findItem(R.id.menu_edit).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -120,7 +121,7 @@ public class CreateProductActivity extends BaseToolbarActivity implements OnStep
     private Fragment getFragmentForStep() {
         switch (mCurrentStep) {
             case 1:
-                return CreateProductNameFragment.newInstance();
+                return CreateProductNameFragment.newInstance(mNewName);
             case 2:
                 return SelectMeasureTypeFragment.newInstance(mNewName);
             case 3:

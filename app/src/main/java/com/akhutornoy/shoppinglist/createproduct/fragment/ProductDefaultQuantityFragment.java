@@ -18,7 +18,6 @@ import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.Product;
 
 public class ProductDefaultQuantityFragment extends BaseStepNavigationFragment implements ProductDefaultQuantityContract.View {
-    private static final String ARG_PRODUCT_NAME = "ARG_PRODUCT_NAME";
 
     private ProductDefaultQuantityContract.Presenter mPresenter;
 
@@ -83,10 +82,6 @@ public class ProductDefaultQuantityFragment extends BaseStepNavigationFragment i
     public void onStart() {
         super.onStart();
         mPresenter.onDataLoad(getProductName());
-    }
-
-    private String getProductName() {
-        return getArgumentString(ARG_PRODUCT_NAME);
     }
 
     @Override

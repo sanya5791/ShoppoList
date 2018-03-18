@@ -23,8 +23,6 @@ import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import java.util.List;
 
 public class InShopsAvailableFragment extends BaseStepNavigationFragment implements InShopsAvailableContract.View {
-    private static final String ARG_PRODUCT_NAME = "ARG_PRODUCT_NAME";
-
     private InShopsAvailableContract.Presenter mPresenter;
     private InShopsAvailableAdapter mAdapter;
 
@@ -69,10 +67,6 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment impleme
         }
 
         mPresenter.saveProductInShops(getProductName(), selectedShops);
-    }
-
-    private String getProductName() {
-        return getArgumentString(ARG_PRODUCT_NAME);
     }
 
     private void showNotification(String errorMessage) {

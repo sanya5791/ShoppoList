@@ -3,6 +3,7 @@ package com.akhutornoy.shoppinglist.createproduct.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -20,15 +21,18 @@ import com.akhutornoy.shoppinglist.createproduct.presenter.CreateProductNamePres
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 
 public class CreateProductNameFragment extends BaseStepNavigationFragment implements CreateProductNameContract.View {
-
     private OnProductNameCreated mOnProductNameCreated;
 
     private CreateProductNameContract.Presenter mPresenter;
 
     private ProgressBar mProgressBar;
 
-    public static Fragment newInstance() {
-        return new CreateProductNameFragment();
+    public static Fragment newInstance(@Nullable String productName) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PRODUCT_NAME, productName);
+        Fragment fragment = new CreateProductNameFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -55,8 +59,18 @@ public class CreateProductNameFragment extends BaseStepNavigationFragment implem
     private void initViews(View view) {
         mProgressBar = view.findViewById(R.id.pb);
         EditText etName = view.findViewById(R.id.et_name);
+        etName.setText(getArguments().getString(ARG_PRODUCT_NAME));
         view.findViewById(R.id.bt_next).setOnClickListener(v ->
-                mPresenter.createName(etName.getText().toString()));
+                onNextClick(etName));
+    }
+
+    private void onNextClick(EditText etName) {
+        String newName = etName.getText().toString();
+        if (newName.isEmpty()) {
+            Toast.makeText(getActivity(), R.string.error_product_name_cant_be_empty, Toast.LENGTH_SHORT).show();
+        } else {
+            mPresenter.createName(newName);
+        }
     }
 
     @Override

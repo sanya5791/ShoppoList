@@ -44,4 +44,5 @@
     <string name="please_enter_default_quantity">Please enter default quantity</string>
     <string name="quantity_for">Quantity for %1$s:</string>
     <string name="you_should_select_at_least_one_shop">You should select at least one shop</string>
+    <string name="error_product_name_cant_be_empty">Product name can\'t be empty</string>
 </resources>
