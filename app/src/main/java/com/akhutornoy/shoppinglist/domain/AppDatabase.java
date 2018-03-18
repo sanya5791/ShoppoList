@@ -7,6 +7,10 @@ import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
+
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 
 @android.arch.persistence.room.Database(
         entities = {
@@ -19,6 +23,7 @@ import android.util.Log;
         },
         version = 8)
 public abstract class AppDatabase extends RoomDatabase {
+    private static final String TAG = "AppDatabase";
 
     private static volatile AppDatabase INSTANCE;
 
@@ -47,11 +52,29 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                 AppDatabase.class, "Database.db")
                             .addMigrations(MIGRATION_2_3)
+                            .addCallback(new Callback() {
+                                @Override
+                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                    super.onCreate(db);
+                                    prepopulateDb(context, getInstance(context));
+                                }
+                            })
                             .fallbackToDestructiveMigration()
                             .build();
                 }
             }
         }
         return INSTANCE;
+    }
+
+    private static void prepopulateDb(Context context, AppDatabase db) {
+        Completable.fromAction(() -> DefaultDbDataInflater.prepopulate(context, db))
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                    () -> {},
+                    error -> {
+                        Log.e(TAG, "prepopulateDb: ", error);
+                        Toast.makeText(context, "Error: " + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    });
     }
 }

@@ -1,0 +1,41 @@
+<resources>
+    <!--shop_all is mandatory string-->
+    <string name="shop_all">All</string>
+    <string name="shop_1">Базар</string>
+    <string name="shop_2">Супермаркет</string>
+
+    <string name="product_1">Хлеб</string>
+    <string name="product_2">Булочки</string>
+    <string name="product_3">Бананы</string>
+    <string name="product_4">Картошка</string>
+    <string name="product_5">Молоко</string>
+    <string name="product_6">Йогурты</string>
+    <string name="product_7">Творог</string>
+    <string name="product_8">Сыр</string>
+
+    <string name="product_1_default_quantity">1</string>
+    <string name="product_2_default_quantity">3</string>
+    <string name="product_3_default_quantity">1</string>
+    <string name="product_4_default_quantity">2</string>
+    <string name="product_5_default_quantity">1</string>
+    <string name="product_6_default_quantity">4</string>
+    <string name="product_7_default_quantity">1</string>
+    <string name="product_8_default_quantity">400</string>
+
+    <string name="measure_type_1">кг</string>
+    <string name="measure_type_2">гр</string>
+    <string name="measure_type_3">шт</string>
+    <string name="measure_type_4">пач</string>
+    <string name="measure_type_5">дес</string>
+    <string name="measure_type_6">л</string>
+
+    <string name="product_1_measure_type">@string/measure_type_1</string>
+    <string name="product_2_measure_type">@string/measure_type_3</string>
+    <string name="product_3_measure_type">@string/measure_type_1</string>
+    <string name="product_4_measure_type">@string/measure_type_1</string>
+    <string name="product_5_measure_type">@string/measure_type_6</string>
+    <string name="product_6_measure_type">@string/measure_type_3</string>
+    <string name="product_7_measure_type">@string/measure_type_1</string>
+    <string name="product_8_measure_type">@string/measure_type_2</string>
+
+</resources>
