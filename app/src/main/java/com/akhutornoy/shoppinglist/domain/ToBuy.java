@@ -3,7 +3,7 @@ package com.akhutornoy.shoppinglist.domain;
 import android.arch.persistence.room.Entity;
 import android.support.annotation.NonNull;
 
-@Entity(primaryKeys = {"name", "unit"})
+@Entity(primaryKeys = {"name", "unit", "shopName"})
 public class ToBuy {
     @NonNull
     private String name;
@@ -11,9 +11,10 @@ public class ToBuy {
     private String unit;
     private String quantity;
     private boolean isBought;
+    @NonNull
     private String shopName;
 
-    public ToBuy(@NonNull String name, @NonNull String unit, String quantity, String shopName) {
+    public ToBuy(@NonNull String name, @NonNull String unit, String quantity, @NonNull String shopName) {
         this.name = name;
         this.unit = unit;
         this.quantity = quantity;

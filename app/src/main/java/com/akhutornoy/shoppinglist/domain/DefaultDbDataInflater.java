@@ -6,17 +6,22 @@ import com.akhutornoy.shoppinglist.R;
 
 public class DefaultDbDataInflater {
     public static void prepopulate(Context context, AppDatabase db) {
-        addShops(context, db.toShop());
+        addShops(context, db.toShop(), db.toConstantString());
         addCurrentShop(context, db.toCurrentShop());
         addMeasureTypes(context, db.toMeasureType());
         addProducts(context, db.toProduct());
         addProductInShops(context, db.toProductInShop());
     }
 
-    private static void addShops(Context context, ShopDao shopDb) {
-        shopDb.insertNew(new Shop(context.getString(R.string.shop_all)));
+    private static void addShops(Context context, ShopDao shopDb, ConstantStringDao constantStringDao) {
+        addShopNameAll(context, shopDb, constantStringDao);
         shopDb.insertNew(new Shop(context.getString(R.string.shop_1)));
         shopDb.insertNew(new Shop(context.getString(R.string.shop_2)));
+    }
+
+    private static void addShopNameAll(Context context, ShopDao shopDb, ConstantStringDao constantStringDao) {
+        shopDb.insertNew(new Shop(context.getString(R.string.shop_all)));
+        constantStringDao.insert(new ConstantString(ConstantString.SHOP_NAME_ALL, context.getString(R.string.shop_all)));
     }
 
     private static void addCurrentShop(Context context, CurrentShopDao currentShopDao) {

@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 
 @android.arch.persistence.room.Database(
         entities = {
+            ConstantString.class,
             ToBuy.class,
             Shop.class,
             Product.class,
@@ -21,12 +22,13 @@ import io.reactivex.schedulers.Schedulers;
             ProductInShop.class,
             CurrentShop.class
         },
-        version = 8)
+        version = 11)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
 
     private static volatile AppDatabase INSTANCE;
 
+    public abstract ConstantStringDao toConstantString();
     public abstract ToBuyDao toBuy();
     public abstract ShopDao toShop();
     public abstract ProductDao toProduct();

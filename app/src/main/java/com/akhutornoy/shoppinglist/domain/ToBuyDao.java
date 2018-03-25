@@ -9,26 +9,46 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 @Dao
-public interface ToBuyDao {
+public abstract class ToBuyDao {
 
     @Query("SELECT * FROM ToBuy")
-    Flowable<List<ToBuy>> getAll();
+    public abstract Flowable<List<ToBuy>> getAll();
 
     @Query("SELECT * FROM ToBuy WHERE shopName LIKE :shopName")
-    Flowable<List<ToBuy>> getAllByShop(String shopName);
+    public abstract Flowable<List<ToBuy>> getAllByShop(String shopName);
 
-    @Query("SELECT ToBuy.* FROM ToBuy, CurrentShop WHERE ToBuy.shopName == CurrentShop.name")
-    Flowable<List<ToBuy>> getAllByCurrentShop();
+    @Query("SELECT CurrentShop.name " +
+            "FROM CurrentShop " +
+            "LIMIT 1")
+    abstract Flowable<String> getCurrentShop();
+
+    public Flowable<List<ToBuy>> getAllByCurrentShop(){
+        return getCurrentShop()
+                .flatMap(shopName -> {
+                    if (shopName.equals(getNameForAllShops())) {
+                        return getAll();
+                    } else {
+                        return getAllByShop(shopName);
+                    }
+                });
+    }
+
+    private String getNameForAllShops() {
+        return getConstantString(ConstantString.SHOP_NAME_ALL);
+    }
+
+    @Query("SELECT ConstantString.value FROM ConstantString WHERE ConstantString.name == :constantName LIMIT 1")
+    protected abstract String getConstantString(String constantName);
 
     @Insert
-    void insertNew(ToBuy item);
+    public abstract void insertNew(ToBuy item);
 
     @Insert
-    void insertNew(List<ToBuy> items);
+    public abstract void insertNew(List<ToBuy> items);
 
     @Query("DELETE FROM ToBuy")
-    void deleteAll();
+    public abstract void deleteAll();
 
     @Query("DELETE FROM ToBuy WHERE ToBuy.shopName == :shopName")
-    void deleteAllByShop(String shopName);
+    public abstract void deleteAllByShop(String shopName);
 }

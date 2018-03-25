@@ -9,23 +9,34 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface ProductInShopDao {
+public abstract class ProductInShopDao {
     @Query("SELECT * FROM ProductInShop")
-    List<ProductInShop> getAll();
+    public abstract List<ProductInShop> getAll();
 
     @Query("SELECT * FROM ProductInShop WHERE product LIKE :productName")
-    List<ProductInShop> getByProduct(String productName);
+    public abstract List<ProductInShop> getByProduct(String productName);
 
-    @Query("SELECT * FROM ProductInShop WHERE shop LIKE :shopName")
-    List<ProductInShop> getByShop(String shopName);
+    @Query("SELECT * FROM ProductInShop WHERE shop LIKE :shopName1 OR shop LIKE :shopName2")
+    protected abstract List<ProductInShop> getByTwoShops(String shopName1, String shopName2);
+
+    public List<ProductInShop> getByShop(String shopName) {
+        return getByTwoShops(getNameForAllShops(), shopName);
+    }
+
+    private String getNameForAllShops() {
+        return getConstantString(ConstantString.SHOP_NAME_ALL);
+    }
+
+    @Query("SELECT ConstantString.value FROM ConstantString WHERE ConstantString.name == :constantName LIMIT 1")
+    protected abstract String getConstantString(String constantName);
 
     @Insert
-    void insertNew(ProductInShop productInShop);
+    public abstract void insertNew(ProductInShop productInShop);
 
     @Delete
-    void delete(ProductInShop productInShop);
+    public abstract void delete(ProductInShop productInShop);
 
     @Update
-    void update(ProductInShop... productInShops);
+    public abstract void update(ProductInShop... productInShops);
 }
 
