@@ -19,10 +19,8 @@ import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.tobuy.adapter.ToBuyProductsAdapter;
 import com.akhutornoy.shoppinglist.tobuy.contract.ToBuyProductsContract;
-import com.akhutornoy.shoppinglist.tobuy.model.ToBuyProductModel;
+import com.akhutornoy.shoppinglist.tobuy.model.ToBuyModel;
 import com.akhutornoy.shoppinglist.tobuy.presenter.ToBuyProductsPresenter;
-
-import java.util.List;
 
 public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract.View {
 
@@ -79,15 +77,14 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
     }
 
     @Override
-    public void onDataLoaded(List<ToBuyProductModel> products) {
-        setToolbarSubTitle(products);
-        mProductsAdapter.setProducts(products);
+    public void onDataLoaded(ToBuyModel toBuyModel) {
+        setToolbarSubTitle(toBuyModel.getCurrentShop());
+        mProductsAdapter.setProducts(toBuyModel.getToBuyModels());
     }
 
-    private void setToolbarSubTitle(List<ToBuyProductModel> products) {
-        if (!products.isEmpty()) {
-            String shopName = products.get(0).getShopName();
-            mToolbarTitle.setToolbarSubTitle(shopName);
+    private void setToolbarSubTitle(String subtitle) {
+        if (!subtitle.isEmpty()) {
+            mToolbarTitle.setToolbarSubTitle(subtitle);
         }
     }
 
