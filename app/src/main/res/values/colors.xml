@@ -4,5 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#212121</color>
+
     <color name="colorDivider">@android:color/darker_gray</color>
+
+    <color name="colorGray">#757575</color>
+
 </resources>
