@@ -25,6 +25,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     private View mButtonMinus;
     private View mButtonPlus;
     private EditText mEditTextQuantity;
+    private View mProgressBar;
 
     private CreateProductPresenter mPresenter;
 
@@ -60,6 +61,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         mButtonMinus = view.findViewById(R.id.iv_quantity_minus);
         mButtonPlus = view.findViewById(R.id.iv_quantity_plus);
         mEditTextQuantity = view.findViewById(R.id.et_quantity);
+        mProgressBar = view.findViewById(R.id.pb);
     }
 
     private void initListeners() {
@@ -129,11 +131,11 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
 
     @Override
     public void showProgress() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 }
