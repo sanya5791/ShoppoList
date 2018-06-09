@@ -61,7 +61,7 @@ public class AddProductsActivity extends BaseToolbarActivity {
     }
 
     private void showNewProductScreen() {
-        startActivity(CreateProductActivity.createIntent(this));
+        startActivity(com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity.createIntent(this));
     }
 
     private void showAddProductsScreen() {
