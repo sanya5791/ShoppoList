@@ -14,4 +14,20 @@ public class CreateProductOutputModel {
         this.defaultQuantity = defaultQuantity;
         this.shopsSelected = shopsSelected;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getQuantityTypeSelected() {
+        return quantityTypeSelected;
+    }
+
+    public String getDefaultQuantity() {
+        return defaultQuantity;
+    }
+
+    public List<String> getShopsSelected() {
+        return shopsSelected;
+    }
 }

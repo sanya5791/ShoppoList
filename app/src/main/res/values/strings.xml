@@ -46,4 +46,8 @@
     <string name="quantity_for">Quantity for %1$s:</string>
     <string name="you_should_select_at_least_one_shop">You should select at least one shop</string>
     <string name="error_product_name_cant_be_empty">Product name can\'t be empty</string>
+    <string name="error_cant_be_empty">Cannot be empty</string>
+    <string name="error_measure_type_cant_be_empty">Measure Type should be selected</string>
+    <string name="error_shop_should_be_selected">At least one shop should be selected</string>
+    <string name="error_default_quantity_cannot_be_empty">Default Quantity cannot be empty</string>
 </resources>

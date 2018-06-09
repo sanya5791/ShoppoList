@@ -7,7 +7,7 @@ import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CreateProductOu
 
 public interface CreateProductContract {
     interface View extends LoadableView<CreateProductInputDataModel> {
-        void productCreated(String name);
+        void onProductCreated();
     }
 
     abstract class Presenter extends BasePresenter<View> {

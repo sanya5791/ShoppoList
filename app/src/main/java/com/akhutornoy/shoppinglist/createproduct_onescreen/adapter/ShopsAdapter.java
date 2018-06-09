@@ -123,6 +123,16 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
         return items == null ? 0 : items.size();
     }
 
+    public List<String> getSelectedShops() {
+        List<String> shops = new ArrayList<>();
+        for (CheckableItemModel item : items) {
+            if (item.isChecked()) {
+                shops.add(item.getName());
+            }
+        }
+        return shops;
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final CheckedTextView textView;
 

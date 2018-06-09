@@ -54,6 +54,18 @@ public class QuantityTypeAdapter extends RecyclerView.Adapter<QuantityTypeAdapte
         return items == null ? 0 : items.size();
     }
 
+    /**
+     * @return either name of selected QuantityType or empty string
+     */
+    public String getSelectedQuantityType() {
+        for (CheckableItemModel item : items) {
+            if (item.isChecked()) {
+                return item.getName();
+            }
+        }
+        return "";
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final CheckedTextView textView;
 
