@@ -1,5 +1,6 @@
 package com.akhutornoy.shoppinglist.domain;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
@@ -69,6 +70,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    @SuppressLint("CheckResult")
     private static void prepopulateDb(Context context, AppDatabase db) {
         Completable.fromAction(() -> DefaultDbDataInflater.prepopulate(context, db))
             .subscribeOn(Schedulers.io())

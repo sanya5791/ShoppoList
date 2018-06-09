@@ -9,6 +9,7 @@ import android.widget.CheckedTextView;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.ValueCallback;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CheckableItemModel;
+import com.akhutornoy.shoppinglist.domain.MeasureType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +18,10 @@ public class QuantityTypeAdapter extends RecyclerView.Adapter<QuantityTypeAdapte
 
     private List<CheckableItemModel> items;
 
-    public void setQuantityTypes(List<String> quantityTypes) {
+    public void setQuantityTypes(List<MeasureType> quantityTypes) {
         items = new ArrayList<>(quantityTypes.size());
-        for (String quantityType : quantityTypes) {
-            items.add(new CheckableItemModel(quantityType));
+        for (MeasureType quantityType : quantityTypes) {
+            items.add(new CheckableItemModel(quantityType.getName()));
         }
     }
 

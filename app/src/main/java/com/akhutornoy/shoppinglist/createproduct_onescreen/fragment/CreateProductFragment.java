@@ -101,7 +101,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         RecyclerView rv = view.findViewById(R.id.rv_in_shops_available);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        shopsAdapter = new ShopsAdapter();
+        shopsAdapter = new ShopsAdapter(getActivity());
         rv.setAdapter(shopsAdapter);
     }
 
@@ -123,7 +123,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
 
     @Override
     public void onDataLoaded(CreateProductInputDataModel data) {
-        quantityTypeAdapter.setQuantityTypes(data.getQuantityTypesAvailable());
+        quantityTypeAdapter.setQuantityTypes(data.getMeasureTypes());
         shopsAdapter.setShops(data.getShopsAvailable());
     }
 

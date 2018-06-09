@@ -1,41 +1,43 @@
 package com.akhutornoy.shoppinglist.createproduct_onescreen.presenter;
 
 import com.akhutornoy.shoppinglist.createproduct_onescreen.contract.CreateProductContract;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.CreateProductInputDataModelMapper;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CreateProductInputDataModel;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CreateProductOutputModel;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
+import com.akhutornoy.shoppinglist.domain.MeasureTypeDao;
+import com.akhutornoy.shoppinglist.domain.ShopDao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateProductPresenter extends CreateProductContract.Presenter {
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-    public CreateProductPresenter(AppDatabase db) {}
+public class CreateProductPresenter extends CreateProductContract.Presenter {
+    private final MeasureTypeDao measureTypeDao;
+    private final ShopDao shopDao;
+    private final CreateProductInputDataModelMapper inputDataModelMapper;
+
+    public CreateProductPresenter(AppDatabase db) {
+        measureTypeDao = db.toMeasureType();
+        shopDao = db.toShop();
+        inputDataModelMapper = new CreateProductInputDataModelMapper();
+    }
 
     @Override
     public void loadInputData() {
-        CreateProductInputDataModel inputDataModel = new CreateProductInputDataModel(
-                getMockTypes(), getMockShops()
+        getCompositeDisposable().add(
+                measureTypeDao.getAll()
+                        .zipWith(shopDao.getAll(), inputDataModelMapper::map)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                createProductInputDataModel ->
+                                        getView().onDataLoaded(createProductInputDataModel),
+                                this::onError)
         );
-        getView().onDataLoaded(inputDataModel);
-    }
-
-    private List<String> getMockTypes() {
-        List<String> types = new ArrayList<>();
-        types.add("kg");
-        types.add("gr");
-        types.add("bot");
-        types.add("m");
-        types.add("sm");
-        return types;
-    }
-
-    private List<String> getMockShops() {
-        List<String> mockShops = new ArrayList<>();
-        mockShops.add("Shop 1");
-        mockShops.add("Shop 2");
-        mockShops.add("Shop 3");
-        return mockShops;
     }
 
     @Override

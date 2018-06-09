@@ -1,21 +1,24 @@
 package com.akhutornoy.shoppinglist.createproduct_onescreen.model;
 
+import com.akhutornoy.shoppinglist.domain.MeasureType;
+import com.akhutornoy.shoppinglist.domain.Shop;
+
 import java.util.List;
 
 public class CreateProductInputDataModel {
-    private final List<String> quantityTypesAvailable;
-    private final List<String> shopsAvailable;
+    private final List<MeasureType> measureTypes;
+    private final List<Shop> shopsAvailable;
 
-    public CreateProductInputDataModel(List<String> quantityTypesAvailable, List<String> shopsAvailable) {
-        this.quantityTypesAvailable = quantityTypesAvailable;
+    public CreateProductInputDataModel(List<MeasureType> measureTypes, List<Shop> shopsAvailable) {
+        this.measureTypes = measureTypes;
         this.shopsAvailable = shopsAvailable;
     }
 
-    public List<String> getQuantityTypesAvailable() {
-        return quantityTypesAvailable;
+    public List<MeasureType> getMeasureTypes() {
+        return measureTypes;
     }
 
-    public List<String> getShopsAvailable() {
+    public List<Shop> getShopsAvailable() {
         return shopsAvailable;
     }
 }
