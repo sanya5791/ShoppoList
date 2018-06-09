@@ -8,6 +8,7 @@ import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CreateProductOu
 public interface CreateProductContract {
     interface View extends LoadableView<CreateProductInputDataModel> {
         void onProductCreated();
+        void showProductAlreadyExistsError(String productName);
     }
 
     abstract class Presenter extends BasePresenter<View> {

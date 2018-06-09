@@ -42,6 +42,7 @@
     <string name="title_new_shop_name">New Shop Name</string>
     <string name="title_new_product_type">New Product Type</string>
     <string name="product_exists_message">\'%1$s\' is already exists. Would you like to edit it?</string>
+    <string name="product_exists_choose_another_name_message">\'%1$s\' is already exists. Choose another name</string>
     <string name="please_enter_default_quantity">Please enter default quantity</string>
     <string name="quantity_for">Quantity for %1$s:</string>
     <string name="you_should_select_at_least_one_shop">You should select at least one shop</string>

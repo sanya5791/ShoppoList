@@ -2,6 +2,7 @@ package com.akhutornoy.shoppinglist.createproduct_onescreen.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         initViews(view);
         initListeners();
         initAdapters(view);
-        mPresenter = new CreateProductPresenter(getString(R.string.all), AppDatabase.getInstance(getActivity()));
+        mPresenter = new CreateProductPresenter(AppDatabase.getInstance(getActivity()));
         return view;
     }
 
@@ -186,6 +187,15 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     @Override
     public void onProductCreated() {
         Toast.makeText(getActivity(), "Created", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showProductAlreadyExistsError(String productName) {
+        String message = getResources().getString(R.string.product_exists_choose_another_name_message, productName);
+        new AlertDialog.Builder(getActivity())
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     @Override
