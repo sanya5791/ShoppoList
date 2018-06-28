@@ -7,11 +7,11 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Toast;
 
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 @android.arch.persistence.room.Database(
         entities = {
@@ -25,7 +25,6 @@ import io.reactivex.schedulers.Schedulers;
         },
         version = 11)
 public abstract class AppDatabase extends RoomDatabase {
-    private static final String TAG = "AppDatabase";
 
     private static volatile AppDatabase INSTANCE;
 
@@ -49,7 +48,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
-            Log.w("AppDatabase", "creating DB Instance...");
+            Timber.w("creating DB Instance...");
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
@@ -70,6 +69,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     private static void prepopulateDb(Context context, AppDatabase db) {
         Completable.fromAction(() -> DefaultDbDataInflater.prepopulate(context, db))
@@ -77,7 +77,7 @@ public abstract class AppDatabase extends RoomDatabase {
             .subscribe(
                     () -> {},
                     error -> {
-                        Log.e(TAG, "prepopulateDb: ", error);
+                        Timber.e(error);
                         Toast.makeText(context, "Error: " + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     });
     }

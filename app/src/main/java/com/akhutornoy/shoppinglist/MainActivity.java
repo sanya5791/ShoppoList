@@ -20,6 +20,8 @@ import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
 import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
+import timber.log.Timber;
+
 public class MainActivity extends BaseToolbarActivity
         implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnShopsClickListener,
                     ToolbarTitle {
