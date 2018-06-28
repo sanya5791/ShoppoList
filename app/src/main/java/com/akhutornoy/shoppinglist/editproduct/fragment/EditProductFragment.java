@@ -3,7 +3,11 @@ package com.akhutornoy.shoppinglist.editproduct.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.contract.CreateProductContract;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.fragment.CreateProductFragment;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CreateProductInputDataModel;
@@ -32,9 +36,35 @@ public class EditProductFragment extends CreateProductFragment implements EditPr
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_delete_done, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_done:
+                onDoneButtonClick();
+                return true;
+            case R.id.menu_delete:
+                onDeleteButtonClick();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onDeleteButtonClick() {
+        mPresenter.deleteProduct(getProductName());
+    }
+
+    @Override
     public void onDataLoaded(CreateProductInputDataModel data) {
         super.onDataLoaded(data);
-        mPresenter.loadProduct(getArgumentString(ARG_EDIT_PRODUCT_NAME));
+        mPresenter.loadProduct(getProductName());
+    }
+
+    private String getProductName() {
+        return getArgumentString(ARG_EDIT_PRODUCT_NAME);
     }
 
     @Override
@@ -43,5 +73,10 @@ public class EditProductFragment extends CreateProductFragment implements EditPr
         setQuantity(product.getDefaultQuantity());
         setShopsSelected(product.getShopsSelected());
         setQuantityTypeSelected(product.getQuantityTypeSelected());
+    }
+
+    @Override
+    public void onProductDeleted() {
+        closeScreen();
     }
 }

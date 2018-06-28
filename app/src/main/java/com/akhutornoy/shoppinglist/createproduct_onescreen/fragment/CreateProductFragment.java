@@ -137,7 +137,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         return super.onOptionsItemSelected(item);
     }
 
-    private void onDoneButtonClick() {
+    protected void onDoneButtonClick() {
         validateSelectedData();
     }
 
@@ -208,6 +208,10 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
 
     @Override
     public void onProductCreated() {
+        closeScreen();
+    }
+
+    protected void closeScreen() {
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
 

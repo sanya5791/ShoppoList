@@ -114,4 +114,22 @@ public class EditProductPresenter extends EditProductContract.Presenter {
                                 this::onError)
         );
     }
+
+    @Override
+    public void deleteProduct(String productName) {
+        getCompositeDisposable().add(
+                Completable.fromAction(() -> {
+                            List<ProductInShop> inShops = productInShopDao.getByProduct(productName);
+                            productInShopDao.delete(inShops);
+
+                            Product product = productDao.getByName(productName);
+                            productDao.delete(product);
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                () -> getView().onProductDeleted(),
+                                this::onError)
+        );
+    }
 }
