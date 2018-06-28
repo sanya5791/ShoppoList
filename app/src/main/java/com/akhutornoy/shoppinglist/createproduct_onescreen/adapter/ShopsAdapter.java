@@ -25,6 +25,12 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
         allShopsTitle = context.getString(R.string.all);
     }
 
+    public void setShopsSelected(List<String> shopsSelected) {
+        for (String shopName : shopsSelected) {
+            onClicked(new CheckableItemModel(shopName, true));
+        }
+    }
+
     public void setShops(List<Shop> quantityTypes) {
         items = new ArrayList<>(quantityTypes.size());
         for (Shop quantityType : quantityTypes) {

@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.createproduct.CreateProductActivity;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity;
 
-public class AddProductsActivity extends BaseToolbarActivity {
+public class AddProductsActivity extends BaseToolbarActivity implements AddProductsFragment.EditProductListener {
 
     public static Intent createIntent(Context context) {
         return new Intent(context, AddProductsActivity.class);
@@ -61,11 +61,16 @@ public class AddProductsActivity extends BaseToolbarActivity {
     }
 
     private void showNewProductScreen() {
-        startActivity(com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity.createIntent(this));
+        startActivity(CreateProductActivity.createIntent(this, null));
     }
 
     private void showAddProductsScreen() {
         setToolbarTitle(R.string.title_add_products);
         showFragment(AddProductsFragment.newInstance());
+    }
+
+    @Override
+    public void onEditProduct(String name) {
+        startActivity(CreateProductActivity.createIntent(this, name));
     }
 }

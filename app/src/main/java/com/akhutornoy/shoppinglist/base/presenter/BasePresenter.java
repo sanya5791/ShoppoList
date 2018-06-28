@@ -1,10 +1,9 @@
 package com.akhutornoy.shoppinglist.base.presenter;
 
-import android.util.Log;
-
 import com.akhutornoy.shoppinglist.base.view.BaseView;
 
 import io.reactivex.disposables.CompositeDisposable;
+import timber.log.Timber;
 
 public class BasePresenter<V extends BaseView> {
 
@@ -29,7 +28,7 @@ public class BasePresenter<V extends BaseView> {
     }
 
     public void onError(Throwable throwable) {
-        Log.e(this.getClass().getSimpleName(), "onError: ", throwable);
+        Timber.e(throwable, "onError: ");
         mView.onError(throwable.getMessage());
     }
 }

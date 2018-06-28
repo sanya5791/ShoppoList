@@ -1,5 +1,6 @@
 package com.akhutornoy.shoppinglist.addproducts.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
@@ -29,9 +30,21 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
 
     private AddProductsContract.Presenter mPresenter;
     private AddProductsAdapter mAdapter;
+    private EditProductListener mEditProductListenerCallback;
 
     public static Fragment newInstance() {
         return new AddProductsFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!(context instanceof EditProductListener)) {
+            throw new IllegalArgumentException(String.format("'%s' should implement '%s' interface",
+                    context.getClass().getName(), EditProductListener.class.getName()));
+        }
+
+        mEditProductListenerCallback = (EditProductListener) context;
     }
 
     @Override
@@ -70,7 +83,7 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
                 LinearLayout.VERTICAL);
         rvProducts.addItemDecoration(dividerItemDecoration);
-        mAdapter = new AddProductsAdapter(this::onEditProductQuantity);
+        mAdapter = new AddProductsAdapter(this::onEditProductQuantity, this::onProductEdit);
         rvProducts.setAdapter(mAdapter);
     }
 
@@ -82,6 +95,10 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
 
         builder.setMessage(getString(R.string.quantity_for, addProductModel.getName()))
                 .show();
+    }
+
+    private void onProductEdit(AddProductModel productModel) {
+        mEditProductListenerCallback.onEditProduct(productModel.getName());
     }
 
     private void onNewQuantityEntered(AddProductModel addProductModel, String value) {
@@ -116,5 +133,9 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
     @Override
     public void finishScreen() {
         getActivity().finish();
+    }
+
+    public interface EditProductListener {
+        void onEditProduct(String name);
     }
 }

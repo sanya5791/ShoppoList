@@ -1,6 +1,7 @@
 package com.akhutornoy.shoppinglist.createproduct_onescreen.mapper;
 
 import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CreateProductOutputModel;
+import com.akhutornoy.shoppinglist.domain.Product;
 import com.akhutornoy.shoppinglist.domain.ProductInShop;
 
 import java.util.ArrayList;
@@ -24,6 +25,20 @@ public class ProductInShopMapper {
             result.add(new ProductInShop(source.getName(), shop));
         }
         return result;
+    }
+
+    public CreateProductOutputModel map(Product product, List<ProductInShop> inShops) {
+        List<String> inShopsResult = new ArrayList<>(inShops.size());
+        for (ProductInShop inShop : inShops) {
+            inShopsResult.add(inShop.getShop());
+        }
+
+        return CreateProductOutputModel.builder()
+                .setName(product.getName())
+                .setDefaultQuantity(product.getDefaultQuantity())
+                .setQuantityTypeSelected(product.getMeasureType())
+                .setShopsSelected(inShopsResult)
+                .build();
     }
 
     private boolean isProductAvailableInAllShops(List<String> shopsSelected) {

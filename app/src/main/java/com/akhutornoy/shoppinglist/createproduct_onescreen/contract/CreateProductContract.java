@@ -11,7 +11,7 @@ public interface CreateProductContract {
         void showProductAlreadyExistsError(String productName);
     }
 
-    abstract class Presenter extends BasePresenter<View> {
+    abstract class Presenter<V extends View> extends BasePresenter<V> {
         public abstract void loadInputData();
         public abstract void createProduct(CreateProductOutputModel productModel);
     }

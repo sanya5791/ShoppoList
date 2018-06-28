@@ -25,6 +25,10 @@ public class QuantityTypeAdapter extends RecyclerView.Adapter<QuantityTypeAdapte
         }
     }
 
+    public void setSelected(String type) {
+        onClicked(type);
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())

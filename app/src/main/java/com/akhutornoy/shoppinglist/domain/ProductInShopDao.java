@@ -36,6 +36,9 @@ public abstract class ProductInShopDao {
     @Delete
     public abstract void delete(ProductInShop productInShop);
 
+    @Delete
+    public abstract void delete(List<ProductInShop> productInShops);
+
     @Update
     public abstract void update(ProductInShop... productInShops);
 }

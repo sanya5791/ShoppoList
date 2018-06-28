@@ -26,6 +26,7 @@ import com.akhutornoy.shoppinglist.createproduct_onescreen.presenter.CreateProdu
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CreateProductFragment extends BaseFragment implements CreateProductContract.View {
 
@@ -35,7 +36,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     private EditText mEditTextQuantity;
     private View mProgressBar;
 
-    private CreateProductPresenter mPresenter;
+    private CreateProductContract.Presenter mPresenter;
 
     private QuantityTypeAdapter mQuantityTypeAdapter;
     private ShopsAdapter mShopsAdapter;
@@ -52,8 +53,12 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         initViews(view);
         initListeners();
         initAdapters(view);
-        mPresenter = new CreateProductPresenter(AppDatabase.getInstance(getActivity()));
+        mPresenter = createPresenter();
         return view;
+    }
+
+    protected CreateProductContract.Presenter createPresenter() {
+        return new CreateProductPresenter(AppDatabase.getInstance(getActivity()));
     }
 
     @Override
@@ -168,9 +173,26 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         }
 
         CreateProductOutputModel outputModel =
-                new CreateProductOutputModel(productName, selectedQuantityType, quantity, shops);
+                new CreateProductOutputModel.Builder().setName(productName).setQuantityTypeSelected(selectedQuantityType).setDefaultQuantity(quantity).setShopsSelected(shops).build();
 
         mPresenter.createProduct(outputModel);
+    }
+
+    protected void setProductName(String name) {
+        mName.setText(name);
+    }
+
+    protected void setQuantity(String quantity) {
+        mEditTextQuantity.setText(quantity);
+
+    }
+
+    protected void setShopsSelected(List<String> shops) {
+        mShopsAdapter.setShopsSelected(shops);
+    }
+
+    protected void setQuantityTypeSelected(String type) {
+        mQuantityTypeAdapter.setSelected(type);
     }
 
     @Override
@@ -186,7 +208,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
 
     @Override
     public void onProductCreated() {
-        Toast.makeText(getActivity(), "Created", Toast.LENGTH_SHORT).show();
+        Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
     @Override

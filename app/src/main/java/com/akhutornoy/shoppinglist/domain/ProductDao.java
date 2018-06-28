@@ -3,6 +3,7 @@ package com.akhutornoy.shoppinglist.domain;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
@@ -20,6 +21,9 @@ public interface ProductDao {
 
     @Insert
     void insertNew(Product product);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertNewWithReplace(Product product);
 
     @Delete
     void delete(Product product);

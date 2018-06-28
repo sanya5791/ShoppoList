@@ -8,11 +8,11 @@ public class CreateProductOutputModel {
     private final String defaultQuantity;
     private final List<String> shopsSelected;
 
-    public CreateProductOutputModel(String name, String quantityTypeSelected, String defaultQuantity, List<String> shopsSelected) {
-        this.name = name;
-        this.quantityTypeSelected = quantityTypeSelected;
-        this.defaultQuantity = defaultQuantity;
-        this.shopsSelected = shopsSelected;
+    private CreateProductOutputModel(Builder builder) {
+        this.name = builder.name;
+        this.quantityTypeSelected = builder.quantityTypeSelected;
+        this.defaultQuantity = builder.defaultQuantity;
+        this.shopsSelected = builder.shopsSelected;
     }
 
     public String getName() {
@@ -29,5 +29,40 @@ public class CreateProductOutputModel {
 
     public List<String> getShopsSelected() {
         return shopsSelected;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String name;
+        private String quantityTypeSelected;
+        private String defaultQuantity;
+        private List<String> shopsSelected;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setQuantityTypeSelected(String quantityTypeSelected) {
+            this.quantityTypeSelected = quantityTypeSelected;
+            return this;
+        }
+
+        public Builder setDefaultQuantity(String defaultQuantity) {
+            this.defaultQuantity = defaultQuantity;
+            return this;
+        }
+
+        public Builder setShopsSelected(List<String> shopsSelected) {
+            this.shopsSelected = shopsSelected;
+            return this;
+        }
+
+        public CreateProductOutputModel build() {
+            return new CreateProductOutputModel(this);
+        }
     }
 }

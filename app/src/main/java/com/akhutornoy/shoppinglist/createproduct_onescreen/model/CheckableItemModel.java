@@ -4,8 +4,13 @@ public class CheckableItemModel {
     private final String name;
     private boolean isChecked;
 
-    public CheckableItemModel(String name) {
+    public CheckableItemModel(String name, boolean isChecked) {
         this.name = name;
+        this.isChecked = isChecked;
+    }
+
+    public CheckableItemModel(String name) {
+        this(name, false);
     }
 
     public String getName() {

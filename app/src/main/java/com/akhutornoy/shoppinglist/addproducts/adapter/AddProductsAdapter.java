@@ -6,24 +6,31 @@ import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.model.AddProductModel;
+import com.akhutornoy.shoppinglist.base.ValueCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.ProductViewHolder> {
-    private final OnEditQuantityListener mCallback;
+    private final OnEditQuantityListener mOnEditQuantityCallback;
+    private final ValueCallback<AddProductModel> mOnEditProductCallback;
     private List<AddProductModel> mProducts;
 
-    public AddProductsAdapter(OnEditQuantityListener onEditQuantityListener) {
-        this.mCallback = onEditQuantityListener;
+    public AddProductsAdapter(OnEditQuantityListener onEditQuantityListener,
+                              ValueCallback<AddProductModel> mOnEditProductListener) {
+        this.mOnEditQuantityCallback = onEditQuantityListener;
+        this.mOnEditProductCallback = mOnEditProductListener;
     }
 
     public interface OnEditQuantityListener {
@@ -34,7 +41,7 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_to_buy_product, parent, false);
-        return new ProductViewHolder(view, mCallback);
+        return new ProductViewHolder(view, mOnEditQuantityCallback, mOnEditProductCallback);
     }
 
     @Override
@@ -75,40 +82,46 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        private final OnEditQuantityListener mCallback;
-        private AppCompatCheckBox mCbIsBought;
+        private final OnEditQuantityListener mOnEditQuantityCallback;
+        private ValueCallback<AddProductModel> mOnEditProductCallback;
+        private AddProductModel mProduct;
+        private AppCompatCheckBox mCheckBox;
         private TextView mTvUnit;
         private TextView mTvQuantity;
 
-        private ProductViewHolder(View view, OnEditQuantityListener onEditQuantityListener) {
+        private ProductViewHolder(View view, OnEditQuantityListener onEditQuantityListener,
+                                  ValueCallback<AddProductModel> onEditProductListener) {
             super(view);
-            mCallback = onEditQuantityListener;
-            mCbIsBought = view.findViewById(R.id.checkbox);
+            mOnEditQuantityCallback = onEditQuantityListener;
+            mOnEditProductCallback = onEditProductListener;
+            mCheckBox = view.findViewById(R.id.checkbox);
             mTvUnit = view.findViewById(R.id.tv_unit);
             mTvQuantity = view.findViewById(R.id.tv_quantity);
         }
 
         private void bind(AddProductModel product) {
+            mProduct = product;
             mTvUnit.setText(product.getUnit());
             mTvQuantity.setText(product.getQuantity());
 
             View.OnClickListener editQuantityListener = v -> {
-                if (mCbIsBought.isChecked()) {
-                    mCallback.onEditQuantityListener(product);
+                if (mCheckBox.isChecked()) {
+                    mOnEditQuantityCallback.onEditQuantityListener(product);
                 }
             };
             mTvUnit.setOnClickListener(editQuantityListener);
             mTvQuantity.setOnClickListener(editQuantityListener);
 
-            mCbIsBought.setChecked(product.isAdded());
-            mCbIsBought.setText(product.getName(), TextView.BufferType.SPANNABLE);
-            mCbIsBought.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            mCheckBox.setChecked(product.isAdded());
+            mCheckBox.setText(product.getName(), TextView.BufferType.SPANNABLE);
+            mCheckBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
                 product.setIsAdded(isChecked);
                 if (isChecked) {
                     makeBlinkEffect(mTvQuantity);
                     makeBlinkEffect(mTvUnit);
                 }
             });
+            mCheckBox.setOnLongClickListener(this::showContextMenu);
         }
 
         private void makeBlinkEffect(TextView view) {
@@ -122,6 +135,24 @@ public class AddProductsAdapter extends RecyclerView.Adapter<AddProductsAdapter.
             anim.setRepeatMode(ValueAnimator.REVERSE);
             anim.setRepeatCount(1);
             anim.start();
+        }
+
+        private boolean showContextMenu(View view) {
+            PopupMenu popup = new PopupMenu(view.getContext(), view);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.menu_edit, popup.getMenu());
+            popup.setOnMenuItemClickListener(this::onMenuItemClicked);
+            popup.show();
+
+            return true;
+        }
+
+        private boolean onMenuItemClicked(MenuItem menuItem) {
+            if (menuItem.getItemId() == R.id.menu_edit) {
+                mOnEditProductCallback.select(mProduct);
+                return true;
+            }
+            return false;
         }
     }
 }

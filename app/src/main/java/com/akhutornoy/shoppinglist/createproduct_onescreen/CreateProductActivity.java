@@ -5,16 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.fragment.CreateProductFragment;
+import com.akhutornoy.shoppinglist.editproduct.fragment.EditProductFragment;
 
 public class CreateProductActivity extends BaseToolbarActivity {
 
-    public static Intent createIntent(Context context) {
-        return new Intent(context, CreateProductActivity.class);
+    private static final String ARG_EDIT_PRODUCT_NAME = "ARG_EDIT_PRODUCT_NAME";
+
+    public static Intent createIntent(Context context, @Nullable String editProductName) {
+        Intent intent = new Intent(context, CreateProductActivity.class);
+        intent.putExtra(ARG_EDIT_PRODUCT_NAME, editProductName);
+        return intent;
     }
 
     @Override
@@ -22,7 +29,14 @@ public class CreateProductActivity extends BaseToolbarActivity {
         super.onCreate(savedInstanceState);
         setToolbarTitle(R.string.title_create_product);
         initViews();
-        showFragment(CreateProductFragment.newInstance());
+        showFragment(getFragment());
+    }
+
+    private Fragment getFragment() {
+        String argProductName = getIntent().getStringExtra(ARG_EDIT_PRODUCT_NAME);
+        return argProductName == null
+                ? CreateProductFragment.newInstance()
+                : EditProductFragment.newInstance(argProductName);
     }
 
     @Override
