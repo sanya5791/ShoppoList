@@ -59,7 +59,7 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

@@ -35,7 +35,7 @@ public class ManageMeasureTypesFragment extends BaseManageItemsFragment<ItemMode
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

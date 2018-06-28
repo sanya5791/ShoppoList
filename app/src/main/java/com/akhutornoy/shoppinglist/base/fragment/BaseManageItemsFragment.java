@@ -49,11 +49,11 @@ public abstract class BaseManageItemsFragment<T extends ItemModel> extends BaseF
     }
 
     private BaseManageItemsContract.Presenter getManageItemsPresenter() {
-        if (!(getPresenter() instanceof BaseManageItemsContract.Presenter)) {
+        if (!(getBasePresenter() instanceof BaseManageItemsContract.Presenter)) {
             throw new IllegalArgumentException("Presenter should be a type of '" + BaseManageItemsContract.Presenter.class.getSimpleName() + "'");
         }
 
-        return (BaseManageItemsContract.Presenter) getPresenter();
+        return (BaseManageItemsContract.Presenter) getBasePresenter();
     }
 
     @Override

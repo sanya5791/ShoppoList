@@ -31,7 +31,7 @@ public class ManageShopsFragment extends BaseManageItemsFragment<ShopModel>
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

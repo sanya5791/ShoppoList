@@ -64,7 +64,7 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

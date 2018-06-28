@@ -64,7 +64,7 @@ public class SelectMeasureTypeFragment extends BaseStepNavigationFragment implem
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

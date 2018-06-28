@@ -51,7 +51,7 @@ public class InShopsAvailableFragment extends BaseStepNavigationFragment impleme
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

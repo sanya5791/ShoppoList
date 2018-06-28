@@ -25,13 +25,13 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @SuppressWarnings("unchecked")
     public void onStart() {
         super.onStart();
-        getPresenter().attachView(this);
+        getBasePresenter().attachView(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        getPresenter().detachView();
+        getBasePresenter().detachView();
     }
 
     protected String getArgumentString(String argKey) {
@@ -42,5 +42,5 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         return arg;
     }
 
-    protected abstract BasePresenter getPresenter();
+    protected abstract BasePresenter getBasePresenter();
 }

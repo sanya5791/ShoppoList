@@ -49,7 +49,7 @@ public class ProductDefaultQuantityFragment extends BaseStepNavigationFragment i
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

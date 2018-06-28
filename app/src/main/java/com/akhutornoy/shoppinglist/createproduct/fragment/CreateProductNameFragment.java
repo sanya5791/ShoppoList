@@ -52,7 +52,7 @@ public class CreateProductNameFragment extends BaseStepNavigationFragment implem
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

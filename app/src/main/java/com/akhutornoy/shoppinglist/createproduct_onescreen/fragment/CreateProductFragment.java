@@ -67,7 +67,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 

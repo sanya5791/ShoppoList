@@ -67,7 +67,7 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenter getBasePresenter() {
         return mPresenter;
     }
 
