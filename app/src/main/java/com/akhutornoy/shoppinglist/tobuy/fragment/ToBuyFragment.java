@@ -66,7 +66,7 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
     private void initProductList(View view) {
         RecyclerView rvProducts = view.findViewById(R.id.rv_products);
         rvProducts.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mProductsAdapter = new ToBuyProductsAdapter();
+        mProductsAdapter = new ToBuyProductsAdapter(toBuyModel -> mPresenter.updateState(toBuyModel));
         rvProducts.setAdapter(mProductsAdapter);
     }
 

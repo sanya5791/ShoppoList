@@ -2,6 +2,8 @@ package com.akhutornoy.shoppinglist.tobuy.model;
 
 import com.akhutornoy.shoppinglist.base.ProductModel;
 
+import java.util.Objects;
+
 public class ToBuyProductModel extends ProductModel {
     private boolean mIsBought;
     private String mShopName;
@@ -22,6 +24,21 @@ public class ToBuyProductModel extends ProductModel {
 
     public String getShopName() {
         return mShopName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ToBuyProductModel that = (ToBuyProductModel) o;
+        return mIsBought == that.mIsBought &&
+                Objects.equals(mShopName, that.mShopName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), mIsBought, mShopName);
     }
 
     public static class Builder extends ProductModel.Builder {

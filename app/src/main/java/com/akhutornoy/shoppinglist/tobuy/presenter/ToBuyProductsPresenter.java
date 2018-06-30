@@ -6,7 +6,10 @@ import com.akhutornoy.shoppinglist.domain.ToBuyDao;
 import com.akhutornoy.shoppinglist.tobuy.contract.ToBuyProductsContract;
 import com.akhutornoy.shoppinglist.tobuy.mapper.ToBuyProductMapper;
 import com.akhutornoy.shoppinglist.tobuy.model.ToBuyModel;
+import com.akhutornoy.shoppinglist.tobuy.model.ToBuyProductModel;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -36,5 +39,13 @@ public class ToBuyProductsPresenter extends ToBuyProductsContract.Presenter {
     }
 
     @Override
-    public void addNew(String string) {}
+    public void updateState(ToBuyProductModel toBuyModel) {
+        getCompositeDisposable().add(
+                Observable.fromCallable(() -> mToBuyProductMapper.mapInverse(toBuyModel))
+                        .flatMapCompletable(toBuy -> Completable.fromAction(() -> mDbToBuy.insertNew(toBuy)))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {}, this::onError)
+        );
+    }
 }

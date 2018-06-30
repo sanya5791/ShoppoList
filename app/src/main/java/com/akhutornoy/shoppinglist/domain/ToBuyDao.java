@@ -2,6 +2,7 @@ package com.akhutornoy.shoppinglist.domain;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public abstract class ToBuyDao {
     @Query("SELECT * FROM ToBuy")
     public abstract Flowable<List<ToBuy>> getAll();
 
-    @Query("SELECT * FROM ToBuy WHERE shopName LIKE :shopName")
+    @Query("SELECT * FROM ToBuy WHERE shopName LIKE :shopName ORDER BY isBought ASC")
     public abstract Flowable<List<ToBuy>> getAllByShop(String shopName);
 
     @Query("SELECT CurrentShop.name " +
@@ -40,10 +41,10 @@ public abstract class ToBuyDao {
     @Query("SELECT ConstantString.value FROM ConstantString WHERE ConstantString.name == :constantName LIMIT 1")
     protected abstract String getConstantString(String constantName);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertNew(ToBuy item);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertNew(List<ToBuy> items);
 
     @Query("DELETE FROM ToBuy")

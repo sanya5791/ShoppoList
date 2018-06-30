@@ -14,11 +14,12 @@ public class ToBuy {
     @NonNull
     private String shopName;
 
-    public ToBuy(@NonNull String name, @NonNull String unit, String quantity, @NonNull String shopName) {
+    public ToBuy(@NonNull String name, @NonNull String unit, String quantity, @NonNull String shopName, boolean isBought) {
         this.name = name;
         this.unit = unit;
         this.quantity = quantity;
         this.shopName = shopName;
+        this.isBought = isBought;
     }
 
     public String getName() {

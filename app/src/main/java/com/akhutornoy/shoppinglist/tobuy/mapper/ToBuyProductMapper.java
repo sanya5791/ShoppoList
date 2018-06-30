@@ -12,11 +12,18 @@ public class ToBuyProductMapper extends Mapper<ToBuy, ToBuyProductModel> {
                 .setUnit(source.getUnit())
                 .setQuantity(source.getQuantity())
                 .setShopName(source.getShopName())
+                .setIsBought(source.isBought())
                 .build();
     }
 
     @Override
     public ToBuy mapInverse(ToBuyProductModel source) {
-        throw new IllegalArgumentException("Not implemented");
+        return new ToBuy(
+                source.getName(),
+                source.getUnit(),
+                source.getQuantity(),
+                source.getShopName(),
+                source.isBought()
+        );
     }
 }

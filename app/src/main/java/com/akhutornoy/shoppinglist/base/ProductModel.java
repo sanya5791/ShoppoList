@@ -1,5 +1,7 @@
 package com.akhutornoy.shoppinglist.base;
 
+import java.util.Objects;
+
 public class ProductModel {
     protected String mId;
     protected String mName;
@@ -27,6 +29,22 @@ public class ProductModel {
 
     public String getQuantity() {
         return mQuantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductModel that = (ProductModel) o;
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mName, that.mName) &&
+                Objects.equals(mUnit, that.mUnit) &&
+                Objects.equals(mQuantity, that.mQuantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mId, mName, mUnit, mQuantity);
     }
 
     public static class Builder {

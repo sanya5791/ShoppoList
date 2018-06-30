@@ -26,7 +26,9 @@ public class AddProductModelMapper extends Mapper<Product, AddProductModel> {
         for (AddProductModel addProduct : addProductModels) {
             for (ToBuy toBuy : toBuys) {
                 if (toBuy.getName().equals(addProduct.getName())) {
-                    addProduct.setIsAdded(true);
+                    boolean isAdded = !toBuy.isBought();
+                    addProduct.setIsAdded(isAdded);
+                    addProduct.setQuantity(toBuy.getQuantity());
                     break;
                 }
             }

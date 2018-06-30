@@ -12,7 +12,7 @@ public class ToBuyMapper extends Mapper<AddProductModel, ToBuy> {
         if (shopName == null) {
             throw new IllegalArgumentException("'shopName' field should be preset first");
         }
-        return new ToBuy(source.getName(), source.getUnit(), source.getQuantity(), shopName);
+        return new ToBuy(source.getName(), source.getUnit(), source.getQuantity(), shopName, false);
     }
 
     @Override
