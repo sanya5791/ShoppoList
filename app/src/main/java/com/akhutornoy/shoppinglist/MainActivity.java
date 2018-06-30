@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
@@ -20,13 +21,12 @@ import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
 import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
-import timber.log.Timber;
-
 public class MainActivity extends BaseToolbarActivity
         implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnShopsClickListener,
-                    ToolbarTitle {
+                    ToolbarTitle, ToBuyFragment.FabHandler {
 
     private DrawerLayout mDrawer;
+    private FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +83,8 @@ public class MainActivity extends BaseToolbarActivity
     }
 
     private void initAddProductFab() {
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(v -> showAddProductsScreen());
+        mFab = findViewById(R.id.fab);
+        mFab.setOnClickListener(v -> showAddProductsScreen());
     }
 
     private void showAddProductsScreen() {
@@ -139,5 +139,15 @@ public class MainActivity extends BaseToolbarActivity
     @Override
     public void setToolbarSubTitle(String subTitle) {
         super.setToolbarSubTitle(subTitle);
+    }
+
+    @Override
+    public void showFab() {
+        mFab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideFab() {
+        mFab.setVisibility(View.GONE);
     }
 }

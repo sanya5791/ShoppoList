@@ -27,6 +27,7 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
     private ToBuyProductsContract.Presenter mPresenter;
     private ToBuyProductsAdapter mProductsAdapter;
     private ToolbarTitle mToolbarTitle;
+    private FabHandler mFabHandler;
 
     public static Fragment newInstance() {
         return new ToBuyFragment();
@@ -38,7 +39,15 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
         if (context instanceof ToolbarTitle) {
             mToolbarTitle = (ToolbarTitle) context;
         } else {
-            throw new IllegalArgumentException("Host Activity for fragment should implement " + ToolbarTitle.class.getSimpleName());
+            throw new IllegalArgumentException(String.format("Host Activity: '%s' should implement '%s' interface",
+                    context.getClass().getSimpleName(), ToolbarTitle.class.getSimpleName()));
+        }
+
+        if (context instanceof FabHandler) {
+            mFabHandler = (FabHandler) context;
+        } else {
+            throw new IllegalArgumentException(String.format("Host Activity: '%s' should implement '%s' interface",
+                    context.getClass().getSimpleName(), FabHandler.class.getSimpleName()));
         }
     }
 
@@ -80,12 +89,22 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
     public void onDataLoaded(ToBuyModel toBuyModel) {
         setToolbarSubTitle(toBuyModel.getCurrentShop());
         mProductsAdapter.setProducts(toBuyModel.getToBuyModels());
+
+        if (isCurrentShopNameAll(toBuyModel)) {
+            mFabHandler.hideFab();
+        } else {
+            mFabHandler.showFab();
+        }
     }
 
     private void setToolbarSubTitle(String subtitle) {
         if (!subtitle.isEmpty()) {
             mToolbarTitle.setToolbarSubTitle(subtitle);
         }
+    }
+
+    private boolean isCurrentShopNameAll(ToBuyModel toBuyModel) {
+        return toBuyModel.getCurrentShop().equals(getString(R.string.all));
     }
 
     @Override
@@ -97,5 +116,10 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
     @Override
     public void onError(String errorMsg) {
         Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    public interface FabHandler {
+        void showFab();
+        void hideFab();
     }
 }
