@@ -8,6 +8,7 @@ import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
 import com.akhutornoy.shoppinglist.domain.ProductDao;
 import com.akhutornoy.shoppinglist.domain.ProductInShopDao;
+import com.akhutornoy.shoppinglist.domain.ToBuy;
 import com.akhutornoy.shoppinglist.domain.ToBuyDao;
 
 import java.util.List;
@@ -37,25 +38,23 @@ public class AddProductsPresenter extends AddProductsContract.Presenter {
 
     @Override
     public void loadProducts() {
-        getView().showProgress();
-
         getCompositeDisposable().add(
                 Observable.fromCallable(() -> mDbCurrentShop.get())
-                        .map(mDbCurrentShop -> mDbProductInShop.getByShop(mDbCurrentShop))
-                        .flatMapIterable(productInShops -> productInShops)
+                        .flatMapIterable(currentShop -> mDbProductInShop.getByShop(currentShop))
                         .map(productInShop -> mDbProduct.getByName(productInShop.getProduct()))
-                        .map(productsDb -> mAddProductModelMapper.map(productsDb))
+                        .map(productDb -> mAddProductModelMapper.map(productDb))
                         .toList()
+                        .zipWith(mDbToBuy.getAllByCurrentShop().firstOrError(), this::zipAddProductsWithToBuys)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(products -> {
-                            getView().hideProgress();
-                            getView().onDataLoaded(products);
-                        }, error -> {
-                            getView().hideProgress();
-                            onError(error);
-                        })
+                        .doOnSubscribe(ignored -> getView().showProgress())
+                        .doFinally(() -> getView().hideProgress())
+                        .subscribe(products -> getView().onDataLoaded(products), this::onError)
         );
+    }
+
+    private List<AddProductModel> zipAddProductsWithToBuys(List<AddProductModel> addProductModels, List<ToBuy> toBuys) {
+        return mAddProductModelMapper.map(addProductModels, toBuys);
     }
 
     @Override
