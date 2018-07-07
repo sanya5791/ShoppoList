@@ -1,17 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--shop_all is mandatory string-->
-    <string name="shop_all">All</string>
-    <string name="shop_1">Supermarket</string>
-    <string name="shop_2">Market</string>
+    <string name="shop_all">Все</string>
+    <string name="shop_1">Базар</string>
+    <string name="shop_2">Супермаркет</string>
 
-    <string name="product_1">Bread</string>
-    <string name="product_2">Mozzarella</string>
-    <string name="product_3">Bananas</string>
-    <string name="product_4">Potato</string>
-    <string name="product_5">Milk</string>
-    <string name="product_6">Yogurt</string>
-    <string name="product_7">Beer</string>
-    <string name="product_8">Cheese</string>
+    <string name="product_1">Хлеб</string>
+    <string name="product_2">Булочки</string>
+    <string name="product_3">Бананы</string>
+    <string name="product_4">Картошка</string>
+    <string name="product_5">Молоко</string>
+    <string name="product_6">Йогурты</string>
+    <string name="product_7">Творог</string>
+    <string name="product_8">Сыр</string>
 
     <string name="product_1_default_quantity">1</string>
     <string name="product_2_default_quantity">3</string>
@@ -22,12 +23,12 @@
     <string name="product_7_default_quantity">1</string>
     <string name="product_8_default_quantity">400</string>
 
-    <string name="measure_type_1">kg</string>
-    <string name="measure_type_2">gr</string>
-    <string name="measure_type_3">pc</string>
-    <string name="measure_type_4">unt</string>
-    <string name="measure_type_5">ten</string>
-    <string name="measure_type_6">l</string>
+    <string name="measure_type_1">кг</string>
+    <string name="measure_type_2">гр</string>
+    <string name="measure_type_3">шт</string>
+    <string name="measure_type_4">пач</string>
+    <string name="measure_type_5">дес</string>
+    <string name="measure_type_6">л</string>
 
     <string name="product_1_measure_type">@string/measure_type_1</string>
     <string name="product_2_measure_type">@string/measure_type_3</string>
