@@ -52,7 +52,7 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mPresenter = new AddProductsPresenter(AppDatabase.getInstance(getActivity()));
-        initAddButton(view);
+        initDoneButton(view);
         initProductsList(view);
         return view;
     }
@@ -68,11 +68,11 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
         return mPresenter;
     }
 
-    private void initAddButton(View view) {
-        view.findViewById(R.id.bt_add).setOnClickListener(v -> onAddButtonClicked());
+    private void initDoneButton(View view) {
+        view.findViewById(R.id.fab_done).setOnClickListener(v -> onDoneButtonClicked());
     }
 
-    private void onAddButtonClicked() {
+    private void onDoneButtonClicked() {
         List<AddProductModel> selectedProducts = mAdapter.getSelected();
         mPresenter.saveSelectedProducts(selectedProducts);
     }
