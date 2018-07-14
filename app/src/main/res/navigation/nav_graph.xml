@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/toBuyFragment">
+
+    <fragment
+        android:id="@+id/toBuyFragment"
+        android:name="com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment"
+        android:label="ToBuyFragment" >
+        <action
+            android:id="@+id/action_toBuyFragment_to_addProductsActivity"
+            app:destination="@id/addProductsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/addProductsActivity"
+        android:name="com.akhutornoy.shoppinglist.addproducts.AddProductsActivity"
+        android:label="activity_add_products"
+        tools:layout="@layout/activity_add_products" />
+</navigation>

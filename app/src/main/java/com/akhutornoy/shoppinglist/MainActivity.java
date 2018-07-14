@@ -21,6 +21,9 @@ import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
 import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+
 public class MainActivity extends BaseToolbarActivity
         implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnShopsClickListener,
                     ToolbarTitle, ToBuyFragment.FabHandler {
@@ -84,11 +87,14 @@ public class MainActivity extends BaseToolbarActivity
 
     private void initAddProductFab() {
         mFab = findViewById(R.id.fab);
+//        mFab.setOnClickListener(v ->
+//                Navigation.findNavController(v).navigate(R.id.action_toBuyFragment_to_addProductsActivity));
         mFab.setOnClickListener(v -> showAddProductsScreen());
     }
 
     private void showAddProductsScreen() {
-        startActivity(AddProductsActivity.createIntent(this));
+        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_toBuyFragment_to_addProductsActivity);
+//        startActivity(AddProductsActivity.createIntent(this));
     }
 
     private void showShopsFragment() {
