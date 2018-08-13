@@ -56,9 +56,14 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
+        setToolbarTitle();
         mPresenter = new ToBuyProductsPresenter(AppDatabase.getInstance(getActivity()));
         initProductList(view);
         return view;
+    }
+
+    private void setToolbarTitle() {
+        mToolbarTitle.setToolbarTitle(getString(R.string.title_to_by_list));
     }
 
     @Override

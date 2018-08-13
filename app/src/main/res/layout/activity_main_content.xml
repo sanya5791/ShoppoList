@@ -25,10 +25,14 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <fragment
+            android:id="@+id/nav_host_to_buy"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/nav_to_buy"
+            app:defaultNavHost="true"
+            tools:layout="@layout/fragment_to_buy" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

@@ -14,6 +14,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getContentViewId());
     }
 
+    @Deprecated
     protected void showFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(getFragmentContainerId(), fragment)
@@ -21,6 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @LayoutRes
+    @Deprecated
     protected abstract int getContentViewId();
 
     @IdRes

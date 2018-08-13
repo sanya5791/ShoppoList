@@ -9,14 +9,6 @@
     android:background="@android:color/white"
     tools:openDrawer="start">
 
-    <fragment
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/nav_graph"
-        app:defaultNavHost="true"/>
-
     <include
         layout="@layout/activity_main_content"
         android:layout_width="match_parent"
@@ -37,11 +29,15 @@
 
             <include layout="@layout/nav_header_main" />
 
-            <FrameLayout
-                android:id="@+id/fragment_shops"
+            <fragment
+                android:id="@+id/nav_host_shops"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:navGraph="@navigation/nav_shops"
+                app:defaultNavHost="true"
+                tools:layout="@layout/fragment_shops" />
 
             <View style="@style/Divider" />
 

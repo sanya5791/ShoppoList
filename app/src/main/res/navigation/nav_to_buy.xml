@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/toBuyFragment"
         android:name="com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment"
-        android:label="ToBuyFragment" >
+        android:label="ToBuyFragment"
+        tools:layout="@layout/activity_main" >
         <action
             android:id="@+id/action_toBuyFragment_to_addProductsActivity"
             app:destination="@id/addProductsActivity" />
@@ -17,5 +18,5 @@
         android:id="@+id/addProductsActivity"
         android:name="com.akhutornoy.shoppinglist.addproducts.AddProductsActivity"
         android:label="activity_add_products"
-        tools:layout="@layout/activity_add_products" />
+        tools:layout="@layout/fragment_add_products" />
 </navigation>
