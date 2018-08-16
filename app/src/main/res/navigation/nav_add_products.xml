@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_add_products"
-    app:startDestination="@id/addProductsActivity2">
+    app:startDestination="@id/addProductsFragment">
+
+    <fragment
+        android:id="@+id/addProductsFragment"
+        android:name="com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment"
+        android:label="fragment_add_products"
+        tools:layout="@layout/fragment_add_products" >
+        <action
+            android:id="@+id/action_addProductsFragment_to_createProductActivity"
+            app:destination="@id/createProductActivity" />
+    </fragment>
 
     <activity
-        android:id="@+id/addProductsActivity2"
-        android:name="com.akhutornoy.shoppinglist.addproducts.AddProductsActivity"
-        android:label="activity_add_products"
-        tools:layout="@layout/activity_add_products" />
+        android:id="@+id/createProductActivity"
+        android:name="com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity"
+        android:label="CreateProductActivity"
+        tools:layout="@layout/fragment_create_product" />
 </navigation>

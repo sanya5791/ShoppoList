@@ -13,7 +13,11 @@ import com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 public class AddProductsActivity extends BaseToolbarActivity implements AddProductsFragment.EditProductListener {
+    NavController mNavController;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, AddProductsActivity.class);
@@ -22,7 +26,8 @@ public class AddProductsActivity extends BaseToolbarActivity implements AddProdu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showAddProductsScreen();
+        setToolbarTitle(R.string.title_add_products);
+        mNavController = Navigation.findNavController(this, R.id.nav_add_products);
     }
 
     @Override
@@ -39,8 +44,9 @@ public class AddProductsActivity extends BaseToolbarActivity implements AddProdu
 
     @Override
     @IdRes
+    // TODO: 16-Aug-18 remove base method when finish Navigation implementation
     protected int getFragmentContainerId() {
-        return R.id.fragment_container;
+        return 0;
     }
 
     @Override
@@ -61,12 +67,9 @@ public class AddProductsActivity extends BaseToolbarActivity implements AddProdu
     }
 
     private void showNewProductScreen() {
-        startActivity(CreateProductActivity.createIntent(this, null));
-    }
-
-    private void showAddProductsScreen() {
-        setToolbarTitle(R.string.title_add_products);
-        showFragment(AddProductsFragment.newInstance());
+        // TODO: 16-Aug-18 you should pass arguments
+        mNavController.navigate(R.id.action_addProductsFragment_to_createProductActivity);
+//        startActivity(CreateProductActivity.createIntent(this, null));
     }
 
     @Override

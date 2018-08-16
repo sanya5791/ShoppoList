@@ -22,9 +22,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @LayoutRes
-    @Deprecated
     protected abstract int getContentViewId();
 
     @IdRes
+    @Deprecated
     protected abstract int getFragmentContainerId();
 }
