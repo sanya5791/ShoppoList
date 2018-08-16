@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_add_products"
     app:startDestination="@id/addProductsFragment">
 
     <fragment
@@ -19,5 +18,9 @@
         android:id="@+id/createProductActivity"
         android:name="com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity"
         android:label="CreateProductActivity"
-        tools:layout="@layout/fragment_create_product" />
+        tools:layout="@layout/fragment_create_product" >
+        <argument
+            android:name="EditProductName"
+            app:argType="string" />
+    </activity>
 </navigation>

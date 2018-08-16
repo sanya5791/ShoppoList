@@ -11,17 +11,13 @@ import android.view.MenuItem;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivityArgs;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 public class AddProductsActivity extends BaseToolbarActivity implements AddProductsFragment.EditProductListener {
     NavController mNavController;
-
-    public static Intent createIntent(Context context) {
-        return new Intent(context, AddProductsActivity.class);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +63,14 @@ public class AddProductsActivity extends BaseToolbarActivity implements AddProdu
     }
 
     private void showNewProductScreen() {
-        // TODO: 16-Aug-18 you should pass arguments
         mNavController.navigate(R.id.action_addProductsFragment_to_createProductActivity);
-//        startActivity(CreateProductActivity.createIntent(this, null));
     }
 
     @Override
     public void onEditProduct(String name) {
-        startActivity(CreateProductActivity.createIntent(this, name));
+        CreateProductActivityArgs args = new CreateProductActivityArgs.Builder(name)
+                .setEditProductName(name)
+                .build();
+        mNavController.navigate(R.id.action_addProductsFragment_to_createProductActivity, args.toBundle());
     }
 }

@@ -1,11 +1,8 @@
 package com.akhutornoy.shoppinglist.createproduct_onescreen;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 
@@ -14,15 +11,9 @@ import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.fragment.CreateProductFragment;
 import com.akhutornoy.shoppinglist.editproduct.fragment.EditProductFragment;
 
+import timber.log.Timber;
+
 public class CreateProductActivity extends BaseToolbarActivity {
-
-    private static final String ARG_EDIT_PRODUCT_NAME = "ARG_EDIT_PRODUCT_NAME";
-
-    public static Intent createIntent(Context context, @Nullable String editProductName) {
-        Intent intent = new Intent(context, CreateProductActivity.class);
-        intent.putExtra(ARG_EDIT_PRODUCT_NAME, editProductName);
-        return intent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +24,16 @@ public class CreateProductActivity extends BaseToolbarActivity {
     }
 
     private Fragment getFragment() {
-        String argProductName = getIntent().getStringExtra(ARG_EDIT_PRODUCT_NAME);
-        return argProductName == null
+        String editProductName = null;
+        try {
+            Bundle extras = getIntent().getExtras();
+            editProductName = CreateProductActivityArgs.fromBundle(extras).getEditProductName();
+        } catch (Exception e) {
+            Timber.d("getFragment: need to create new Product");
+        }
+        return editProductName == null
                 ? CreateProductFragment.newInstance()
-                : EditProductFragment.newInstance(argProductName);
+                : EditProductFragment.newInstance(editProductName);
     }
 
     @Override
