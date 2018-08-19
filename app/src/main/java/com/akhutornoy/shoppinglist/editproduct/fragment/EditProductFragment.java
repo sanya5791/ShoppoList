@@ -64,7 +64,7 @@ public class EditProductFragment extends CreateProductFragment implements EditPr
     }
 
     private String getProductName() {
-        return getArgumentString(ARG_EDIT_PRODUCT_NAME);
+        return EditProductFragmentArgs.fromBundle(getArguments()).getEditProductName();
     }
 
     @Override
