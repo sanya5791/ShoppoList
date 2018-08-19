@@ -23,11 +23,6 @@
             android:name=".addproducts.AddProductsActivity"/>
 
         <activity
-            android:name=".createproduct.CreateProductActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/title_activity_new_product"/>
-
-        <activity
             android:name=".createproduct_onescreen.CreateProductActivity"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_new_product"/>

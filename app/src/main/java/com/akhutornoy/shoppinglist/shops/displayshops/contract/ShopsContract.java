@@ -2,7 +2,7 @@ package com.akhutornoy.shoppinglist.shops.displayshops.contract;
 
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.base.view.LoadableView;
-import com.akhutornoy.shoppinglist.createproduct.model.ShopModel;
+import com.akhutornoy.shoppinglist.shops.model.ShopModel;
 
 import java.util.List;
 

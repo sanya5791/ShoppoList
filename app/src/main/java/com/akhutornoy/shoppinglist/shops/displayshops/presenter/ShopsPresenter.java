@@ -1,8 +1,8 @@
 package com.akhutornoy.shoppinglist.shops.displayshops.presenter;
 
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
-import com.akhutornoy.shoppinglist.createproduct.mapper.ShopModelMapper;
-import com.akhutornoy.shoppinglist.createproduct.model.ShopModel;
+import com.akhutornoy.shoppinglist.shops.mapper.ShopModelMapper;
+import com.akhutornoy.shoppinglist.shops.model.ShopModel;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.CurrentShop;
 import com.akhutornoy.shoppinglist.domain.CurrentShopDao;

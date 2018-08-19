@@ -1,12 +1,12 @@
 package com.akhutornoy.shoppinglist.shops.manageshops.presenter;
 
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
-import com.akhutornoy.shoppinglist.createproduct.mapper.ShopModelMapper;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.Shop;
 import com.akhutornoy.shoppinglist.domain.ShopDao;
 import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
 import com.akhutornoy.shoppinglist.shops.mapper.ItemModelMapper;
+import com.akhutornoy.shoppinglist.shops.mapper.ShopModelMapper;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
