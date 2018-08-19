@@ -1,7 +1,5 @@
 package com.akhutornoy.shoppinglist.addproducts;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -11,18 +9,19 @@ import android.view.MenuItem;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivityArgs;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 public class AddProductsActivity extends BaseToolbarActivity implements AddProductsFragment.EditProductListener {
-
-    public static Intent createIntent(Context context) {
-        return new Intent(context, AddProductsActivity.class);
-    }
+    NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showAddProductsScreen();
+        setToolbarTitle(R.string.title_add_products);
+        mNavController = Navigation.findNavController(this, R.id.nav_add_products);
     }
 
     @Override
@@ -35,12 +34,6 @@ public class AddProductsActivity extends BaseToolbarActivity implements AddProdu
     @IdRes
     protected int getToolbarResId() {
         return R.id.toolbar;
-    }
-
-    @Override
-    @IdRes
-    protected int getFragmentContainerId() {
-        return R.id.fragment_container;
     }
 
     @Override
@@ -61,16 +54,14 @@ public class AddProductsActivity extends BaseToolbarActivity implements AddProdu
     }
 
     private void showNewProductScreen() {
-        startActivity(CreateProductActivity.createIntent(this, null));
-    }
-
-    private void showAddProductsScreen() {
-        setToolbarTitle(R.string.title_add_products);
-        showFragment(AddProductsFragment.newInstance());
+        mNavController.navigate(R.id.action_addProductsFragment_to_createProductActivity);
     }
 
     @Override
     public void onEditProduct(String name) {
-        startActivity(CreateProductActivity.createIntent(this, name));
+        CreateProductActivityArgs args = new CreateProductActivityArgs.Builder(name)
+                .setEditProductName(name)
+                .build();
+        mNavController.navigate(R.id.action_addProductsFragment_to_createProductActivity, args.toBundle());
     }
 }

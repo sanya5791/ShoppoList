@@ -1,54 +1,68 @@
 package com.akhutornoy.shoppinglist.createproduct_onescreen;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.Menu;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
-import com.akhutornoy.shoppinglist.createproduct_onescreen.fragment.CreateProductFragment;
 import com.akhutornoy.shoppinglist.editproduct.fragment.EditProductFragment;
+import com.akhutornoy.shoppinglist.editproduct.fragment.EditProductFragmentArgs;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import timber.log.Timber;
 
 public class CreateProductActivity extends BaseToolbarActivity {
-
-    private static final String ARG_EDIT_PRODUCT_NAME = "ARG_EDIT_PRODUCT_NAME";
-
-    public static Intent createIntent(Context context, @Nullable String editProductName) {
-        Intent intent = new Intent(context, CreateProductActivity.class);
-        intent.putExtra(ARG_EDIT_PRODUCT_NAME, editProductName);
-        return intent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setToolbarTitle(R.string.title_create_product);
         initViews();
-        showFragment(getFragment());
+        //if need to navigate NOT to default navigation destination
+        if (needEditProduct()) {
+            showEditProductFragment();
+        }
     }
 
-    private Fragment getFragment() {
-        String argProductName = getIntent().getStringExtra(ARG_EDIT_PRODUCT_NAME);
-        return argProductName == null
-                ? CreateProductFragment.newInstance()
-                : EditProductFragment.newInstance(argProductName);
+    private void showEditProductFragment() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host);
+
+        String editProductName = getEditProductNameArg();
+
+        if (editProductName == null) {
+            throw new IllegalArgumentException(String.format("Need 'Product Name' to start '%s' fragment", EditProductFragment.class.getSimpleName()));
+        }
+        EditProductFragmentArgs args = new EditProductFragmentArgs.Builder()
+                .setEditProductName(editProductName)
+                .build();
+        navController.navigate(R.id.editProductFragment, args.toBundle());
+    }
+
+    private boolean needEditProduct() {
+        return getEditProductNameArg() != null;
+    }
+
+    @Nullable
+    private String getEditProductNameArg() {
+        try {
+            String editProductName;
+            Bundle extras = getIntent().getExtras();
+            editProductName = CreateProductActivityArgs.fromBundle(extras).getEditProductName();
+            return editProductName;
+        } catch (Exception e) {
+            Timber.d("getEditProductNameArg: EditProductName Argument wasn't passed");
+            return null;
+        }
     }
 
     @Override
     @LayoutRes
     protected int getContentViewId() {
         return R.layout.activity_create_product_one_screen;
-    }
-
-    @Override
-    @LayoutRes
-    protected int getFragmentContainerId() {
-        return R.id.fragment_container;
     }
 
     @Override

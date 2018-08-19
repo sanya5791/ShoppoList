@@ -42,10 +42,6 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     private QuantityTypeAdapter mQuantityTypeAdapter;
     private ShopsAdapter mShopsAdapter;
 
-    public static Fragment newInstance() {
-        return new CreateProductFragment();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

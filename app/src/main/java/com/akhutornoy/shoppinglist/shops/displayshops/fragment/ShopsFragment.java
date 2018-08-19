@@ -13,11 +13,11 @@ import android.widget.Toast;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
-import com.akhutornoy.shoppinglist.createproduct.model.ShopModel;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.shops.displayshops.adapter.ShopsAdapter;
 import com.akhutornoy.shoppinglist.shops.displayshops.contract.ShopsContract;
 import com.akhutornoy.shoppinglist.shops.displayshops.presenter.ShopsPresenter;
+import com.akhutornoy.shoppinglist.shops.model.ShopModel;
 
 import java.util.List;
 
@@ -29,10 +29,6 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     public interface OnShopsClickListener {
         void onManageShopsClick();
         void onShopClick();
-    }
-
-    public static ShopsFragment newInstance() {
-        return new ShopsFragment();
     }
 
     @Override

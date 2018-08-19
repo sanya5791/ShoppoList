@@ -14,12 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.akhutornoy.shoppinglist.addproducts.AddProductsActivity;
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.base.activity.ToolbarTitle;
-import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
 import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 public class MainActivity extends BaseToolbarActivity
         implements NavigationView.OnNavigationItemSelectedListener, ShopsFragment.OnShopsClickListener,
@@ -33,20 +34,12 @@ public class MainActivity extends BaseToolbarActivity
         super.onCreate(savedInstanceState);
         initNavigationDrawer(getToolbar());
         initAddProductFab();
-        showShopsFragment();
-        showToByScreen();
     }
 
     @Override
     @LayoutRes
     protected int getContentViewId() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    @IdRes
-    protected int getFragmentContainerId() {
-        return R.id.fragment_container;
     }
 
     @Override
@@ -84,22 +77,9 @@ public class MainActivity extends BaseToolbarActivity
 
     private void initAddProductFab() {
         mFab = findViewById(R.id.fab);
-        mFab.setOnClickListener(v -> showAddProductsScreen());
-    }
-
-    private void showAddProductsScreen() {
-        startActivity(AddProductsActivity.createIntent(this));
-    }
-
-    private void showShopsFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_shops, ShopsFragment.newInstance())
-                .commit();
-    }
-
-    private void showToByScreen() {
-        setToolbarTitle(R.string.title_to_by_list);
-        showFragment(ToBuyFragment.newInstance());
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_to_buy);
+        Navigation.setViewNavController(mFab, navController);
+        mFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_toBuyFragment_to_addProductsActivity));
     }
 
     @Override
@@ -119,7 +99,8 @@ public class MainActivity extends BaseToolbarActivity
 
     @Override
     public void onManageShopsClick() {
-        startActivity(ManageShopsActivity.createIntent(this));
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_shops);
+        navController.navigate(R.id.action_shopsFragment_to_manageShopsActivity);
     }
 
     @Override

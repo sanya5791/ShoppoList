@@ -1,7 +1,6 @@
 package com.akhutornoy.shoppinglist.managemeasuretypes.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -23,10 +22,6 @@ public class ManageMeasureTypesFragment extends BaseManageItemsFragment<ItemMode
     private static final int NEW_TYPE_DIALOG_MAX_INPUT_LENGTH = 3;
 
     private ManageMeasureTypesContract.Presenter mPresenter;
-
-    public static Fragment newInstance() {
-        return new ManageMeasureTypesFragment();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

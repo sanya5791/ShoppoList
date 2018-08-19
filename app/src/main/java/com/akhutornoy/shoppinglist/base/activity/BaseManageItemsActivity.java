@@ -27,10 +27,4 @@ public abstract class BaseManageItemsActivity extends BaseToolbarActivity {
     protected int getToolbarResId() {
         return R.id.toolbar;
     }
-
-    @Override
-    @IdRes
-    protected int getFragmentContainerId() {
-        return R.id.fragment_container;
-    }
 }

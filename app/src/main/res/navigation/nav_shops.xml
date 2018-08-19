@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/shopsFragment">
+
+    <fragment
+        android:id="@+id/shopsFragment"
+        android:name="com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment"
+        android:label="ShopsFragment" >
+        <action
+            android:id="@+id/action_shopsFragment_to_manageShopsActivity"
+            app:destination="@id/manageShopsActivity" />
+    </fragment>
+
+
+    <activity
+        android:id="@+id/manageShopsActivity"
+        android:name="com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity"
+        android:label="ManageShopsActivity"
+        tools:layout="@layout/fragment_manage_items"/>
+</navigation>

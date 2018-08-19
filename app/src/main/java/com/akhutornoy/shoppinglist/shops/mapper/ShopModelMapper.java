@@ -1,8 +1,8 @@
-package com.akhutornoy.shoppinglist.createproduct.mapper;
+package com.akhutornoy.shoppinglist.shops.mapper;
 
 import com.akhutornoy.shoppinglist.base.Mapper;
-import com.akhutornoy.shoppinglist.createproduct.model.ShopModel;
 import com.akhutornoy.shoppinglist.domain.Shop;
+import com.akhutornoy.shoppinglist.shops.model.ShopModel;
 
 public class ShopModelMapper extends Mapper<Shop, ShopModel> {
     private String currentShop;

@@ -4,7 +4,6 @@ package com.akhutornoy.shoppinglist.tobuy.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,10 +28,6 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
     private ToolbarTitle mToolbarTitle;
     private FabHandler mFabHandler;
 
-    public static Fragment newInstance() {
-        return new ToBuyFragment();
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -56,9 +51,14 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
+        setToolbarTitle();
         mPresenter = new ToBuyProductsPresenter(AppDatabase.getInstance(getActivity()));
         initProductList(view);
         return view;
+    }
+
+    private void setToolbarTitle() {
+        mToolbarTitle.setToolbarTitle(getString(R.string.title_to_by_list));
     }
 
     @Override

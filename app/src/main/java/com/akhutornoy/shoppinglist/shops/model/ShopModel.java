@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.createproduct.model;
+package com.akhutornoy.shoppinglist.shops.model;
 
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
 

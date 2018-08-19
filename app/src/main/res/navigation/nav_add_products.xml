@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/addProductsFragment">
+
+    <fragment
+        android:id="@+id/addProductsFragment"
+        android:name="com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment"
+        android:label="fragment_add_products"
+        tools:layout="@layout/fragment_add_products" >
+        <action
+            android:id="@+id/action_addProductsFragment_to_createProductActivity"
+            app:destination="@id/createProductActivity" />
+    </fragment>
+
+    <activity
+        android:id="@+id/createProductActivity"
+        android:name="com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity"
+        android:label="CreateProductActivity"
+        tools:layout="@layout/fragment_create_product" >
+        <argument
+            android:name="EditProductName"
+            app:argType="string" />
+    </activity>
+</navigation>
