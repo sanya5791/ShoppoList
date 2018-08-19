@@ -66,12 +66,6 @@ public class CreateProductActivity extends BaseToolbarActivity {
     }
 
     @Override
-    @LayoutRes
-    protected int getFragmentContainerId() {
-        return R.id.fragment_container;
-    }
-
-    @Override
     @IdRes
     protected int getToolbarResId() {
         return R.id.toolbar;

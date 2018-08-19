@@ -3,7 +3,6 @@ package com.akhutornoy.shoppinglist.addproducts.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,10 +30,6 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
     private AddProductsContract.Presenter mPresenter;
     private AddProductsAdapter mAdapter;
     private EditProductListener mEditProductListenerCallback;
-
-    public static Fragment newInstance() {
-        return new AddProductsFragment();
-    }
 
     @Override
     public void onAttach(Context context) {

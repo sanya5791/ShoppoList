@@ -1,7 +1,5 @@
 package com.akhutornoy.shoppinglist.addproducts;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -36,13 +34,6 @@ public class AddProductsActivity extends BaseToolbarActivity implements AddProdu
     @IdRes
     protected int getToolbarResId() {
         return R.id.toolbar;
-    }
-
-    @Override
-    @IdRes
-    // TODO: 16-Aug-18 remove base method when finish Navigation implementation
-    protected int getFragmentContainerId() {
-        return 0;
     }
 
     @Override

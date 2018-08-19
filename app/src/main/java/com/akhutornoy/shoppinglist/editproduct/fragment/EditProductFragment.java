@@ -1,8 +1,5 @@
 package com.akhutornoy.shoppinglist.editproduct.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,17 +14,7 @@ import com.akhutornoy.shoppinglist.editproduct.contract.EditProductContract;
 import com.akhutornoy.shoppinglist.editproduct.presenter.EditProductPresenter;
 
 public class EditProductFragment extends CreateProductFragment implements EditProductContract.View {
-    private static final String ARG_EDIT_PRODUCT_NAME = "ARG_EDIT_PRODUCT_NAME";
-
     private EditProductContract.Presenter mPresenter;
-
-    public static Fragment newInstance(@NonNull String argProductName) {
-        Fragment fragment = new EditProductFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_EDIT_PRODUCT_NAME, argProductName);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     protected CreateProductContract.Presenter createPresenter() {

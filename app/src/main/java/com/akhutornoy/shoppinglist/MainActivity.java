@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.base.activity.BaseToolbarActivity;
 import com.akhutornoy.shoppinglist.base.activity.ToolbarTitle;
-import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
 import com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment;
 import com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment;
 
@@ -41,12 +40,6 @@ public class MainActivity extends BaseToolbarActivity
     @LayoutRes
     protected int getContentViewId() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    @IdRes
-    protected int getFragmentContainerId() {
-        return R.id.fragment_container;
     }
 
     @Override
