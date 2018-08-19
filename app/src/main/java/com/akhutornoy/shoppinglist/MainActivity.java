@@ -106,7 +106,8 @@ public class MainActivity extends BaseToolbarActivity
 
     @Override
     public void onManageShopsClick() {
-        startActivity(ManageShopsActivity.createIntent(this));
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_shops);
+        navController.navigate(R.id.action_shopsFragment_to_manageShopsActivity);
     }
 
     @Override

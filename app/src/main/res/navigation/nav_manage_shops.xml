@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/manageShopsFragment">
+
+    <fragment
+        android:id="@+id/manageShopsFragment"
+        android:name="com.akhutornoy.shoppinglist.shops.manageshops.fragment.ManageShopsFragment"
+        android:label="ManageShopsFragment"
+        tools:layout="@layout/fragment_manage_items"/>
+</navigation>

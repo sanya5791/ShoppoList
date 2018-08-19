@@ -31,6 +31,6 @@ public abstract class BaseManageItemsActivity extends BaseToolbarActivity {
     @Override
     @IdRes
     protected int getFragmentContainerId() {
-        return R.id.fragment_container;
+        return 0;
     }
 }
