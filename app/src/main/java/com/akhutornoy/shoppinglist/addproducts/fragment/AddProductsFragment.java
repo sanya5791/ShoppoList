@@ -18,7 +18,7 @@ import com.akhutornoy.shoppinglist.addproducts.adapter.AddProductsAdapter;
 import com.akhutornoy.shoppinglist.addproducts.contract.AddProductsContract;
 import com.akhutornoy.shoppinglist.addproducts.model.AddProductModel;
 import com.akhutornoy.shoppinglist.addproducts.presenter.AddProductsPresenter;
-import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.util.ui.AlertDialogUtils;

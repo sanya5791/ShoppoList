@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
-import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.shops.displayshops.adapter.ShopsAdapter;

@@ -1,4 +1,4 @@
-package com.akhutornoy.shoppinglist.base;
+package com.akhutornoy.shoppinglist.base.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

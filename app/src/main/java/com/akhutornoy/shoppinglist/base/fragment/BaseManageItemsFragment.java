@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
-import com.akhutornoy.shoppinglist.base.BaseFragment;
 import com.akhutornoy.shoppinglist.base.adapter.BaseManageItemsAdapter;
 import com.akhutornoy.shoppinglist.base.contract.BaseManageItemsContract;
 import com.akhutornoy.shoppinglist.base.model.ItemModel;

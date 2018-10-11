@@ -1,8 +1,6 @@
 package com.akhutornoy.shoppinglist.createproduct_onescreen.fragment;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
-import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.adapter.QuantityTypeAdapter;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.adapter.ShopsAdapter;

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
-import com.akhutornoy.shoppinglist.base.BaseFragment;
+import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.activity.ToolbarTitle;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
