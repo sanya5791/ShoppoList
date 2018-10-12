@@ -48,4 +48,5 @@
     <string name="error_shop_should_be_selected">Нужно выбрать хотя бы один магазин</string>
     <string name="error_default_quantity_cannot_be_empty">Нужно заполнить количество по умолч.</string>
     <string name="enter_new_name_product">Введите новое наименование</string>
+    <string name="share">Поделиться</string>
 </resources>

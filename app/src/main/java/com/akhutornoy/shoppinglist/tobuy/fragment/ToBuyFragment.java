@@ -2,18 +2,22 @@ package com.akhutornoy.shoppinglist.tobuy.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.akhutornoy.shoppinglist.R;
-import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.activity.ToolbarTitle;
+import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.tobuy.adapter.ToBuyProductsAdapter;
@@ -51,10 +55,34 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
+        setHasOptionsMenu(true);
         setToolbarTitle();
         mPresenter = new ToBuyProductsPresenter(AppDatabase.getInstance(getActivity()));
         initProductList(view);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_share, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_share) {
+            mPresenter.onShareListClicked(mProductsAdapter.getProducts());
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void shareList(String shareText) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
     private void setToolbarTitle() {

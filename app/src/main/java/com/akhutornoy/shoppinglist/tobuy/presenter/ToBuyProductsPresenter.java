@@ -8,6 +8,8 @@ import com.akhutornoy.shoppinglist.tobuy.mapper.ToBuyProductMapper;
 import com.akhutornoy.shoppinglist.tobuy.model.ToBuyModel;
 import com.akhutornoy.shoppinglist.tobuy.model.ToBuyProductModel;
 
+import java.util.List;
+
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -47,5 +49,18 @@ public class ToBuyProductsPresenter extends ToBuyProductsContract.Presenter {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {}, this::onError)
         );
+    }
+
+    @Override
+    public void onShareListClicked(List<ToBuyProductModel> products) {
+        StringBuilder builder = new StringBuilder();
+        for (ToBuyProductModel product : products) {
+            String item = String.format("%s - %s%s; %s\n", product.getName(), product.getQuantity(), product.getUnit(), product.getShopName());
+            builder.append(item);
+
+        }
+
+        getView().shareList(builder.toString());
+
     }
 }

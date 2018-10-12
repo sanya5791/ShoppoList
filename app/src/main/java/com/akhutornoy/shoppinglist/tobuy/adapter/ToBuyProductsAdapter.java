@@ -64,6 +64,10 @@ public class ToBuyProductsAdapter extends ListAdapter<ToBuyProductModel, ToBuyPr
         submitList(products);
     }
 
+    public List<ToBuyProductModel> getProducts() {
+        return mProducts;
+    }
+
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         private final ValueCallback<ToBuyProductModel> mOnCheckStateChangedCallback;
         private AppCompatCheckBox mCbIsBought;
