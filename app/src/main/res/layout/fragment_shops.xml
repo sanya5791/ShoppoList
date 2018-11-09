@@ -33,7 +33,7 @@
         android:id="@+id/rv_shops"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_20"
         tools:listitem="@layout/item_shop_type"
         tools:itemCount="20"/>

@@ -21,9 +21,11 @@ import com.akhutornoy.shoppinglist.addproducts.presenter.AddProductsPresenter;
 import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
+import com.akhutornoy.shoppinglist.util.KeyboardUtils;
 import com.akhutornoy.shoppinglist.util.ui.AlertDialogUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AddProductsFragment extends BaseFragment implements AddProductsContract.View {
 
@@ -90,6 +92,7 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
 
         builder.setMessage(getString(R.string.quantity_for, addProductModel.getName()))
                 .show();
+        KeyboardUtils.showKeyboard(Objects.requireNonNull(getView()));
     }
 
     private void onProductEdit(AddProductModel productModel) {
@@ -101,6 +104,7 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
             addProductModel.setQuantity(value);
             mAdapter.updateProductQuantity(addProductModel);
         }
+        KeyboardUtils.hideKeyboard(Objects.requireNonNull(getView()));
     }
 
     @Override

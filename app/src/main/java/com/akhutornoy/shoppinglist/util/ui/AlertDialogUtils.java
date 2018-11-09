@@ -1,6 +1,7 @@
 package com.akhutornoy.shoppinglist.util.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.Gravity;
@@ -11,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.util.KeyboardUtils;
+
+import java.util.Objects;
 
 public class AlertDialogUtils {
     public interface OnEditTextAlertDialogListener {
@@ -35,6 +39,7 @@ public class AlertDialogUtils {
         editText.setGravity(Gravity.END);
         editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//        editText.requestFocus();
     }
 
     private static View getEditTextWithSuffixView(Context context, String suffix) {
@@ -59,6 +64,11 @@ public class AlertDialogUtils {
                     onOkPressed.run();
                     dialog.dismiss();
                 })
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> onCancelClicked(customView, dialog));
+    }
+
+    private static void onCancelClicked(View customView, DialogInterface dialog) {
+        KeyboardUtils.showKeyboard(customView);
+        dialog.cancel();
     }
 }
