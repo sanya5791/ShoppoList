@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:layout_marginBottom="@dimen/margin_medium"
+    tools:context="com.akhutornoy.shoppinglist.settings.fragment.SettingsFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_small"
+        android:paddingEnd="@dimen/padding_small"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:text="@string/backup"/>
+
+    <TextView
+        android:id="@+id/bt_backup_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium"
+        android:paddingTop="@dimen/padding_medium"
+        android:paddingBottom="@dimen/padding_small"
+        android:text="@string/backup_create"
+        android:background="?android:attr/selectableItemBackground"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableStart="@drawable/ic_backup"/>
+
+    <TextView
+        android:id="@+id/bt_backup_restore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"
+        android:text="@string/backup_restore"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableStart="@drawable/ic_backup_restore"/>
+
+</LinearLayout>

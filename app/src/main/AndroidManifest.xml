@@ -33,6 +33,8 @@
             android:name=".shops.manageshops.ManageShopsActivity"/>
 
         <activity android:name=".managemeasuretypes.activity.ManageMeasureTypesActivity" />
+
+        <activity android:name=".settings.SettingsActivity" />
     </application>
 
 </manifest>

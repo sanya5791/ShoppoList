@@ -72,7 +72,8 @@ public class MainActivity extends BaseToolbarActivity
     }
 
     private void showSettingsScreen() {
-        Toast.makeText(this, "Not Implemented", Toast.LENGTH_SHORT).show();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_to_buy);
+        navController.navigate(R.id.action_toBuyFragment_to_settingsActivity);
     }
 
     private void initAddProductFab() {

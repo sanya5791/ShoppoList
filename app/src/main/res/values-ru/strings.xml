@@ -49,4 +49,11 @@
     <string name="error_default_quantity_cannot_be_empty">Нужно заполнить количество по умолч.</string>
     <string name="enter_new_name_product">Введите новое наименование</string>
     <string name="share">Поделиться</string>
+    <string name="backup">Резервная копия</string>
+    <string name="backup_create">Создать Backup</string>
+    <string name="backup_restore">Восстановить Backup</string>
+    <string name="error_backup_create">Невозможно создать DB backup</string>
+    <string name="error_backup_restore_file">Невозможно восстановит DB</string>
+    <string name="message_restore_db_data_will_be_available_after_restart">Восстановленные данные появятся после перезапуска приложения</string>
+
 </resources>

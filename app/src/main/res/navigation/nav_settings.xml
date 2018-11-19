@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/settingsFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.akhutornoy.shoppinglist.settings.fragment.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_mainActivity_to_settingsActivity"
+            app:destination="@id/createProductActivity" />
+    </fragment>
+
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.akhutornoy.shoppinglist.settings.SettingsActivity"
+        android:label="SettingsActivity"
+        tools:layout="@layout/fragment_settings" >
+    </activity>
+</navigation>

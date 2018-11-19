@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_toBuyFragment_to_addProductsActivity"
             app:destination="@+id/addProductsActivity" />
+        <action
+            android:id="@+id/action_toBuyFragment_to_settingsActivity"
+            app:destination="@+id/settingsActivity" />
     </fragment>
     <activity
         android:id="@+id/addProductsActivity"
         android:name="com.akhutornoy.shoppinglist.addproducts.AddProductsActivity"
         android:label="AddProductsActivity"
         tools:layout="@layout/fragment_add_products" />
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.akhutornoy.shoppinglist.settings.SettingsActivity"
+        android:label="SettingsActivity"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

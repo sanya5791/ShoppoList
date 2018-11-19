@@ -48,4 +48,11 @@
     <string name="error_shop_should_be_selected">At least one shop should be selected</string>
     <string name="error_default_quantity_cannot_be_empty">Default Quantity cannot be empty</string>
     <string name="enter_new_name_product">Enter new name</string>
+    <string name="backup">Backup</string>
+    <string name="backup_create">Create Backup</string>
+    <string name="backup_restore">Restore Backup</string>
+    <string name="error_backup_create">Can\'t create DB backup</string>
+    <string name="error_backup_restore_file">Can\'t restore DB</string>
+    <string name="message_restore_db_data_will_be_available_after_restart">Restored data will appear after Application restart</string>
+
 </resources>

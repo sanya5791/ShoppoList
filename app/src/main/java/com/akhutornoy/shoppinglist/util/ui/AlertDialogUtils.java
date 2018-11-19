@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.util.KeyboardUtils;
 
-import java.util.Objects;
-
 public class AlertDialogUtils {
     public interface OnEditTextAlertDialogListener {
         void onOkClicked(String value);
@@ -39,7 +37,6 @@ public class AlertDialogUtils {
         editText.setGravity(Gravity.END);
         editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-//        editText.requestFocus();
     }
 
     private static View getEditTextWithSuffixView(Context context, String suffix) {
@@ -57,13 +54,17 @@ public class AlertDialogUtils {
         };
     }
 
-    private static AlertDialog.Builder getAddItemDialogBuilder(Context context, View customView, Runnable onOkPressed) {
+    public static AlertDialog.Builder getOkCancelDialogBuilder(Context context, Runnable onOkPressed) {
         return new AlertDialog.Builder(context)
-                .setView(customView)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     onOkPressed.run();
                     dialog.dismiss();
-                })
+                });
+    }
+
+    private static AlertDialog.Builder getAddItemDialogBuilder(Context context, View customView, Runnable onOkPressed) {
+        return getOkCancelDialogBuilder(context, onOkPressed)
+                .setView(customView)
                 .setNegativeButton(android.R.string.cancel, (dialog, which) -> onCancelClicked(customView, dialog));
     }
 
