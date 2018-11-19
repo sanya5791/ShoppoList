@@ -10,6 +10,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.Toolbar;
 
+import com.akhutornoy.shoppinglist.ui.MainActivity;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.After;

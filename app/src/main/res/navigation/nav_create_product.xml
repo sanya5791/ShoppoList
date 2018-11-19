@@ -6,12 +6,12 @@
 
     <fragment
         android:id="@+id/createProductFragment"
-        android:name="com.akhutornoy.shoppinglist.createproduct_onescreen.fragment.CreateProductFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.createproduct_onescreen.fragment.CreateProductFragment"
         android:label="CreateProductFragment"
         tools:layout="@layout/fragment_create_product"/>
     <fragment
         android:id="@+id/editProductFragment"
-        android:name="com.akhutornoy.shoppinglist.editproduct.fragment.EditProductFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.editproduct.fragment.EditProductFragment"
         android:label="EditProductFragment"
         tools:layout="@layout/fragment_create_product">
         <argument

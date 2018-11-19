@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/toBuyFragment"
-        android:name="com.akhutornoy.shoppinglist.tobuy.fragment.ToBuyFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.tobuy.fragment.ToBuyFragment"
         android:label="ToBuyFragment"
         tools:layout="@layout/activity_main" >
         <action
@@ -18,12 +18,12 @@
     </fragment>
     <activity
         android:id="@+id/addProductsActivity"
-        android:name="com.akhutornoy.shoppinglist.addproducts.AddProductsActivity"
+        android:name="com.akhutornoy.shoppinglist.ui.addproducts.AddProductsActivity"
         android:label="AddProductsActivity"
         tools:layout="@layout/fragment_add_products" />
     <activity
         android:id="@+id/settingsActivity"
-        android:name="com.akhutornoy.shoppinglist.settings.SettingsActivity"
+        android:name="com.akhutornoy.shoppinglist.ui.settings.SettingsActivity"
         android:label="SettingsActivity"
         tools:layout="@layout/fragment_settings" />
 </navigation>

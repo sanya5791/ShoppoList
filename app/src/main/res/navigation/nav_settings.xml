@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.akhutornoy.shoppinglist.settings.fragment.SettingsFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.settings.fragment.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -16,7 +16,7 @@
 
     <activity
         android:id="@+id/settingsActivity"
-        android:name="com.akhutornoy.shoppinglist.settings.SettingsActivity"
+        android:name="com.akhutornoy.shoppinglist.ui.settings.SettingsActivity"
         android:label="SettingsActivity"
         tools:layout="@layout/fragment_settings" >
     </activity>

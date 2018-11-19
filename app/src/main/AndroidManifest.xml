@@ -14,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".MainActivity">
+            android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,19 +22,19 @@
         </activity>
 
         <activity
-            android:name=".addproducts.AddProductsActivity"/>
+            android:name=".ui.addproducts.AddProductsActivity"/>
 
         <activity
-            android:name=".createproduct_onescreen.CreateProductActivity"
+            android:name=".ui.createproduct_onescreen.CreateProductActivity"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_new_product"/>
 
         <activity
-            android:name=".shops.manageshops.ManageShopsActivity"/>
+            android:name=".ui.shops.manageshops.ManageShopsActivity"/>
 
-        <activity android:name=".managemeasuretypes.activity.ManageMeasureTypesActivity" />
+        <activity android:name=".ui.managemeasuretypes.activity.ManageMeasureTypesActivity" />
 
-        <activity android:name=".settings.SettingsActivity" />
+        <activity android:name=".ui.settings.SettingsActivity" />
     </application>
 
 </manifest>

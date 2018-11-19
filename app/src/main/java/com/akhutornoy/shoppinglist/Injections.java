@@ -2,31 +2,31 @@ package com.akhutornoy.shoppinglist;
 
 import android.content.Context;
 
-import com.akhutornoy.shoppinglist.addproducts.contract.AddProductsContract;
-import com.akhutornoy.shoppinglist.addproducts.mapper.AddProductModelMapper;
-import com.akhutornoy.shoppinglist.addproducts.mapper.ToBuyMapper;
-import com.akhutornoy.shoppinglist.addproducts.presenter.AddProductsPresenter;
-import com.akhutornoy.shoppinglist.createproduct_onescreen.contract.CreateProductContract;
-import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.CreateProductInputDataModelMapper;
-import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.ProductMapper;
-import com.akhutornoy.shoppinglist.createproduct_onescreen.presenter.CreateProductPresenter;
+import com.akhutornoy.shoppinglist.ui.addproducts.contract.AddProductsContract;
+import com.akhutornoy.shoppinglist.ui.addproducts.mapper.AddProductModelMapper;
+import com.akhutornoy.shoppinglist.ui.addproducts.mapper.ToBuyMapper;
+import com.akhutornoy.shoppinglist.ui.addproducts.presenter.AddProductsPresenter;
+import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.contract.CreateProductContract;
+import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.CreateProductInputDataModelMapper;
+import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.ProductMapper;
+import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.presenter.CreateProductPresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
-import com.akhutornoy.shoppinglist.editproduct.contract.EditProductContract;
-import com.akhutornoy.shoppinglist.editproduct.presenter.EditProductPresenter;
-import com.akhutornoy.shoppinglist.settings.contract.SettingsContract;
-import com.akhutornoy.shoppinglist.settings.dbbackup.BackupSourceHelper;
-import com.akhutornoy.shoppinglist.settings.dbbackup.Zipper;
-import com.akhutornoy.shoppinglist.settings.presenter.SettingsPresenter;
-import com.akhutornoy.shoppinglist.settings.presenter.TempDbHandler;
-import com.akhutornoy.shoppinglist.shops.displayshops.contract.ShopsContract;
-import com.akhutornoy.shoppinglist.shops.displayshops.presenter.ShopsPresenter;
-import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
-import com.akhutornoy.shoppinglist.shops.manageshops.presenter.ManageShopsPresenter;
-import com.akhutornoy.shoppinglist.shops.mapper.ItemModelMapper;
-import com.akhutornoy.shoppinglist.shops.mapper.ShopModelMapper;
-import com.akhutornoy.shoppinglist.tobuy.contract.ToBuyProductsContract;
-import com.akhutornoy.shoppinglist.tobuy.mapper.ToBuyProductMapper;
-import com.akhutornoy.shoppinglist.tobuy.presenter.ToBuyProductsPresenter;
+import com.akhutornoy.shoppinglist.ui.editproduct.contract.EditProductContract;
+import com.akhutornoy.shoppinglist.ui.editproduct.presenter.EditProductPresenter;
+import com.akhutornoy.shoppinglist.ui.settings.contract.SettingsContract;
+import com.akhutornoy.shoppinglist.ui.settings.dbbackup.BackupSourceHelper;
+import com.akhutornoy.shoppinglist.ui.settings.dbbackup.Zipper;
+import com.akhutornoy.shoppinglist.ui.settings.presenter.SettingsPresenter;
+import com.akhutornoy.shoppinglist.ui.settings.presenter.TempDbHandler;
+import com.akhutornoy.shoppinglist.ui.shops.displayshops.contract.ShopsContract;
+import com.akhutornoy.shoppinglist.ui.shops.displayshops.presenter.ShopsPresenter;
+import com.akhutornoy.shoppinglist.ui.shops.manageshops.contract.ManageShopsContract;
+import com.akhutornoy.shoppinglist.ui.shops.manageshops.presenter.ManageShopsPresenter;
+import com.akhutornoy.shoppinglist.ui.shops.mapper.ItemModelMapper;
+import com.akhutornoy.shoppinglist.ui.shops.mapper.ShopModelMapper;
+import com.akhutornoy.shoppinglist.ui.tobuy.contract.ToBuyProductsContract;
+import com.akhutornoy.shoppinglist.ui.tobuy.mapper.ToBuyProductMapper;
+import com.akhutornoy.shoppinglist.ui.tobuy.presenter.ToBuyProductsPresenter;
 
 public class Injections {
 

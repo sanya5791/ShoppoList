@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/manageShopsFragment"
-        android:name="com.akhutornoy.shoppinglist.shops.manageshops.fragment.ManageShopsFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.shops.manageshops.fragment.ManageShopsFragment"
         android:label="ManageShopsFragment"
         tools:layout="@layout/fragment_manage_items"/>
 </navigation>

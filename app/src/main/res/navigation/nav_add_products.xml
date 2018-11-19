@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/addProductsFragment"
-        android:name="com.akhutornoy.shoppinglist.addproducts.fragment.AddProductsFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.addproducts.fragment.AddProductsFragment"
         android:label="fragment_add_products"
         tools:layout="@layout/fragment_add_products" >
         <action
@@ -16,7 +16,7 @@
 
     <activity
         android:id="@+id/createProductActivity"
-        android:name="com.akhutornoy.shoppinglist.createproduct_onescreen.CreateProductActivity"
+        android:name="com.akhutornoy.shoppinglist.ui.createproduct_onescreen.CreateProductActivity"
         android:label="CreateProductActivity"
         tools:layout="@layout/fragment_create_product" >
         <argument

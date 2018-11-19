@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginBottom="@dimen/margin_medium"
-    tools:context=".shops.manageshops.fragment.ManageShopsFragment">
+    tools:context=".ui.shops.manageshops.fragment.ManageShopsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

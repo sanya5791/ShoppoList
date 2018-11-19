@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/shopsFragment"
-        android:name="com.akhutornoy.shoppinglist.shops.displayshops.fragment.ShopsFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.shops.displayshops.fragment.ShopsFragment"
         android:label="ShopsFragment" >
         <action
             android:id="@+id/action_shopsFragment_to_manageShopsActivity"
@@ -16,7 +16,7 @@
 
     <activity
         android:id="@+id/manageShopsActivity"
-        android:name="com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity"
+        android:name="com.akhutornoy.shoppinglist.ui.shops.manageshops.ManageShopsActivity"
         android:label="ManageShopsActivity"
         tools:layout="@layout/fragment_manage_items"/>
 </navigation>

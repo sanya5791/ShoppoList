@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.akhutornoy.shoppinglist.shops.manageshops.ManageShopsActivity;
+import com.akhutornoy.shoppinglist.ui.shops.manageshops.ManageShopsActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -28,8 +28,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.akhutornoy.shoppinglist.util.TestUtils.actionOnItemViewAtPosition;
-import static com.akhutornoy.shoppinglist.util.TestUtils.withRecyclerView;
+import static com.akhutornoy.shoppinglist.ui.util.TestUtils.actionOnItemViewAtPosition;
+import static com.akhutornoy.shoppinglist.ui.util.TestUtils.withRecyclerView;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginBottom="@dimen/margin_medium"
-    tools:context=".shops.manageshops.ManageShopsActivity">
+    tools:context=".ui.shops.manageshops.ManageShopsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
