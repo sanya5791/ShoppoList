@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.akhutornoy.shoppinglist.Injections;
 import com.akhutornoy.shoppinglist.MainActivity;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
@@ -37,8 +38,7 @@ public class SettingsFragment extends BaseFragment implements SettingsContract.V
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        // TODO: 2018-11-16 Create Dependencies file
-        mPresenter = new SettingsPresenter(getActivity());
+        mPresenter = Injections.provideSettingsPresenter(getActivity());
         mBackupDestinationHelper = new BackupDestinationHelper();
         initBackupButtons(view);
 

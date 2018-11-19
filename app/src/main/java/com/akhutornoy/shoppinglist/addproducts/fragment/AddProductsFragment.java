@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.akhutornoy.shoppinglist.Injections;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.addproducts.adapter.AddProductsAdapter;
 import com.akhutornoy.shoppinglist.addproducts.contract.AddProductsContract;
@@ -48,7 +49,7 @@ public class AddProductsFragment extends BaseFragment implements AddProductsCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new AddProductsPresenter(AppDatabase.getInstance(getActivity()));
+        mPresenter = Injections.provideAddProductsPresenter(getActivity());
         initDoneButton(view);
         initProductsList(view);
         return view;

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.akhutornoy.shoppinglist.Injections;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.fragment.BaseManageItemsFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
@@ -21,7 +22,7 @@ public class ManageShopsFragment extends BaseManageItemsFragment<ShopModel>
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mPresenter = new ManageShopsPresenter(AppDatabase.getInstance(getActivity()));
+        mPresenter = Injections.provideManageShopsPresenter(getActivity());
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

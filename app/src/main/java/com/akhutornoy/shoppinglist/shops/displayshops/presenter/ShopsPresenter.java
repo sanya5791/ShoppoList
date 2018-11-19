@@ -3,7 +3,6 @@ package com.akhutornoy.shoppinglist.shops.displayshops.presenter;
 import com.akhutornoy.shoppinglist.base.model.ItemModel;
 import com.akhutornoy.shoppinglist.shops.mapper.ShopModelMapper;
 import com.akhutornoy.shoppinglist.shops.model.ShopModel;
-import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.CurrentShop;
 import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
 import com.akhutornoy.shoppinglist.domain.ShopDao;
@@ -14,14 +13,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class ShopsPresenter extends ShopsContract.Presenter {
-    private ShopDao mDbShop;
-    private CurrentShopDao mDbCurrentShop;
-    private ShopModelMapper mShopModelMapper;
+    private final ShopDao mDbShop;
+    private final CurrentShopDao mDbCurrentShop;
+    private final ShopModelMapper mShopModelMapper;
 
-    public ShopsPresenter(AppDatabase appDatabase) {
-        mDbShop = appDatabase.toShop();
-        mDbCurrentShop = appDatabase.toCurrentShop();
-        mShopModelMapper = new ShopModelMapper();
+    public ShopsPresenter(ShopDao dbShop, CurrentShopDao dbCurrentShop, ShopModelMapper shopModelMapper) {
+        mDbShop = dbShop;
+        mDbCurrentShop = dbCurrentShop;
+        mShopModelMapper = shopModelMapper;
     }
 
     public void loadShops() {

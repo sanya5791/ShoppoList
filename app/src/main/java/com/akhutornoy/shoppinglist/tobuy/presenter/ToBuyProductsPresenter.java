@@ -1,6 +1,5 @@
 package com.akhutornoy.shoppinglist.tobuy.presenter;
 
-import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
 import com.akhutornoy.shoppinglist.domain.ToBuyDao;
 import com.akhutornoy.shoppinglist.tobuy.contract.ToBuyProductsContract;
@@ -16,14 +15,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class ToBuyProductsPresenter extends ToBuyProductsContract.Presenter {
-    private ToBuyDao mDbToBuy;
-    private CurrentShopDao mDbCurrentShop;
-    private ToBuyProductMapper mToBuyProductMapper;
+    private final ToBuyDao mDbToBuy;
+    private final CurrentShopDao mDbCurrentShop;
+    private final ToBuyProductMapper mToBuyProductMapper;
 
-    public ToBuyProductsPresenter(AppDatabase appDatabase) {
-        mDbToBuy = appDatabase.toBuy();
-        mDbCurrentShop = appDatabase.toCurrentShop();
-        mToBuyProductMapper = new ToBuyProductMapper();
+    public ToBuyProductsPresenter(ToBuyDao dbToBuy, CurrentShopDao dbCurrentShop, ToBuyProductMapper toBuyProductMapper) {
+        mDbToBuy = dbToBuy;
+        mDbCurrentShop = dbCurrentShop;
+        mToBuyProductMapper = toBuyProductMapper;
     }
 
     @Override

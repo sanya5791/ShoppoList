@@ -1,0 +1,105 @@
+package com.akhutornoy.shoppinglist;
+
+import android.content.Context;
+
+import com.akhutornoy.shoppinglist.addproducts.contract.AddProductsContract;
+import com.akhutornoy.shoppinglist.addproducts.mapper.AddProductModelMapper;
+import com.akhutornoy.shoppinglist.addproducts.mapper.ToBuyMapper;
+import com.akhutornoy.shoppinglist.addproducts.presenter.AddProductsPresenter;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.contract.CreateProductContract;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.CreateProductInputDataModelMapper;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.ProductMapper;
+import com.akhutornoy.shoppinglist.createproduct_onescreen.presenter.CreateProductPresenter;
+import com.akhutornoy.shoppinglist.domain.AppDatabase;
+import com.akhutornoy.shoppinglist.editproduct.contract.EditProductContract;
+import com.akhutornoy.shoppinglist.editproduct.presenter.EditProductPresenter;
+import com.akhutornoy.shoppinglist.settings.contract.SettingsContract;
+import com.akhutornoy.shoppinglist.settings.dbbackup.BackupSourceHelper;
+import com.akhutornoy.shoppinglist.settings.dbbackup.Zipper;
+import com.akhutornoy.shoppinglist.settings.presenter.SettingsPresenter;
+import com.akhutornoy.shoppinglist.settings.presenter.TempDbHandler;
+import com.akhutornoy.shoppinglist.shops.displayshops.contract.ShopsContract;
+import com.akhutornoy.shoppinglist.shops.displayshops.presenter.ShopsPresenter;
+import com.akhutornoy.shoppinglist.shops.manageshops.contract.ManageShopsContract;
+import com.akhutornoy.shoppinglist.shops.manageshops.presenter.ManageShopsPresenter;
+import com.akhutornoy.shoppinglist.shops.mapper.ItemModelMapper;
+import com.akhutornoy.shoppinglist.shops.mapper.ShopModelMapper;
+import com.akhutornoy.shoppinglist.tobuy.contract.ToBuyProductsContract;
+import com.akhutornoy.shoppinglist.tobuy.mapper.ToBuyProductMapper;
+import com.akhutornoy.shoppinglist.tobuy.presenter.ToBuyProductsPresenter;
+
+public class Injections {
+
+    public static SettingsContract.Presenter provideSettingsPresenter(Context context) {
+        BackupSourceHelper backupSourceHelper = new BackupSourceHelper(context);
+        Zipper zipper = new Zipper();
+        TempDbHandler tempDbHelper = new TempDbHandler(backupSourceHelper);
+        return new SettingsPresenter(
+                backupSourceHelper,
+                tempDbHelper,
+                zipper
+        );
+    }
+
+    public static AddProductsContract.Presenter provideAddProductsPresenter(Context context) {
+        AppDatabase appDatabase = AppDatabase.getInstance(context);
+        return new AddProductsPresenter(appDatabase.toCurrentShop(),
+                appDatabase.toProductInShop(),
+                appDatabase.toProduct(),
+                appDatabase.toBuy(),
+                new AddProductModelMapper(),
+                new ToBuyMapper());
+    }
+
+    public static CreateProductContract.Presenter provideCreateProductPresenter(Context context) {
+        AppDatabase db = AppDatabase.getInstance(context);
+        return new CreateProductPresenter(
+                db.toProduct(),
+                db.toProductInShop(),
+                new ProductMapper(),
+                db.toMeasureType(),
+                db.toShop(),
+                new CreateProductInputDataModelMapper(),
+                db.toConstantString()
+        );
+    }
+
+    public static EditProductContract.Presenter provideEditProductPresenter(Context context) {
+        AppDatabase db = AppDatabase.getInstance(context);
+        return new EditProductPresenter(
+                db.toProduct(),
+                db.toProductInShop(),
+                new ProductMapper(),
+                db.toMeasureType(),
+                db.toShop(),
+                new CreateProductInputDataModelMapper(),
+                db.toConstantString()
+        );
+    }
+
+    public static ShopsContract.Presenter provideShopsPresenter(Context context) {
+        AppDatabase db = AppDatabase.getInstance(context);
+        return new ShopsPresenter(
+                db.toShop(),
+                db.toCurrentShop(),
+                new ShopModelMapper()
+        );
+    }
+
+    public static ManageShopsContract.Presenter provideManageShopsPresenter(Context context) {
+        AppDatabase db = AppDatabase.getInstance(context);
+        return new ManageShopsPresenter(
+                db.toShop(),
+                new ShopModelMapper(),
+                new ItemModelMapper()
+        );
+    }
+
+    public static ToBuyProductsContract.Presenter provideToBuyProductsPresenter(Context context) {
+        AppDatabase db = AppDatabase.getInstance(context);
+        return new ToBuyProductsPresenter(
+                db.toBuy(),
+                db.toCurrentShop(),
+                new ToBuyProductMapper());
+    }
+}

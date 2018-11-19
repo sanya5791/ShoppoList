@@ -4,6 +4,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.akhutornoy.shoppinglist.Injections;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.contract.CreateProductContract;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.fragment.CreateProductFragment;
@@ -13,12 +14,14 @@ import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.editproduct.contract.EditProductContract;
 import com.akhutornoy.shoppinglist.editproduct.presenter.EditProductPresenter;
 
+import java.security.InvalidKeyException;
+
 public class EditProductFragment extends CreateProductFragment implements EditProductContract.View {
     private EditProductContract.Presenter mPresenter;
 
     @Override
     protected CreateProductContract.Presenter createPresenter() {
-        mPresenter = new EditProductPresenter(AppDatabase.getInstance(getActivity()));
+        mPresenter = Injections.provideEditProductPresenter(getActivity());
         return mPresenter;
     }
 

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.akhutornoy.shoppinglist.Injections;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
@@ -53,7 +54,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     }
 
     protected CreateProductContract.Presenter createPresenter() {
-        return new CreateProductPresenter(AppDatabase.getInstance(getActivity()));
+        return Injections.provideCreateProductPresenter(getActivity());
     }
 
     @Override

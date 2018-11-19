@@ -30,15 +30,20 @@ public class CreateProductPresenter extends CreateProductContract.Presenter<Crea
     private final CreateProductInputDataModelMapper inputDataModelMapper;
     private ProductInShopMapper productInShopMapper;
 
-    public CreateProductPresenter(AppDatabase db) {
-        productDao = db.toProduct();
-        productInShopDao = db.toProductInShop();
-        measureTypeDao = db.toMeasureType();
-        shopDao = db.toShop();
-        inputDataModelMapper = new CreateProductInputDataModelMapper();
-        productMapper = new ProductMapper();
+    public CreateProductPresenter(ProductDao productDao,
+                                  ProductInShopDao productInShopDao,
+                                  ProductMapper productMapper,
+                                  MeasureTypeDao measureTypeDao,
+                                  ShopDao shopDao,
+                                  CreateProductInputDataModelMapper inputDataModelMapper,
+                                  ConstantStringDao constantStringDao) {
+        this.productDao = productDao;
+        this.productInShopDao = productInShopDao;
+        this.productMapper = productMapper;
+        this.measureTypeDao = measureTypeDao;
+        this.shopDao = shopDao;
+        this.inputDataModelMapper = inputDataModelMapper;
 
-        ConstantStringDao constantStringDao = db.toConstantString();
         getCompositeDisposable().add(
                 Single.fromCallable(() -> constantStringDao.getByName(ConstantString.SHOP_NAME_ALL))
                     .subscribeOn(Schedulers.io())

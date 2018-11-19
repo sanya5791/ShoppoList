@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.akhutornoy.shoppinglist.Injections;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
 import com.akhutornoy.shoppinglist.base.presenter.BasePresenter;
@@ -45,7 +46,7 @@ public class ShopsFragment extends BaseFragment implements ShopsContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter = new ShopsPresenter(AppDatabase.getInstance(getActivity()));
+        mPresenter = Injections.provideShopsPresenter(getActivity());
         initManageShopsButton(view);
         initShopList(view);
         return view;

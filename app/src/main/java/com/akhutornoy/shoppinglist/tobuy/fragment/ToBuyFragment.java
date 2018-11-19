@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.akhutornoy.shoppinglist.Injections;
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.base.activity.ToolbarTitle;
 import com.akhutornoy.shoppinglist.base.fragment.BaseFragment;
@@ -57,7 +58,7 @@ public class ToBuyFragment extends BaseFragment implements ToBuyProductsContract
 
         setHasOptionsMenu(true);
         setToolbarTitle();
-        mPresenter = new ToBuyProductsPresenter(AppDatabase.getInstance(getActivity()));
+        mPresenter = Injections.provideToBuyProductsPresenter(getActivity());
         initProductList(view);
         return view;
     }

@@ -6,7 +6,6 @@ import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.CreateProductI
 import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.ProductInShopMapper;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.mapper.ProductMapper;
 import com.akhutornoy.shoppinglist.createproduct_onescreen.model.CreateProductOutputModel;
-import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.ConstantString;
 import com.akhutornoy.shoppinglist.domain.ConstantStringDao;
 import com.akhutornoy.shoppinglist.domain.MeasureTypeDao;
@@ -34,15 +33,21 @@ public class EditProductPresenter extends EditProductContract.Presenter {
     private final CreateProductInputDataModelMapper inputDataModelMapper;
     private ProductInShopMapper productInShopMapper;
 
-    public EditProductPresenter(AppDatabase db) {
-        productDao = db.toProduct();
-        productInShopDao = db.toProductInShop();
-        measureTypeDao = db.toMeasureType();
-        shopDao = db.toShop();
-        inputDataModelMapper = new CreateProductInputDataModelMapper();
-        productMapper = new ProductMapper();
+    public EditProductPresenter(
+            ProductDao productDao,
+            ProductInShopDao productInShopDao,
+            ProductMapper productMapper,
+            MeasureTypeDao measureTypeDao,
+            ShopDao shopDao,
+            CreateProductInputDataModelMapper inputDataModelMapper,
+            ConstantStringDao constantStringDao) {
+        this.productDao = productDao;
+        this.productInShopDao = productInShopDao;
+        this.productMapper = productMapper;
+        this.measureTypeDao = measureTypeDao;
+        this.shopDao = shopDao;
+        this.inputDataModelMapper = inputDataModelMapper;
 
-        ConstantStringDao constantStringDao = db.toConstantString();
         getCompositeDisposable().add(
                 Single.fromCallable(() -> constantStringDao.getByName(ConstantString.SHOP_NAME_ALL))
                         .subscribeOn(Schedulers.io())

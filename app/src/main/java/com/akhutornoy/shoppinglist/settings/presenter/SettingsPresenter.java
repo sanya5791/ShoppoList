@@ -1,7 +1,5 @@
 package com.akhutornoy.shoppinglist.settings.presenter;
 
-import android.content.Context;
-
 import com.akhutornoy.shoppinglist.settings.contract.SettingsContract;
 import com.akhutornoy.shoppinglist.settings.dbbackup.BackupFilesException;
 import com.akhutornoy.shoppinglist.settings.dbbackup.BackupSourceHelper;
@@ -22,10 +20,10 @@ public class SettingsPresenter extends SettingsContract.Presenter {
     private final TempDbHandler mTempDb;
     private final Zipper mZipper;
 
-    public SettingsPresenter(Context context) {
-        mBackupSourceHelper = new BackupSourceHelper(context);
-        mTempDb = new TempDbHandler(mBackupSourceHelper);
-        mZipper = new Zipper();
+    public SettingsPresenter(BackupSourceHelper backupSourceHelper, TempDbHandler tempDb, Zipper zipper) {
+        this.mBackupSourceHelper = backupSourceHelper;
+        this.mTempDb = tempDb;
+        this.mZipper = zipper;
     }
 
     @Override

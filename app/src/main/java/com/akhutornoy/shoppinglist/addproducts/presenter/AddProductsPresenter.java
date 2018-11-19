@@ -4,7 +4,6 @@ import com.akhutornoy.shoppinglist.addproducts.contract.AddProductsContract;
 import com.akhutornoy.shoppinglist.addproducts.mapper.AddProductModelMapper;
 import com.akhutornoy.shoppinglist.addproducts.mapper.ToBuyMapper;
 import com.akhutornoy.shoppinglist.addproducts.model.AddProductModel;
-import com.akhutornoy.shoppinglist.domain.AppDatabase;
 import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
 import com.akhutornoy.shoppinglist.domain.ProductDao;
 import com.akhutornoy.shoppinglist.domain.ProductInShopDao;
@@ -20,20 +19,25 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class AddProductsPresenter extends AddProductsContract.Presenter {
-    private CurrentShopDao mDbCurrentShop;
-    private ProductInShopDao mDbProductInShop;
-    private ProductDao mDbProduct;
-    private ToBuyDao mDbToBuy;
-    private AddProductModelMapper mAddProductModelMapper;
-    private ToBuyMapper mToBuyMapper;
+    private final CurrentShopDao mDbCurrentShop;
+    private final ProductInShopDao mDbProductInShop;
+    private final ProductDao mDbProduct;
+    private final ToBuyDao mDbToBuy;
+    private final AddProductModelMapper mAddProductModelMapper;
+    private final ToBuyMapper mToBuyMapper;
 
-    public AddProductsPresenter(AppDatabase appDatabase) {
-        mDbCurrentShop = appDatabase.toCurrentShop();
-        mDbProductInShop = appDatabase.toProductInShop();
-        mDbProduct = appDatabase.toProduct();
-        mDbToBuy = appDatabase.toBuy();
-        mAddProductModelMapper = new AddProductModelMapper();
-        mToBuyMapper = new ToBuyMapper();
+    public AddProductsPresenter(CurrentShopDao dbCurrentShop,
+                                ProductInShopDao dbProductInShop,
+                                ProductDao dbProduct,
+                                ToBuyDao dbToBuy,
+                                AddProductModelMapper addProductModelMapper,
+                                ToBuyMapper toBuyMapper) {
+        mDbCurrentShop = dbCurrentShop;
+        mDbProductInShop = dbProductInShop;
+        mDbProduct = dbProduct;
+        mDbToBuy = dbToBuy;
+        mAddProductModelMapper = addProductModelMapper;
+        mToBuyMapper = toBuyMapper;
     }
 
     @Override
