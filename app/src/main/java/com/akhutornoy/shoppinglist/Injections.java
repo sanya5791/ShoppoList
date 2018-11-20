@@ -62,7 +62,8 @@ public class Injections {
                 db.toMeasureType(),
                 db.toShop(),
                 new CreateProductInputDataModelMapper(),
-                db.toConstantString()
+                db.toConstantString(),
+                db.toCurrentShop()
         );
     }
 
@@ -76,7 +77,8 @@ public class Injections {
                 db.toMeasureType(),
                 db.toShop(),
                 new CreateProductInputDataModelMapper(),
-                db.toConstantString()
+                db.toConstantString(),
+                db.toCurrentShop()
         );
     }
 

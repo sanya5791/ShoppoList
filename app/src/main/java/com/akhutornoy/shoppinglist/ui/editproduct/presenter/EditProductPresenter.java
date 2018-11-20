@@ -1,7 +1,9 @@
 package com.akhutornoy.shoppinglist.ui.editproduct.presenter;
 
 import android.database.sqlite.SQLiteConstraintException;
+import android.util.Pair;
 
+import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.CreateProductInputDataModelMapper;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.ProductInShopMapper;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.ProductMapper;
@@ -33,6 +35,7 @@ public class EditProductPresenter extends EditProductContract.Presenter {
     private final CreateProductInputDataModelMapper inputDataModelMapper;
     private final ProductInShopMapper productInShopMapper;
     private final ConstantStringDao constantStringDao;
+    private final CurrentShopDao currentShopDao;
 
     public EditProductPresenter(
             ProductDao productDao,
@@ -42,7 +45,8 @@ public class EditProductPresenter extends EditProductContract.Presenter {
             MeasureTypeDao measureTypeDao,
             ShopDao shopDao,
             CreateProductInputDataModelMapper inputDataModelMapper,
-            ConstantStringDao constantStringDao) {
+            ConstantStringDao constantStringDao,
+            CurrentShopDao currentShopDao) {
         this.productDao = productDao;
         this.productInShopDao = productInShopDao;
         this.productInShopMapper = productInShopMapper;
@@ -51,6 +55,7 @@ public class EditProductPresenter extends EditProductContract.Presenter {
         this.shopDao = shopDao;
         this.inputDataModelMapper = inputDataModelMapper;
         this.constantStringDao = constantStringDao;
+        this.currentShopDao = currentShopDao;
     }
 
     @Override
@@ -58,7 +63,9 @@ public class EditProductPresenter extends EditProductContract.Presenter {
         getCompositeDisposable().add(
                 initMappers()
                         .andThen(measureTypeDao.getAll())
-                        .zipWith(shopDao.getAll(), inputDataModelMapper::map)
+                        .zipWith(shopDao.getAll(), Pair::new)
+                        .zipWith(currentShopDao.getFlowable(), (measureTypeAndShops, currentShop)
+                                -> inputDataModelMapper.map(measureTypeAndShops.first, measureTypeAndShops.second, currentShop))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(

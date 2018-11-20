@@ -23,6 +23,7 @@ import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.contract.CreatePro
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.model.CreateProductInputDataModel;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.model.CreateProductOutputModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -222,6 +223,10 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     public void onDataLoaded(CreateProductInputDataModel data) {
         mQuantityTypeAdapter.setQuantityTypes(data.getMeasureTypes());
         mShopsAdapter.setShops(data.getShopsAvailable());
+
+        List<String> shopsSelected = new ArrayList<>(1);
+        shopsSelected.add(data.getCurrentShop());
+        mShopsAdapter.setShopsSelected(shopsSelected);
     }
 
     @Override

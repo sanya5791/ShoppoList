@@ -1,9 +1,11 @@
 package com.akhutornoy.shoppinglist.ui.createproduct_onescreen.presenter;
 
 import android.database.sqlite.SQLiteConstraintException;
+import android.util.Pair;
 
 import com.akhutornoy.shoppinglist.domain.ConstantString;
 import com.akhutornoy.shoppinglist.domain.ConstantStringDao;
+import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
 import com.akhutornoy.shoppinglist.domain.MeasureTypeDao;
 import com.akhutornoy.shoppinglist.domain.ProductDao;
 import com.akhutornoy.shoppinglist.domain.ProductInShopDao;
@@ -29,6 +31,7 @@ public class CreateProductPresenter extends CreateProductContract.Presenter<Crea
     private final CreateProductInputDataModelMapper inputDataModelMapper;
     private final ProductInShopMapper productInShopMapper;
     private final ConstantStringDao constantStringDao;
+    private final CurrentShopDao currentShopDao;
 
     public CreateProductPresenter(ProductDao productDao,
                                   ProductInShopDao productInShopDao,
@@ -37,7 +40,8 @@ public class CreateProductPresenter extends CreateProductContract.Presenter<Crea
                                   MeasureTypeDao measureTypeDao,
                                   ShopDao shopDao,
                                   CreateProductInputDataModelMapper inputDataModelMapper,
-                                  ConstantStringDao constantStringDao) {
+                                  ConstantStringDao constantStringDao,
+                                  CurrentShopDao currentShopDao) {
         this.productDao = productDao;
         this.productInShopDao = productInShopDao;
         this.productInShopMapper = productInShopMapper;
@@ -46,6 +50,24 @@ public class CreateProductPresenter extends CreateProductContract.Presenter<Crea
         this.shopDao = shopDao;
         this.inputDataModelMapper = inputDataModelMapper;
         this.constantStringDao = constantStringDao;
+        this.currentShopDao = currentShopDao;
+    }
+
+    @Override
+    public void loadInputData() {
+        getCompositeDisposable().add(
+                initMappers()
+                        .andThen(measureTypeDao.getAll())
+                        .zipWith(shopDao.getAll(), Pair::new)
+                        .zipWith(currentShopDao.getFlowable(), (measureTypeAndShops, currentShop)
+                                -> inputDataModelMapper.map(measureTypeAndShops.first, measureTypeAndShops.second, currentShop))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                productInputDataModel ->
+                                        getView().onDataLoaded(productInputDataModel),
+                                this::onError)
+        );
     }
 
     private Completable initMappers() {
@@ -54,21 +76,6 @@ public class CreateProductPresenter extends CreateProductContract.Presenter<Crea
             productInShopMapper.setShopNameAll(shopNameAll);
             inputDataModelMapper.setShopNameAll(shopNameAll);
         });
-    }
-
-    @Override
-    public void loadInputData() {
-        getCompositeDisposable().add(
-                initMappers()
-                        .andThen(measureTypeDao.getAll())
-                        .zipWith(shopDao.getAll(), inputDataModelMapper::map)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                createProductInputDataModel ->
-                                        getView().onDataLoaded(createProductInputDataModel),
-                                this::onError)
-        );
     }
 
     @Override

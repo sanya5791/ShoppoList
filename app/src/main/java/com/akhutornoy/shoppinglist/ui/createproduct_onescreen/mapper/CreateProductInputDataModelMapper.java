@@ -10,8 +10,9 @@ import java.util.List;
 public class CreateProductInputDataModelMapper {
     private String shopNameAll;
 
-    public CreateProductInputDataModel map(List<MeasureType> measureTypes, List<Shop> shopsList) {
+    public CreateProductInputDataModel map(List<MeasureType> measureTypes, List<Shop> shopsList, String currentShop) {
         assertShopNameAllIsSet();
+        assertCurrentShopIsNotAllShopName(currentShop);
 
         List<Shop> filteredShopsList = new ArrayList<>(shopsList.size());
         for (Shop shop : shopsList) {
@@ -19,7 +20,7 @@ public class CreateProductInputDataModelMapper {
                 filteredShopsList.add(shop);
             }
         }
-        return new CreateProductInputDataModel(measureTypes, filteredShopsList);
+        return new CreateProductInputDataModel(measureTypes, filteredShopsList, currentShop);
     }
 
     public void setShopNameAll(String shopNameAll) {
@@ -29,6 +30,12 @@ public class CreateProductInputDataModelMapper {
     private void assertShopNameAllIsSet() {
         if (shopNameAll == null) {
             throw new IllegalArgumentException("Field 'shopNameAll' cannot be null" );
+        }
+    }
+
+    private void assertCurrentShopIsNotAllShopName(String currentShop) {
+        if (currentShop.equals(shopNameAll)) {
+            throw new IllegalArgumentException("Current shop cannot be 'All' here" );
         }
     }
 }
