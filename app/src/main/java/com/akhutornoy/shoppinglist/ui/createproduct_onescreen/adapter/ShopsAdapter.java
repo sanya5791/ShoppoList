@@ -1,6 +1,5 @@
 package com.akhutornoy.shoppinglist.ui.createproduct_onescreen.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 
 import com.akhutornoy.shoppinglist.R;
+import com.akhutornoy.shoppinglist.domain.Shop;
 import com.akhutornoy.shoppinglist.ui.base.ValueCallback;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.model.CheckableItemModel;
-import com.akhutornoy.shoppinglist.domain.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +17,6 @@ import java.util.List;
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> {
 
     private List<CheckableItemModel> items;
-    private final String allShopsTitle;
-    private int allShopsPosition;
-
-    public ShopsAdapter(Context context) {
-        allShopsTitle = context.getString(R.string.all);
-    }
 
     public void setShopsSelected(List<String> shopsSelected) {
         for (String shopName : shopsSelected) {
@@ -36,25 +29,6 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
         for (Shop quantityType : quantityTypes) {
             items.add(new CheckableItemModel(quantityType.getName()));
         }
-
-        setAllShopsPosition();
-    }
-
-    private void setAllShopsPosition() {
-        allShopsPosition = -1;
-        for (int i = 0; i < items.size(); i++) {
-            if (isAllShopsItem(items.get(i))) {
-                allShopsPosition = i;
-                break;
-            }
-        }
-        if (allShopsPosition == -1) {
-            throw new IllegalArgumentException(allShopsTitle + " should be one of shop items");
-        }
-    }
-
-    private boolean isAllShopsItem(CheckableItemModel clickedName) {
-        return allShopsTitle.equals(clickedName.getName());
     }
 
     @Override
@@ -66,11 +40,6 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
     }
 
     private void onClicked(CheckableItemModel clickedName) {
-        if (isAllShopsItem(clickedName)) {
-            checkAll(clickedName.isChecked());
-            return;
-        }
-
         for (int position = 0; position < items.size(); position++) {
             CheckableItemModel item = items.get(position);
             if (item.getName().equals(clickedName.getName())) {
@@ -79,44 +48,6 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
                 break;
             }
         }
-
-        handleAllShopsButtonBoundState();
-    }
-
-    private void checkAll(boolean isChecked) {
-        for (int position = 0; position < items.size(); position++) {
-            CheckableItemModel item = items.get(position);
-            item.setChecked(isChecked);
-        }
-        notifyDataSetChanged();
-    }
-
-    private void handleAllShopsButtonBoundState() {
-        Boolean firstItemChecked = null;
-        boolean isAllSameChecked = true;
-        for (int i = 0; i < items.size(); i++) {
-            if (allShopsPosition == i) {
-                continue;
-            }
-
-            CheckableItemModel item = items.get(i);
-            if (firstItemChecked == null) {
-                firstItemChecked = item.isChecked();
-                continue;
-            }
-
-            if (item.isChecked() != firstItemChecked) {
-                isAllSameChecked = false;
-                break;
-            }
-        }
-
-        if (isAllSameChecked && firstItemChecked != null) {
-            items.get(allShopsPosition).setChecked(firstItemChecked);
-        } else {
-            items.get(allShopsPosition).setChecked(false);
-        }
-        notifyItemChanged(allShopsPosition);
     }
 
     @Override

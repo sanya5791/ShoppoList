@@ -8,6 +8,7 @@ import com.akhutornoy.shoppinglist.ui.addproducts.mapper.ToBuyMapper;
 import com.akhutornoy.shoppinglist.ui.addproducts.presenter.AddProductsPresenter;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.contract.CreateProductContract;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.CreateProductInputDataModelMapper;
+import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.ProductInShopMapper;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.mapper.ProductMapper;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.presenter.CreateProductPresenter;
 import com.akhutornoy.shoppinglist.domain.AppDatabase;
@@ -56,6 +57,7 @@ public class Injections {
         return new CreateProductPresenter(
                 db.toProduct(),
                 db.toProductInShop(),
+                new ProductInShopMapper(),
                 new ProductMapper(),
                 db.toMeasureType(),
                 db.toShop(),
@@ -69,6 +71,7 @@ public class Injections {
         return new EditProductPresenter(
                 db.toProduct(),
                 db.toProductInShop(),
+                new ProductInShopMapper(),
                 new ProductMapper(),
                 db.toMeasureType(),
                 db.toShop(),

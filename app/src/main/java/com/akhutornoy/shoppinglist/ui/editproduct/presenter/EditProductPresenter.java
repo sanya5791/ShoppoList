@@ -31,11 +31,13 @@ public class EditProductPresenter extends EditProductContract.Presenter {
     private final MeasureTypeDao measureTypeDao;
     private final ShopDao shopDao;
     private final CreateProductInputDataModelMapper inputDataModelMapper;
-    private ProductInShopMapper productInShopMapper;
+    private final ProductInShopMapper productInShopMapper;
+    private final ConstantStringDao constantStringDao;
 
     public EditProductPresenter(
             ProductDao productDao,
             ProductInShopDao productInShopDao,
+            ProductInShopMapper productInShopMapper,
             ProductMapper productMapper,
             MeasureTypeDao measureTypeDao,
             ShopDao shopDao,
@@ -43,25 +45,19 @@ public class EditProductPresenter extends EditProductContract.Presenter {
             ConstantStringDao constantStringDao) {
         this.productDao = productDao;
         this.productInShopDao = productInShopDao;
+        this.productInShopMapper = productInShopMapper;
         this.productMapper = productMapper;
         this.measureTypeDao = measureTypeDao;
         this.shopDao = shopDao;
         this.inputDataModelMapper = inputDataModelMapper;
-
-        getCompositeDisposable().add(
-                Single.fromCallable(() -> constantStringDao.getByName(ConstantString.SHOP_NAME_ALL))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                shopNameAll -> productInShopMapper = new ProductInShopMapper(shopNameAll),
-                                this::onError)
-        );
+        this.constantStringDao = constantStringDao;
     }
 
     @Override
     public void loadInputData() {
         getCompositeDisposable().add(
-                measureTypeDao.getAll()
+                initMappers()
+                        .andThen(measureTypeDao.getAll())
                         .zipWith(shopDao.getAll(), inputDataModelMapper::map)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -70,6 +66,14 @@ public class EditProductPresenter extends EditProductContract.Presenter {
                                         getView().onDataLoaded(createProductInputDataModel),
                                 this::onError)
         );
+    }
+
+    private Completable initMappers() {
+        return Completable.fromAction(() -> {
+            String shopNameAll = constantStringDao.getByName(ConstantString.SHOP_NAME_ALL);
+            productInShopMapper.setShopNameAll(shopNameAll);
+            inputDataModelMapper.setShopNameAll(shopNameAll);
+        });
     }
 
     @Override

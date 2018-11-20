@@ -8,16 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductInShopMapper {
-    private final String all;
+    private String shopNameAll;
 
-    public ProductInShopMapper(String all) {
-        this.all = all;
+    public void setShopNameAll(String shopNameAll) {
+        this.shopNameAll = shopNameAll;
     }
 
     public List<ProductInShop> map(CreateProductOutputModel source) {
+        assertShopNameAllIsSet();
+
         List<ProductInShop> result = new ArrayList<>();
         if (isProductAvailableInAllShops(source.getShopsSelected())) {
-            result.add(new ProductInShop(source.getName(), all));
+            result.add(new ProductInShop(source.getName(), shopNameAll));
             return result;
         }
 
@@ -27,7 +29,15 @@ public class ProductInShopMapper {
         return result;
     }
 
+    private void assertShopNameAllIsSet() {
+        if (shopNameAll == null) {
+            throw new IllegalArgumentException("Field 'shopNameAll' cannot be null" );
+        }
+    }
+
     public CreateProductOutputModel map(Product product, List<ProductInShop> inShops) {
+        assertShopNameAllIsSet();
+
         List<String> inShopsResult = new ArrayList<>(inShops.size());
         for (ProductInShop inShop : inShops) {
             inShopsResult.add(inShop.getShop());
@@ -43,7 +53,7 @@ public class ProductInShopMapper {
 
     private boolean isProductAvailableInAllShops(List<String> shopsSelected) {
         for (String shop : shopsSelected) {
-            if (all.equals(shop)) {
+            if (shopNameAll.equals(shop)) {
                 return true;
             }
         }

@@ -111,7 +111,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         RecyclerView rv = view.findViewById(R.id.rv_in_shops_available);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mShopsAdapter = new ShopsAdapter(getActivity());
+        mShopsAdapter = new ShopsAdapter();
         rv.setAdapter(mShopsAdapter);
     }
 
