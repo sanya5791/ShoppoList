@@ -29,4 +29,9 @@
         <item name="android:textSize">@dimen/font_size_14</item>
     </style>
 
+    <style name="ListItem">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+    </style>
+
 </resources>

@@ -104,16 +104,24 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
         RecyclerView rv = view.findViewById(R.id.rv_measure_types);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mQuantityTypeAdapter = new QuantityTypeAdapter();
+        mQuantityTypeAdapter = new QuantityTypeAdapter(this::onQuantityTypeEditClicked);
         rv.setAdapter(mQuantityTypeAdapter);
+    }
+
+    private void onQuantityTypeEditClicked() {
+        Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
     }
 
     private void initShopsAdapter(View view) {
         RecyclerView rv = view.findViewById(R.id.rv_in_shops_available);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mShopsAdapter = new ShopsAdapter();
+        mShopsAdapter = new ShopsAdapter(this::onShopsEditClicked);
         rv.setAdapter(mShopsAdapter);
+    }
+
+    private void onShopsEditClicked() {
+        Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
     }
 
     @Override

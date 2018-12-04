@@ -10,8 +10,8 @@
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSearchResultTitle"
-        tools:text="@tools:sample/full_names"/>
+        tools:text="@tools:sample/full_names"
+        style="@style/ListItem" />
 
     <ImageView
         android:id="@+id/iv_checked"

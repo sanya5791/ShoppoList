@@ -27,10 +27,9 @@
         android:paddingTop="@dimen/padding_medium"
         android:paddingBottom="@dimen/padding_small"
         android:text="@string/backup_create"
-        android:background="?android:attr/selectableItemBackground"
-        android:textAppearance="?android:textAppearanceLarge"
         android:drawablePadding="@dimen/padding_small"
-        android:drawableStart="@drawable/ic_backup"/>
+        android:drawableStart="@drawable/ic_backup"
+        style="@style/ListItem" />
 
     <TextView
         android:id="@+id/bt_backup_restore"
@@ -41,10 +40,9 @@
         android:paddingTop="@dimen/padding_small"
         android:paddingBottom="@dimen/padding_small"
         android:text="@string/backup_restore"
-        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
-        android:textAppearance="?android:textAppearanceLarge"
         android:drawablePadding="@dimen/padding_small"
-        android:drawableStart="@drawable/ic_backup_restore"/>
+        android:drawableStart="@drawable/ic_backup_restore"
+        style="@style/ListItem" />
 
 </LinearLayout>

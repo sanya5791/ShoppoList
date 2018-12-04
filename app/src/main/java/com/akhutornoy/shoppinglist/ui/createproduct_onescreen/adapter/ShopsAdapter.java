@@ -14,9 +14,17 @@ import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.model.CheckableIte
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> {
+public class ShopsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    protected static final String ITEM_EDIT_LIST_NAME = "Edit";
+    private static final int ITEM_TYPE_GENERAL = 0;
+    private static final int ITEM_TYPE_EDIT_LIST = 1;
 
+    private final OnListEditClickListener onListEditClickCallback;
     private List<CheckableItemModel> items;
+
+    public ShopsAdapter(OnListEditClickListener onListEditClickCallback) {
+        this.onListEditClickCallback = onListEditClickCallback;
+    }
 
     public void setShopsSelected(List<String> shopsSelected) {
         for (String shopName : shopsSelected) {
@@ -29,14 +37,45 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
         for (Shop quantityType : quantityTypes) {
             items.add(new CheckableItemModel(quantityType.getName()));
         }
+        addEditItem(items);
+    }
+
+    private void addEditItem(List<CheckableItemModel> items) {
+        items.add(new CheckableItemModel(ITEM_EDIT_LIST_NAME));
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public int getItemViewType(int position) {
+        String name = items.get(position).getName();
+        return name.equals(ITEM_EDIT_LIST_NAME)
+                ? ITEM_TYPE_EDIT_LIST : ITEM_TYPE_GENERAL;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_create_product_string, parent, false);
 
-        return new ViewHolder(view, this::onClicked);
+        return ITEM_TYPE_GENERAL == viewType
+                ? new GeneralViewHolder(view)
+                : new EditViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case ITEM_TYPE_GENERAL:
+                GeneralViewHolder generalGeneralViewHolder = (GeneralViewHolder) holder;
+                generalGeneralViewHolder.setListener(this::onClicked);
+                generalGeneralViewHolder.setItem(items.get(position));
+                break;
+            case ITEM_TYPE_EDIT_LIST:
+                EditViewHolder editViewHolder = (EditViewHolder) holder;
+                editViewHolder.setListener(this::onListEditClicked);
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("ViewHolderType=%d NOT supported"));
+        }
     }
 
     private void onClicked(CheckableItemModel clickedName) {
@@ -50,9 +89,8 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
         }
     }
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setItem(items.get(position));
+    private void onListEditClicked() {
+        onListEditClickCallback.onListEditClicked();
     }
 
     @Override
@@ -70,12 +108,15 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
         return shops;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class GeneralViewHolder extends RecyclerView.ViewHolder {
         private final CheckedTextView textView;
 
-        ViewHolder(View itemView, ValueCallback<CheckableItemModel> listener) {
+        GeneralViewHolder(View itemView) {
             super(itemView);
             textView = (CheckedTextView) itemView;
+        }
+
+        private void setListener(ValueCallback<CheckableItemModel> listener) {
             textView.setOnClickListener(ignored -> onClick(listener));
         }
 

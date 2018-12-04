@@ -73,6 +73,7 @@ public class MainActivity extends BaseToolbarActivity
     }
 
     private void showSettingsScreen() {
+        closeDrawer();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_to_buy);
         navController.navigate(R.id.action_toBuyFragment_to_settingsActivity);
     }
