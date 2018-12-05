@@ -30,21 +30,18 @@ public class ManageShopsPresenter extends ManageShopsContract.Presenter {
 
     @Override
     public void loadItems() {
-        getView().showProgress();
         getCompositeDisposable().add(
                 initShopModelMapper()
                         .andThen(mDbShop.getAll())
                         .map(mShopModelMapper::map)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(ignored -> getView().showProgress())
+                        .doOnError(ignored -> getView().showProgress())
+                        .doAfterNext(ignored -> getView().hideProgress())
                         .subscribe(
-                                manageShopModels -> {
-                                    getView().hideProgress();
-                                    getView().onDataLoaded(manageShopModels);
-                                }, error -> {
-                                    getView().hideProgress();
-                                    super.onError(error);
-                                })
+                                manageShopModels -> getView().onDataLoaded(manageShopModels),
+                                super::onError)
         );
     }
 
@@ -55,36 +52,31 @@ public class ManageShopsPresenter extends ManageShopsContract.Presenter {
 
     @Override
     public void addNew(String shopName) {
-        getView().showProgress();
         getCompositeDisposable().add(
                 Completable.fromAction(() -> mDbShop.insertNew(new Shop(shopName)))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> {
-                        getView().hideProgress();
-                    }, error -> {
-                        getView().hideProgress();
-                        super.onError(error);
-                    })
-
+                    .doOnSubscribe(ignored -> getView().showProgress())
+                    .doOnComplete(() -> getView().showProgress())
+                    .subscribe(
+                            () -> {},
+                            super::onError)
         );
     }
 
     @Override
     public void delete(ItemModel shopModel) {
-        getView().showProgress();
         getCompositeDisposable().add(
                 Observable.fromCallable(() -> mItemModelMapper.mapInverse(shopModel))
                         .flatMapCompletable(shop -> Completable.fromAction(
                                 () -> mDbShop.delete(shop)))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(() -> {
-                            getView().hideProgress();
-                        }, error -> {
-                            getView().hideProgress();
-                            super.onError(error);
-                        })
+                        .doOnSubscribe(ignored -> getView().showProgress())
+                        .doOnComplete(() -> getView().showProgress())
+                        .subscribe(
+                                () -> {},
+                                super::onError)
         );
     }
 }
