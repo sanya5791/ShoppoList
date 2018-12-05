@@ -8,6 +8,7 @@ import android.view.Menu;
 
 import com.akhutornoy.shoppinglist.R;
 import com.akhutornoy.shoppinglist.ui.base.activity.BaseToolbarActivity;
+import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.fragment.CreateProductFragment;
 import com.akhutornoy.shoppinglist.ui.editproduct.fragment.EditProductFragment;
 import com.akhutornoy.shoppinglist.ui.editproduct.fragment.EditProductFragmentArgs;
 
@@ -15,7 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import timber.log.Timber;
 
-public class CreateProductActivity extends BaseToolbarActivity {
+public class CreateProductActivity extends BaseToolbarActivity implements CreateProductFragment.OnEditListListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,5 +80,17 @@ public class CreateProductActivity extends BaseToolbarActivity {
         menu.findItem(R.id.menu_add).setVisible(false);
         menu.findItem(R.id.menu_edit).setVisible(false);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onEditShopsListClicked() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host);
+        navController.navigate(R.id.action_createProductActivity_to_manageShopsActivity);
+    }
+
+    @Override
+    public void onEditQuantityTypesListClicked() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host);
+        navController.navigate(R.id.action_createProductActivity_to_manageMeasureTypesActivity);
     }
 }

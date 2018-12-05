@@ -38,6 +38,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             items.add(new CheckableItemModel(quantityType.getName()));
         }
         addEditItem(items);
+        notifyDataSetChanged();
     }
 
     private void addEditItem(List<CheckableItemModel> items) {

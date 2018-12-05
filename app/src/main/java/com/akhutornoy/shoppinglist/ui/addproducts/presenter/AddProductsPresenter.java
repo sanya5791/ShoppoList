@@ -1,14 +1,14 @@
 package com.akhutornoy.shoppinglist.ui.addproducts.presenter;
 
-import com.akhutornoy.shoppinglist.ui.addproducts.contract.AddProductsContract;
-import com.akhutornoy.shoppinglist.ui.addproducts.mapper.AddProductModelMapper;
-import com.akhutornoy.shoppinglist.ui.addproducts.mapper.ToBuyMapper;
-import com.akhutornoy.shoppinglist.ui.addproducts.model.AddProductModel;
 import com.akhutornoy.shoppinglist.domain.CurrentShopDao;
 import com.akhutornoy.shoppinglist.domain.ProductDao;
 import com.akhutornoy.shoppinglist.domain.ProductInShopDao;
 import com.akhutornoy.shoppinglist.domain.ToBuy;
 import com.akhutornoy.shoppinglist.domain.ToBuyDao;
+import com.akhutornoy.shoppinglist.ui.addproducts.contract.AddProductsContract;
+import com.akhutornoy.shoppinglist.ui.addproducts.mapper.AddProductModelMapper;
+import com.akhutornoy.shoppinglist.ui.addproducts.mapper.ToBuyMapper;
+import com.akhutornoy.shoppinglist.ui.addproducts.model.AddProductModel;
 
 import java.util.List;
 
@@ -43,10 +43,10 @@ public class AddProductsPresenter extends AddProductsContract.Presenter {
     @Override
     public void loadProducts() {
         getCompositeDisposable().add(
-                Observable.fromCallable(() -> mDbCurrentShop.get())
-                        .flatMapIterable(currentShop -> mDbProductInShop.getByShop(currentShop))
+                Observable.fromCallable(mDbCurrentShop::get)
+                        .flatMapIterable(mDbProductInShop::getByShop)
                         .map(productInShop -> mDbProduct.getByName(productInShop.getProduct()))
-                        .map(productDb -> mAddProductModelMapper.map(productDb))
+                        .map(mAddProductModelMapper::map)
                         .toList()
                         .zipWith(mDbToBuy.getAllByCurrentShop().firstOrError(), this::zipAddProductsWithToBuys)
                         .subscribeOn(Schedulers.io())
@@ -65,7 +65,7 @@ public class AddProductsPresenter extends AddProductsContract.Presenter {
     public void saveSelectedProducts(List<AddProductModel> selectedProducts) {
         getView().showProgress();
         getCompositeDisposable().add(
-                Single.fromCallable(() -> mDbCurrentShop.get())
+                Single.fromCallable(mDbCurrentShop::get)
                         .doOnSuccess(mDbToBuy::deleteAllByShop)
                         .map(currentShop -> {
                             mToBuyMapper.setShopName(currentShop);

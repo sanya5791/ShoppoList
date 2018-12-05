@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/nav_manage_shops"
+        app:navGraph="@navigation/nav_manage_items"
         app:defaultNavHost="true"
         tools:layout="@layout/fragment_manage_items" />
 

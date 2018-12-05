@@ -1,5 +1,6 @@
 package com.akhutornoy.shoppinglist.ui.createproduct_onescreen.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.adapter.ShopsAdapt
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.contract.CreateProductContract;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.model.CreateProductInputDataModel;
 import com.akhutornoy.shoppinglist.ui.createproduct_onescreen.model.CreateProductOutputModel;
+import com.akhutornoy.shoppinglist.ui.shops.displayshops.fragment.ShopsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +37,27 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     private EditText mEditTextQuantity;
     private View mProgressBar;
 
+    private OnEditListListener mOnEditListListener;
+
     private CreateProductContract.Presenter mPresenter;
 
     private QuantityTypeAdapter mQuantityTypeAdapter;
     private ShopsAdapter mShopsAdapter;
+
+    public interface OnEditListListener {
+        void onEditShopsListClicked();
+        void onEditQuantityTypesListClicked();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEditListListener) {
+            mOnEditListListener = (OnEditListListener) context;
+        } else {
+            throw new IllegalArgumentException("Host Activity for fragment should implement " + ShopsFragment.OnShopsClickListener.class.getSimpleName());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,7 +128,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     }
 
     private void onQuantityTypeEditClicked() {
-        Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
+        mOnEditListListener.onEditQuantityTypesListClicked();
     }
 
     private void initShopsAdapter(View view) {
@@ -121,7 +140,7 @@ public class CreateProductFragment extends BaseFragment implements CreateProduct
     }
 
     private void onShopsEditClicked() {
-        Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
+        mOnEditListListener.onEditShopsListClicked();
     }
 
     @Override

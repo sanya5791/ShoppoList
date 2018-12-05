@@ -8,7 +8,14 @@
         android:id="@+id/createProductFragment"
         android:name="com.akhutornoy.shoppinglist.ui.createproduct_onescreen.fragment.CreateProductFragment"
         android:label="CreateProductFragment"
-        tools:layout="@layout/fragment_create_product"/>
+        tools:layout="@layout/fragment_create_product">
+        <action
+            android:id="@+id/action_createProductActivity_to_manageShopsActivity"
+            app:destination="@+id/manageShopsActivity" />
+        <action
+            android:id="@+id/action_createProductActivity_to_manageMeasureTypesActivity"
+            app:destination="@+id/manageMeasureTypesActivity" />
+    </fragment>
     <fragment
         android:id="@+id/editProductFragment"
         android:name="com.akhutornoy.shoppinglist.ui.editproduct.fragment.EditProductFragment"
@@ -18,5 +25,23 @@
             android:name="EditProductName"
             android:defaultValue="nothing"
             app:argType="string" />
+        <action
+            android:id="@+id/action_createProductActivity_to_manageShopsActivity"
+            app:destination="@+id/manageShopsActivity" />
+        <action
+            android:id="@+id/action_createProductActivity_to_manageMeasureTypesActivity"
+            app:destination="@+id/manageMeasureTypesActivity" />
     </fragment>
+
+    <activity
+        android:id="@+id/manageShopsActivity"
+        android:name="com.akhutornoy.shoppinglist.ui.shops.manageshops.ManageShopsActivity"
+        android:label="ManageShopsActivity"
+        tools:layout="@layout/fragment_manage_items"/>
+
+    <activity
+        android:id="@+id/manageMeasureTypesActivity"
+        android:name="com.akhutornoy.shoppinglist.ui.managemeasuretypes.activity.ManageMeasureTypesActivity"
+        android:label="ManageMeasureTypesActivity"
+        tools:layout="@layout/fragment_manage_items"/>
 </navigation>

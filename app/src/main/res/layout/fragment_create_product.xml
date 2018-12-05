@@ -8,7 +8,7 @@
     android:layout_marginStart="@dimen/margin_medium"
     android:layout_marginEnd="@dimen/margin_medium"
     android:layout_marginBottom="@dimen/margin_medium"
-    tools:context=".ui.addproducts.fragment.AddProductsFragment">
+    tools:context="com.akhutornoy.shoppinglist.ui.createproduct_onescreen.fragment.CreateProductFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

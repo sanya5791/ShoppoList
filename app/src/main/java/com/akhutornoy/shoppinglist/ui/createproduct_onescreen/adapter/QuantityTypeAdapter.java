@@ -35,6 +35,7 @@ public class QuantityTypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         addEditItem(items);
 
         this.items = items;
+        notifyDataSetChanged();
     }
 
     private void addEditItem(List<CheckableItemModel> items) {

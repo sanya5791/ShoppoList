@@ -9,4 +9,10 @@
         android:name="com.akhutornoy.shoppinglist.ui.shops.manageshops.fragment.ManageShopsFragment"
         android:label="ManageShopsFragment"
         tools:layout="@layout/fragment_manage_items"/>
+
+    <fragment
+        android:id="@+id/manageMeasureTypesFragment"
+        android:name="com.akhutornoy.shoppinglist.ui.managemeasuretypes.fragment.ManageMeasureTypesFragment"
+        android:label="ManageShopsFragment"
+        tools:layout="@layout/fragment_manage_items"/>
 </navigation>
