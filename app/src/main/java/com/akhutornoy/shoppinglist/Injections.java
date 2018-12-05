@@ -24,6 +24,7 @@ import com.akhutornoy.shoppinglist.ui.shops.displayshops.presenter.ShopsPresente
 import com.akhutornoy.shoppinglist.ui.shops.manageshops.contract.ManageShopsContract;
 import com.akhutornoy.shoppinglist.ui.shops.manageshops.presenter.ManageShopsPresenter;
 import com.akhutornoy.shoppinglist.ui.shops.mapper.ItemModelMapper;
+import com.akhutornoy.shoppinglist.ui.shops.mapper.ShopModelFilteredMapper;
 import com.akhutornoy.shoppinglist.ui.shops.mapper.ShopModelMapper;
 import com.akhutornoy.shoppinglist.ui.tobuy.contract.ToBuyProductsContract;
 import com.akhutornoy.shoppinglist.ui.tobuy.mapper.ToBuyProductMapper;
@@ -95,7 +96,8 @@ public class Injections {
         AppDatabase db = AppDatabase.getInstance(context);
         return new ManageShopsPresenter(
                 db.toShop(),
-                new ShopModelMapper(),
+                db.toConstantString(),
+                new ShopModelFilteredMapper(),
                 new ItemModelMapper()
         );
     }
