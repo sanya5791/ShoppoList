@@ -9,12 +9,7 @@
     android:layout_marginBottom="@dimen/margin_medium"
     tools:context=".ui.shops.manageshops.ManageShopsActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="?android:attr/colorPrimary">
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/toolbar"/>
 
     <fragment
         android:id="@+id/nav_host"

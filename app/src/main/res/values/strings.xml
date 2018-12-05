@@ -20,7 +20,7 @@
 
     <string name="title_to_by_list">Shopping List</string>
     <string name="title_add_products">Select Products</string>
-    <string name="title_activity_new_product">NewProductActivity</string>
+    <string name="title_activity_new_product">New Product</string>
     <string name="enter_default_product_quantity_for_new_name_product">Enter default quantity of %1$s you usually buy.\nThis value can be corrected while you create your list for shopping.</string>
     <string name="product_name">Product Name</string>
     <string name="product_default_quantity">Product default quantity</string>
