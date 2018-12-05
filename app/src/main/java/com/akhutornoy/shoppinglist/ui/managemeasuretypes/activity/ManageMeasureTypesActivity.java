@@ -13,6 +13,10 @@ public class ManageMeasureTypesActivity extends BaseManageItemsActivity {
         setToolbarTitle(R.string.title_manage_product_types);
         NavController navController = Navigation.findNavController(this, R.id.nav_host);
         navController.navigate(R.id.manageMeasureTypesFragment);
+    }
 
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
